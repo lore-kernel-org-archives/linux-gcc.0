@@ -1,66 +1,171 @@
-From: James Antill <james@and.org>
-Subject: Re: strcmp is too heavy for its everyday usage...
-Date: Wed, 14 Jan 2004 00:09:18 -0500
-Sender: libc-alpha-owner@sources.redhat.com
-Message-ID: <m3vfnfxgjl.fsf@code.and.org>
-References: <20040108060924.A4431@zzz.ward.six>
-	<200401080113.i081DB1c000920@magilla.sf.frob.com>
-	<20040108063636.C11508@zzz.ward.six> <jeoetehjoj.fsf@sykes.suse.de>
-	<20040109101145.A8801@zzz.ward.six>
-	<20040109081231.GA4218@twiddle.net>
+From: "H. J. Lu" <hjl@lucon.org>
+Subject: The Linux binutils 2.14.90.0.8 is released
+Date: Wed, 14 Jan 2004 14:30:04 -0800
+Sender: gcc-owner@gcc.gnu.org
+Message-ID: <20040114223004.GA6313@lucon.org>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-14450-glibc-alpha=m.gmane.org@sources.redhat.com>
-List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sources.redhat.com>
-List-Subscribe: <mailto:libc-alpha-subscribe@sources.redhat.com>
-List-Archive: <http://sources.redhat.com/ml/libc-alpha/>
-List-Post: <mailto:libc-alpha@sources.redhat.com>
-List-Help: <mailto:libc-alpha-help@sources.redhat.com>, <http://sources.redhat.com/ml/#faqs>
-In-Reply-To: <20040109081231.GA4218@twiddle.net> (Richard Henderson's
- message of "Fri, 9 Jan 2004 00:12:31 -0800")
+Return-path: <gcc-return-88941-gcc=m.gmane.org@gcc.gnu.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
+Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: libc-alpha@sources.redhat.com
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>
 
-Richard Henderson <rth@twiddle.net> writes:
+This is the beta release of binutils 2.14.90.0.8 for Linux, which is
+based on binutils 2004 0114 in CVS on sources.redhat.com plus various
+changes. It is purely for Linux.
 
-> On Fri, Jan 09, 2004 at 10:11:45AM +0500, Denis Zaitsev wrote:
->>     (r= a[0] - b[0]) &&
->>     (r= a[1] - b[1]) &&
->>     (r= a[2] - b[2]) &&
->>     (r= a[3] - b[3]);
->>     return r;
->> }
->>
->> never do that, as it's not asked to.  Or this kind of optimization is
->> assumed ok for compiler, but just still unimplemented?
->
-> Certainly it's ok if it converts.
->
-> However, on most targets you'd have to know that a and b are aligned.
-> Worse, even for targets like x86 that support unaligned loads you have
-> to know for certain that neither a[3] nor b[3] could possibly segv
-> when a[0] and b[0] won't.  That condition is trivial when a and b are
-> aligned, but otherwise...
+Please report any bugs related to binutils 2.14.90.0.8 to hjl@lucon.org.
 
- Fair enough, but...
+If you don't use
 
-extern int
-s(const unsigned char a[static 4], const unsigned char b[static 4])
-{
-    int r;
-    (r= a[0] - b[0]) &&
-    (r= a[1] - b[1]) &&
-    (r= a[2] - b[2]) &&
-    (r= a[3] - b[3]);
-    return r;
-}
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
 
-...produces the same code.
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
 
--- 
-# James Antill -- james@and.org
-:0:
-* ^From: .*james@and\.org
-/dev/null
+Changes from binutils 2.14.90.0.7:
+
+1. Update from binutils 2004 0114.
+2. Fixed an ia64 assembler unwind table bug. 
+3. Better handle IPF linker relaxation overflow.
+4. Fixed misc PPC bugs.
+
+Changes from binutils 2.14.90.0.6:
+
+1. Update from binutils 2003 1029.
+2. Allow type changes for undefined symbols.
+3. Fix EH frame optimization.
+4. Fix the check for undefined versioned symbol with wildcard.
+5. Support generating code for Itanium.
+6. Detect and warn bad symbol index.
+7. Update IPF assemebler DV check.
+
+Changes from binutils 2.14.90.0.5:
+
+1. Update from binutils 2003 0820.
+2. No longer use section names for ELF section types nor flags.
+3. Fix some ELF/IA64 linker bugs.
+4. Fix some ELF/ppc bugs.
+5. Add archive support to readelf.
+
+Changes from binutils 2.14.90.0.4.1:
+
+1. Update from binutils 2003 0722.
+2. Fix an ELF/mips linker bug.
+3. Fix an ELF/hpppa linker bug.
+4. Fix an ELF/ia64 assembler bug.
+5. Fix a linkonce support with C++ debug.
+6. A new working C++ demangler.
+7. Various alpha, mips, ia64, ... bug fixes.
+8. Support for the current gcc and glibc.
+
+Changes from binutils 2.14.90.0.4:
+ 
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Precott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.8.tar.gz. Source code.
+2. binutils-2.14.90.0.7-2.14.90.0.8.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.8-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
+4. binutils-2.14.90.0.8-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
+
+There is no separate source rpm. You can do
+
+# rpmbuild -ta binutils-2.14.90.0.8.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+01/14/2004
