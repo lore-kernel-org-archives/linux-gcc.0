@@ -1,9 +1,9 @@
 From: Denis Zaitsev <zzz@anda.ru>
-Subject: Incorrect warning message?
-Date: Sun, 16 Jan 2005 02:08:36 +0500
-Message-ID: <20050116020836.A2421@natasha.ward.six>
+Subject: Are string literals _always_ allocated in the RO section?
+Date: Sun, 16 Jan 2005 02:22:48 +0500
+Message-ID: <20050116022247.A3066@natasha.ward.six>
 Mime-Version: 1.0
-Return-path: <gcc-return-108211-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-108212-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
@@ -15,23 +15,23 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
 
-It's an example:
+This program:
 
-void c(const char *s){}
-void cc(const char **p){}
-void x()
+void x(char *s)
 {
-    char *s;
-    c(s);
-    cc(&s);
+    *s= 'x';
 }
 
-And it's the warning GCC produces for it:
+main()
+{
+    x("y");
+}
 
-bug.c: In function `x':
-bug.c:7: warning: passing arg 1 of `cc' from incompatible pointer type
+is compiled plainly but cathes SIGSEGV in the 
 
-Is this message correct?  Doesn't the <const char> for the second
-defun's declaration mean exactly the same as it means for the first -
-the fact that defun doesn't modify the content of the corresponding
-array?
+        *s= 'x' 
+
+line.  And it's because the string "y" is put in the .text section.
+And the fact that the x()'s parm is explicitly declared as <char*>,
+not <const char*> does nothing in this case.  Should it be considered
+as a bug?
