@@ -1,33 +1,25 @@
-From: Jim Wilson <wilson@specifixinc.com>
-Subject: Re: x86 D flag: what's its status thru the program?
-Date: Tue, 06 Jul 2004 17:32:32 -0700
-Sender: gcc-owner@gcc.gnu.org
-Message-ID: <40EB44A0.3000407@specifixinc.com>
-References: <20040704213748.A796@natasha.ward.six> <Pine.GSO.4.58.0407051519010.27449@mion.elka.pw.edu.pl> <20040705222647.A17650@natasha.ward.six> <Pine.GSO.4.58.0407051912010.9712@mion.elka.pw.edu.pl> <20040706010404.B17650@natasha.ward.six>
+From: Denis Zaitsev <zzz@anda.ru>
+Subject: Re: GCC 3.3.2 -Wall affects the code generated...
+Date: Wed, 7 Jul 2004 13:44:35 +0600
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <20040707134435.D17650@natasha.ward.six>
+References: <20040702000303.A797@natasha.ward.six> <40EB0E5E.4020002@specifixinc.com> <20040707044604.C17650@natasha.ward.six> <1089159621.5679.174.camel@localhost>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Return-path: <gcc-return-98953-gcc=m.gmane.org@gcc.gnu.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
+Return-path: <linux-gcc-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1089159621.5679.174.camel@localhost>; from wilson@specifixinc.com on Tue, Jul 06, 2004 at 05:20:21PM -0700
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="windows-1252"; format="flowed"
-To: Denis Zaitsev <zzz@anda.ru>
-Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+To: Jim Wilson <wilson@specifixinc.com>
+Cc: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org
 
-Denis Zaitsev wrote:
->=20
-> Ok.  Thanks!  It's the thing that I didn't understand.  BTW, where is
-> this convention documented, if either?
+On Tue, Jul 06, 2004 at 05:20:21PM -0700, Jim Wilson wrote:
+> On Tue, 2004-07-06 at 15:46, Denis Zaitsev wrote:
+> > I used to assume that everybody has the GLIBC tree.  :)
+> 
+> I have a glibc src/build tree on my IA-64 machine, but not on my x86
+> machine.  I wasn't sure I'd get the right testcase if I tried to
+> generate one on a IA-64 machine.  It seemed easier to ask you for one.
 
-The Linux Standard Base is a good source of info like this.  See
-http://www.linuxbase.org/spec/refspecs/LSB_1.3.0/IA32/spec/rstandards.html#=
-AEN34
-Look at the one titled "System V Application Binary Interface -=20
-Intel386=99 Architecture Processor Supplement, Fourth Edition".
-http://www.caldera.com/developers/devspecs/abi386-4.pdf
-Then search for EFLAGS in that document.
---=20
-Jim Wilson, GNU Tools Support, http://www.SpecifixInc.com
-
+Ok.  I understand.
