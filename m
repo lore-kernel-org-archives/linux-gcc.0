@@ -1,18 +1,23 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.13.90.0.3 is released
-Date: Fri, 9 Aug 2002 17:23:04 -0700
+Subject: The Linux binutils 2.13.90.0.4 is released
+Date: Thu, 15 Aug 2002 09:30:14 -0700
 Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <13112.995043821$1028938978@news.gmane.org>
+Message-ID: <19725.6901105449$1029429072@news.gmane.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@oss.sgi.com, Ron Guilmette <rfg@monkeys.com>, "Polstra; John" <linux-binutils-in@polstra.com>, Ralf Baechle <ralf@informatik.uni-koblenz.de>, Linas Vepstas <linas@linas.org>, Feher Janos <aries@hal2000.terra.vein.hu>, Leonard Zubkoff <lnz@dandelion.com>, "Steven J. Hill" <sjhill@cotw.com>
+To: linux-gcc@vger.kernel.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@oss.sgi.com, Ron Guilmette <rfg@monkeys.com>, "Polstra; John" <linux-binutils-in@polstra.com>, Ralf Baechle <ralf@informatik.uni-koblenz.de>, Linas Vepstas <linas@linas.org>, Feher Janos <aries@hal2000.terra.vein.hu>, Leonard Zubkoff <lnz@dandelion.com>, "Steven J. Hill" <sjhill@cotw.com>, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
 
-This is the beta release of binutils 2.13.90.0.3 for Linux, which is
-based on binutils 2002 0809 in CVS on sourecs.redhat.com plus various
+This version of binutils may be required for gcc 3.2 on Linux.
+
+
+H.J.
+----
+This is the beta release of binutils 2.13.90.0.4 for Linux, which is
+based on binutils 2002 0814 in CVS on sourecs.redhat.com plus various
 changes. It is purely for Linux.
 
 The Linux/mips support is added. You have to use
@@ -38,7 +43,7 @@ You should remove all those man pages from your source tree by
 # find -name *.man | xargs rm -f
 # find -name *.man.rej | xargs rm -f
 
-Please report any bugs related to binutils 2.13.90.0.3 to hjl@lucon.org.
+Please report any bugs related to binutils 2.13.90.0.4 to hjl@lucon.org.
 
 For arm-linux targets, there are some important differences in behaviour 
 between these tools and binutils 2.9.1.0.x.  The linker emulation name has 
@@ -53,6 +58,12 @@ file as follows:
 *link:
 %{h*} %{version:-v}    %{b} %{Wl,*:%*}    %{static:-Bstatic}    %{shared:-shared}    %{symbolic:-Bsymbolic}    %{rdynamic:-export-dynamic}    %{!dynamic-linker: -dynamic-linker /lib/ld-linux.so.2}    -X    %{mbig-endian:-EB} %{mapcs-26:-m armelf_linux26} %{!mapcs-26:-m armelf_linux} -p
 
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
 
 Changes from binutils 2.13.90.0.2:
 
@@ -590,14 +601,14 @@ Changes from binutils 1999 0605:
 
 The file list:
 
-1. binutils-2.13.90.0.3.tar.gz. Source code.
-2. binutils-2.13.90.0.2-2.13.90.0.3.diff.gz. Patch against the
+1. binutils-2.13.90.0.4.tar.gz. Source code.
+2. binutils-2.13.90.0.3-2.13.90.0.4.diff.gz. Patch against the
    previous beta source code.
-3. binutils-2.13.90.0.3-1.i386.rpm. IA-32 binary RPM for RedHat 7.3.
+3. binutils-2.13.90.0.4-1.i386.rpm. IA-32 binary RPM for RedHat 7.3.
 
 There is no separate source rpm. You can do
 
-# rpm -ta binutils-2.13.90.0.3.tar.gz
+# rpm -ta binutils-2.13.90.0.4.tar.gz
 
 to create both binary and source rpms.
 
@@ -610,7 +621,7 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-08/09/2002
+08/14/2002
 ----
 > On Mon, Jul 15, 2002 at 04:35:47PM +0930, Alan Modra wrote:
 > > Something you might like to warn about in your next release..
