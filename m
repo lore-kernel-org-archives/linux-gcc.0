@@ -1,134 +1,242 @@
-From: "Mariano Moreyra" <moremari@aca.org.ar>
-Subject: RE: Segmentation fault from free()
-Date: Fri, 27 Aug 2004 17:26:23 -0300
-Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <003801c48c74$1ef6c400$0c81640a@aca.org.ar>
-References: <412BA650.6050305@nec-labs.com>
-Reply-To: <mariano_moreyra@aca.org.ar>
+From: "H. J. Lu" <hjl@lucon.org>
+Subject: The linux binutils 2.15.92.0.2 is released
+Date: Mon, 27 Sep 2004 15:17:43 -0700
+Sender: gcc-owner@gcc.gnu.org
+Message-ID: <20040927221743.GA15346@lucon.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="=_IS_MIME_Boundary"
-Return-path: <linux-gcc-owner@vger.kernel.org>
-In-Reply-To: <412BA650.6050305@nec-labs.com>
+Return-path: <gcc-return-103360-gcc=m.gmane.org@gcc.gnu.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
+Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
-To: 'Lei Yang' <leiyang@nec-labs.com>, linux-c-programming@vger.kernel.org, linux-gcc@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
 
---=_IS_MIME_Boundary
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+This is the beta release of binutils 2.15.92.0.2 for Linux, which is
+based on binutils 2004 0927 in CVS on sources.redhat.com plus various
+changes. It is purely for Linux.
 
-Are you writting exactly 2048 chars to in_buffer?? Or are you writting
-2047??
-If you want to write 2048 chars into in_buffer, you have to malloc 2049
-bytes, to store the '\0' char.
-I know it seems a little stupid observation, but sometimes we let this
-stupid errors happen.
+Please report any bugs related to binutils 2.15.92.0.2 to hjl@lucon.org
+
+and
+
+http://www.sourceware.org/bugzilla/
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.bz2
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches if there are any.
+
+Changes from binutils 2.15.91.0.2:
+
+1. Update from binutils 2004 0927.
+2. Work around a section header bug in Intel ia64 compiler.
+3. Fix an unwind directive bug in the ia64 assembler.
+4. Fix various PPC bugs.
+5. Update ARM support.
+6. Fix an x86-64 linker warning while building Linux kernel.
+
+Changes from binutils 2.15.91.0.1:
+
+1. Update from binutils 2004 0727.
+2. Fix the x86_64 linker to prevent non-PIC code in shared library.
+3. Fix the ia64 linker to warn the relotable files which can't be
+relaxed.
+4. Fix the comdat group support. Allow mix single-member comdat group
+with linkonce section.
+5. Added --add-needed/--no-add-needed options to linker.
+6. Fix the SHF_LINK_ORDER support.
+7. Fix the ia64 assembler for multiple sections with the same name and
+SHT_IA_64_UNWIND sections.
+8. Fix the ia64 assembler for merge section and relaxation.
+
+Changes from binutils 2.15.90.0.3:
+
+1. Update from binutils 2004 0527.
+2. Fix -x auto option in the ia64 assembler.
+3. Add the AR check in the ia64 assembler.
+4. Fix the section group support.
+5. Add a new -z relro linker option.
+6. Fix an exception section placement bug in linker.
+7. Add .serialize.data and .serialize.instruction to the ia64
+assembler.
+
+Changes from binutils 2.15.90.0.2:
+
+1. Update from binutils 2004 0415.
+2. Fix the linker for weak undefined symbol handling.
+3. Fix the ELF/Sparc and ELF/Sparc64 linker for statically linking PIC
+code.
+
+Changes from binutils 2.15.90.0.1.1:
+
+1. Update from binutils 2004 0412.
+2. Add --as-needed/--no-as-needed to linker.
+3. Fix -z defs in linker.
+4. Always reserve the memory for ia64 dynamic linker.
+5. Fix a race condition in ia64 lazy binding.
+
+Changes from binutils 2.15.90.0.1:
+
+1. Fixed an ia64 assembler bug.
+2. Install the assembler man page.
+
+Changes from binutils 2.14.90.0.8:
+
+1. Update from binutils 2004 0303.
+2. Fixed linker for undefined symbols with non-default visibility.
+3. Sped up linker weakdef symbol handling.
+4. Fixed mixing ELF32 and ELF64 object files in archive.
+5. Added ia64 linker brl optimization.
+6. Fixed ia64 linker to disallow invalid dynamic relocations.
+7. Fixed DT_TEXTREL handling in ia64 linker.
+8. Fixed alignment handling in ia64 assembler.
+9. Improved ia64 assembler unwind table handling. 
+
+Changes from binutils 2.14.90.0.7:
+
+1. Update from binutils 2004 0114.
+2. Fixed an ia64 assembler unwind table bug. 
+3. Better handle IPF linker relaxation overflow.
+4. Fixed misc PPC bugs.
+
+Changes from binutils 2.14.90.0.6:
+
+1. Update from binutils 2003 1029.
+2. Allow type changes for undefined symbols.
+3. Fix EH frame optimization.
+4. Fix the check for undefined versioned symbol with wildcard.
+5. Support generating code for Itanium.
+6. Detect and warn bad symbol index.
+7. Update IPF assemebler DV check.
+
+Changes from binutils 2.14.90.0.5:
+
+1. Update from binutils 2003 0820.
+2. No longer use section names for ELF section types nor flags.
+3. Fix some ELF/IA64 linker bugs.
+4. Fix some ELF/ppc bugs.
+5. Add archive support to readelf.
+
+Changes from binutils 2.14.90.0.4.1:
+
+1. Update from binutils 2003 0722.
+2. Fix an ELF/mips linker bug.
+3. Fix an ELF/hpppa linker bug.
+4. Fix an ELF/ia64 assembler bug.
+5. Fix a linkonce support with C++ debug.
+6. A new working C++ demangler.
+7. Various alpha, mips, ia64, ... bug fixes.
+8. Support for the current gcc and glibc.
+
+Changes from binutils 2.14.90.0.4:
+ 
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Prescott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.15.92.0.2.tar.bz2. Source code.
+2. binutils-2.15.91.0.2-2.15.92.0.2.diff.bz2. Patch against the
+   previous beta source code.
+3. binutils-2.15.92.0.2-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
+4. binutils-2.15.92.0.2-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
+5. binutils-2.15.92.0.2-1.x86_64.rpm. X64_64 binary RPM for RedHat EL 3.
+
+There is no separate source rpm. You can do
+
+# rpmbuild -ta binutils-2.15.92.0.2.tar.bz2
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
 
 
-Mariano Moreyra
-
-
-
------Mensaje original-----
-De: linux-c-programming-owner@vger.kernel.org
-[mailto:linux-c-programming-owner@vger.kernel.org]En nombre de Lei Yang
-Enviado el: Martes, 24 de Agosto de 2004 17:34
-Para: linux-c-programming@vger.kernel.org; linux-gcc@vger.kernel.org
-CC: Lei Yang
-Asunto: Segmentation fault from free()
-
-
-Hi friends,
-
-I am writing a c code and have been bugged by this segmentation fault
-for a while.
-
-What I did is simply like:
-
-----------------------------------------------------------------------------
--------------------------
-.........
-unsigned long blocksize =3D 2048;
-char *in_buffer
-char *out_buffer;
-if(( in_buffer=3D malloc(blocksize)) =3D=3D NULL)
-{
-fprintf(stderr, "*** Can't malloc(%ld) forbuffer.\n",blocksize);
-return NULL;
-}
-
-if(( out_buffer=3D malloc(2*blocksize)) =3D=3D NULL)
-{
-fprintf(stderr, "*** Can't malloc(%ld) forbuffer.\n",blocksize);
-free(in_buffer);
-return NULL;
-}
-
-loop: until all the data are read from file
-{
-//read a block of data from a file to in_buffer
-// do some data processing with in_buffer
-//write the result to out_buffer
-//memcpy out_buffer to list
-}
-
-free(in_buffer);
-free(out_buffer);
-
-return list;
-......
-----------------------------------------------------------------------------
--------------------------------------
-
-I've debugged with gdb to see where the segmentation fault happens, it
-is at free(in_buffer).
-I've verified that the value for in_buffer after malloc() and before
-free() is the same. Or in other words, in_buffer is a valid pointer
-allocated by malloc.
-
-And the SF only happens when the file is large, although block size
-could be small.
-Means that for both small (2KB) and large(5MB) files, block size are the
-same. However, only large files could cause SF.
-
-Could anyone please point me out what could possibly be the reason?
-BTW, pls cc me when you reply, since I am not able to receive emails
-from this list. Thanks a lot!
-
-TIA!
-Lei
--
-To unsubscribe from this list: send the line "unsubscribe
-linux-c-programming" in
-the body of a message to majordomo@vger.kernel.org
-More majordomo info at  http://vger.kernel.org/majordomo-info.html
-
-
-_______________________________________
-
-Importante
-
-
-
-El contenido del presente mensaje y el de sus adjuntos, es privado, confide=
-ncial y de uso exclusivo de los destinatarios a los cuales est=E1 dirig=EDd=
-o, pudiendo contener informaci=F3n legalmente protegida.Queda prohibida la =
-revisi=F3n, divulgaci=F3n, publicaci=F3n, modificaci=F3n, copia, distribuci=
-=F3n o acci=F3n en relaci=F3n con esta informaci=F3n, por personas o entida=
-des distintas al destinatario.
-
-Las opiniones contenidas son exclusivas de su autor y no representan ni nec=
-esariamente pueden coincidir con las de la entidad.
-
-La transmisi=F3n de e-mails no garantiza que el correo electr=F3nico sea se=
-guro o libre de error. En consecuencia, no manifestamos que la informaci=F3=
-n sea completa o precisa. Toda informaci=F3n est=E1 sujeta a alterarse sin =
-previo aviso.
-
-Si Ud. recibi=F3 este mensaje por error, por favor reenv=EDelo al remitente=
- y destruya las copias de papel o grabadas en cualquier medio magn=E9tico, =
-que pueda haber realizado.
-
-Muchas Gracias.
-
-
---=_IS_MIME_Boundary--
+H.J. Lu
+hjl@lucon.org
+09/27/2004
