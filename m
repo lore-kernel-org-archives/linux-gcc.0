@@ -1,31 +1,50 @@
-From: Ralf Baechle DO1GRB <ralf@linux-mips.org>
-Subject: Re: Archive hunt for vger's lists ...  (and FAQs too!)
-Date: Wed, 21 Aug 2002 12:40:37 +0200
+From: "Nate" <nate@uniwest.com>
+Subject: C Language Reference for @ and :
+Date: Wed, 28 Aug 2002 13:50:26 -0700
 Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <33882.7098640197$1029926397@news.gmane.org>
-References: <20020821093600.GE10011@mea-ext.zmailer.org>
+Message-ID: <000301c24ed4$8a6fa100$5001a8c0@uniwest.com>
+References: <1028188562.1091.4.camel@skt.int.local> <3D49201B.1090102@escriba.com.br>
 Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-gcc-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20020821093600.GE10011@mea-ext.zmailer.org>; from matti.aarnio@zmailer.org on Wed, Aug 21, 2002 at 12:36:00PM +0300
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-To: webmaster@vger.kernel.org
-Cc: linux-fido@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-gcc@vger.kernel.org, linux-hams@vger.kernel.org, linux-hppa@vger.kernel.org, linux-ibcs2@vger.kernel.org
+To: linux-gcc@vger.kernel.org
 
-On Wed, Aug 21, 2002 at 12:36:00PM +0300, Matti Aarnio wrote:
 
-> Also, if any list has a FAQ, we would like to know about it too!
-> My plan is to add archive and FAQ pointters to all list footers
-> (in style similar to linux-kernel).
+I am looking at some C code and I cannot find any language reference as to
+what the '@' symbol or token means...
 
-Reminds me that various popular anti-spam packages like Spamassassin
-consider vger postings spam likely to be spam because of the unsubscription
-information in the footer added by Majordomo so that may need to be
-rephrased to get around that problem.
+For, example, from the header file I am trying to interpret....
 
-73 de DO1GRB op Ralf
+/////////////////////////////////////////////////////////////////
+static unsigned char P1 @ 0x90;
+static unsigned char P2 @ 0xA0;
+static unsigned char P3 @ 0xB0;
+/////////////////////////////////////////////////////////////////
 
---
-Loc. JN47BS / CQ 14 / ITU 28 / DOK A21
+
+
+Also what does these colons mean... ( I understand this is creating a new
+type and it is a "public by default" class for a bit watching type.)  But
+what does the colon do?  Initialize defualts?
+
+/////////////////////////////////////////////////////////////////
+typedef struct
+{
+   unsigned B0:1;
+   unsigned B1:1;
+   unsigned B2:1;
+   unsigned B3:1;
+   unsigned B4:1;
+   unsigned B5:1;
+   unsigned B6:1;
+   unsigned B7:1;
+} SFR;
+/////////////////////////////////////////////////////////////////
+
+
+Thanks,
+
+Nate
+
