@@ -1,8 +1,8 @@
 From: "H . J . Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.12.90.0.11 is released.
-Date: Mon, 10 Jun 2002 13:36:52 -0700
+Subject: The Linux binutils 2.12.90.0.12 is released
+Date: Thu, 20 Jun 2002 12:22:49 -0700
 Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <ae3367$krb$2@main.gmane.org>
+Message-ID: <20020620122249.A17654@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
@@ -11,8 +11,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Andy Dougherty <doughera@lafcol.lafayette.edu>, Warner Losh <imp@village.org>, linux-mips@oss.sgi.com, Ron Guilmette <rfg@monkeys.com>, "Polstra; John" <linux-binutils-in@polstra.com>, Ralf Baechle <ralf@informatik.uni-koblenz.de>, Linas Vepstas <linas@linas.org>, Feher Janos <aries@hal2000.terra.vein.hu>, Leonard Zubkoff <lnz@dandelion.com>, "Steven J. Hill" <sjhill@cotw.com>
 
-This is the beta release of binutils 2.12.90.0.11 for Linux, which is
-based on binutils 2002 0608 in CVS on sourecs.redhat.com plus various
+This is the beta release of binutils 2.12.90.0.12 for Linux, which is
+based on binutils 2002 0618 in CVS on sourecs.redhat.com plus various
 changes. It is purely for Linux.
 
 The Linux/mips support is added. You have to use
@@ -38,10 +38,7 @@ You should remove all those man pages from your source tree by
 # find -name *.man | xargs rm -f
 # find -name *.man.rej | xargs rm -f
 
-I am planning to make the public release soon. Please test it as much
-as you can.
-
-Please report any bugs related to binutils 2.12.90.0.11 to hjl@lucon.org.
+Please report any bugs related to binutils 2.12.90.0.12 to hjl@lucon.org.
 
 For arm-linux targets, there are some important differences in behaviour 
 between these tools and binutils 2.9.1.0.x.  The linker emulation name has 
@@ -56,6 +53,10 @@ file as follows:
 *link:
 %{h*} %{version:-v}    %{b} %{Wl,*:%*}    %{static:-Bstatic}    %{shared:-shared}    %{symbolic:-Bsymbolic}    %{rdynamic:-export-dynamic}    %{!dynamic-linker: -dynamic-linker /lib/ld-linux.so.2}    -X    %{mbig-endian:-EB} %{mapcs-26:-m armelf_linux26} %{!mapcs-26:-m armelf_linux} -p
 
+
+Changes from binutils 2.12.90.0.11:
+1. Update from binutils 2002 0618.
+2. Fix an mips assembler bug.
 
 Changes from binutils 2.12.90.0.9:
 
@@ -561,14 +562,14 @@ Changes from binutils 1999 0605:
 
 The file list:
 
-1. binutils-2.12.90.0.11.tar.gz. Source code.
-2. binutils-2.12.90.0.9-2.12.90.0.11.diff.gz. Patch against the
+1. binutils-2.12.90.0.12.tar.gz. Source code.
+2. binutils-2.12.90.0.11-2.12.90.0.12.diff.gz. Patch against the
    previous beta source code.
-3. binutils-2.12.90.0.11-1.i386.rpm. IA-32 binary RPM for RedHat 7.3.
+3. binutils-2.12.90.0.12-1.i386.rpm. IA-32 binary RPM for RedHat 7.3.
 
 There is no separate source rpm. You can do
 
-# rpm -ta binutils-2.12.90.0.11.tar.gz
+# rpm -ta binutils-2.12.90.0.12.tar.gz
 
 to create both binary and source rpms.
 
@@ -581,4 +582,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-06/10/2002
+06/19/2002
