@@ -1,42 +1,112 @@
-From: "J." <mailing-lists@xs4all.nl>
-Subject: Re: Detecting running deamons
-Date: Fri, 28 Mar 2003 20:18:37 +0100 (CET)
-Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <Pine.LNX.4.21.0303282017530.12680-100000@hestia>
-References: <007801c2f54c$a5becde0$0b00a8c0@SPLUCIANO>
+From: "H. J. Lu" <hjl@lucon.org>
+Subject: The Linux binutils 2.14.90.0.1 is released
+Date: Mon, 5 May 2003 22:33:01 -0700
+Sender: gcc-owner@gcc.gnu.org
+Message-ID: <20030505223301.A28436@lucon.org>
 Mime-Version: 1.0
-Return-path: <linux-gcc-owner@vger.kernel.org>
-In-Reply-To: <007801c2f54c$a5becde0$0b00a8c0@SPLUCIANO>
+Return-path: <gcc-return-73290-gcc=m.gmane.org@gcc.gnu.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
+Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: TEXT/PLAIN; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ron Guilmette <rfg@monkeys.com>, "Polstra; John" <linux-binutils-in@polstra.com>, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, Leonard Zubkoff <lnz@dandelion.com>, "Steven J. Hill" <sjhill@cotw.com>
 
-On Fri, 28 Mar 2003, Luciano Moreira - igLnx wrote:
+This is the beta release of binutils 2.14.90.0.1 for Linux, which is
+based on binutils 2003 0505 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
 
-> I have a application that run like a deamon, which write in a file its PID,
-> that is used to stop it later by others programs. But, I ve noted that my
-> users send signal 9 to stop deamons, and my application cannot remove its
-> PID file, because it cannot handle singal 9, keeping its PID file at HD
-> (FileSystem).
-> 
-> Can someone sugest me a way to know the deamon's PID, without write it to a
-> file ?
-> OR
-> How can I do to know if my deamon is running and get its PID ?
-> 
-On the command-line:
- pidof `which program_name`
-or:
- ps aux | grep program_name
-or perhaps interactive?:
- top
+The Linux/mips support is added. You have to use
 
-> Thanks,
+# rpm --target=[mips|mipsel] -ta binutils-xx.xx.xx.xx.xx.tar.gz
 
-No problemo
+to build it. Or you can read mips/README in the source tree to apply
+the mips patches and build it by hand.
 
-> Luciano
+Please report any bugs related to binutils 2.14.90.0.1 to hjl@lucon.org.
 
-J.
+Changes from binutils 2.13.90.0.20:
 
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.1.tar.gz. Source code.
+2. binutils-2.13.90.0.18-2.14.90.0.1.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.1-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.14.90.0.1.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://ftp.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+05/05/2003
