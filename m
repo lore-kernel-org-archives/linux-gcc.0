@@ -1,42 +1,45 @@
-From: Denis Zaitsev <zzz@anda.ru>
-Subject: Re: Incorrect warning message?
-Date: Sun, 16 Jan 2005 03:32:42 +0500
-Message-ID: <20050116033242.B3181@natasha.ward.six>
-References: <20050116020836.A2421@natasha.ward.six> <jesm52pcuf.fsf@sykes.suse.de>
+From: Gabriel Dos Reis <gdr@integrable-solutions.net>
+Subject: Re: Are string literals _always_ allocated in the RO section?
+Date: 16 Jan 2005 00:18:20 +0100
+Message-ID: <m3brbq1dtv.fsf@uniton.integrable-solutions.net>
+References: <20050116022247.A3066@natasha.ward.six>
 Mime-Version: 1.0
-Return-path: <linux-gcc-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <jesm52pcuf.fsf@sykes.suse.de>; from schwab@suse.de on Sat, Jan 15, 2005 at 11:05:44PM +0100
-Sender: linux-gcc-owner@vger.kernel.org
+Return-path: <gcc-return-108222-gcc=m.gmane.org@gcc.gnu.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
+Sender: gcc-owner@gcc.gnu.org
+In-Reply-To: <20050116022247.A3066@natasha.ward.six>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: Andreas Schwab <schwab@suse.de>
+To: Denis Zaitsev <zzz@anda.ru>
 Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
 
-On Sat, Jan 15, 2005 at 11:05:44PM +0100, Andreas Schwab wrote:
-> Denis Zaitsev <zzz@anda.ru> writes:
-> 
-> > It's an example:
-> >
-> > void c(const char *s){}
-> > void cc(const char **p){}
-> > void x()
-> > {
-> >     char *s;
-> >     c(s);
-> >     cc(&s);
-> > }
-> >
-> > And it's the warning GCC produces for it:
-> >
-> > bug.c: In function `x':
-> > bug.c:7: warning: passing arg 1 of `cc' from incompatible pointer type
-> >
-> > Is this message correct?
-> 
-> Read question 11.10 of the C faq.
-> 
-> http://www.eskimo.com/~scs/C-faq/q11.10.html
+Denis Zaitsev <zzz@anda.ru> writes:
 
-Thanks.  It's interesting.  :)
+| This program:
+| 
+| void x(char *s)
+| {
+|     *s= 'x';
+| }
+| 
+| main()
+| {
+|     x("y");
+| }
+| 
+| is compiled plainly but cathes SIGSEGV in the 
+| 
+|         *s= 'x' 
+| 
+| line.  And it's because the string "y" is put in the .text section.
+| And the fact that the x()'s parm is explicitly declared as <char*>,
+| not <const char*> does nothing in this case.  Should it be considered
+| as a bug?
+
+In the program? Yes.
+
+-- Gaby
