@@ -1,17 +1,27 @@
-From: "David S. Miller" <davem@redhat.com>
-Subject: Re: GNU server "compromised"? Gimme a break!
-Date: Fri, 15 Aug 2003 00:34:56 -0700
-Sender: linux-kernel-owner@vger.kernel.org
-Message-ID: <20030815003456.026c8037.davem@redhat.com>
-References: <200308150258.AA331677844@bobadkins.com>
+From: Mehran Rezaei <mehran@cs.unt.edu>
+Subject: loader
+Date: Tue, 19 Aug 2003 12:43:54 +0000
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <3F421B8A.5BC868F7@cs.unt.edu>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner+linux-kernel=40quimby.gnus.org@vger.kernel.org>
-In-Reply-To: <200308150258.AA331677844@bobadkins.com>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
-To: bob@bobadkins.com
-Cc: scott@worldtechtribune.com, wagnerjd@prodigy.net, linux-gcc@vger.kernel.org, linux-kernel@vger.kernel.org
+To: C news group <linux-c-programming@vger.kernel.org>, gcc news group <linux-gcc@vger.kernel.org>, Network news group <linux-net@vger.kernel.org>
+
+Hello all,
+
+I have installed fortran compiler on an alpha system running tru64. I
+have succeeded to compile a fortran
+program; however, it gave me an error "a.out:/sbin/loader:Fatal Error:
+Insufficient memory to execute program" when I tried to run the program.
+
+I assume this relates to hard limits of the system. Do you have any idea
+how to fix the error?
+Thanks,
+
+Mehran
 
 
-Off topic, cut the crap folks.
+
