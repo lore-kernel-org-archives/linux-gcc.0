@@ -1,34 +1,81 @@
-From: Agri <agri@desnol.ru>
-Subject: sigill (signal 4) on the i586 with binaries compiled on the i686
-Date: Sun, 31 Aug 2003 17:32:19 +0400
+From: Paula Berger <pberger@inf.ufrgs.br>
+Subject: IOCTL problem!!!
+Date: Tue, 28 Oct 2003 16:46:37 +0000
 Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <20030831173219.47582c42.agri@desnol.ru>
+Message-ID: <200310281642.35530.pberger@inf.ufrgs.br>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8BIT
 Return-path: <linux-gcc-owner@vger.kernel.org>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 To: linux-gcc@vger.kernel.org
 
-i have i686-pc-linux-gnu boxwith working linux system.
-i'm trying to install linux on the i586
-p100 8ram
 
-this is my step by step tries
+	Hi everybody.. I'm new here, so let's see if you guys can help me :-)
 
-i have gcc-3.3 compiled for i686-pc-linux-gnu
-i had configured and installed linux kernel 2.4.21 for i586,
-it succesfully booting on the i586 box.
+	I'm trying to use the ioctl function with the SIOCADDRT flag and I'm having 
+some problems! What i want to do is simply add the default gateway to my 
+routing table. I'm using the struct rtentry (don't know if I'm using it 
+correctly though) then I create a datagram socket and the I use the ioctl 
+function... Does anyone know what's wrong? 
+	I'm sending my source as an example... if someone could please help me, I 
+REALLY nedd to do this!!!
+	Thanks,
 
-i had compiled and installed busybox. using it as init was failed.
-i booted kernel with init=/bin/sash (standalone shell) - success.
-every try to lunch any programm from that shell results in signal 4 (SIGILL).
-it is not because of memory. I had tried to boot the same system on i686 box
-with mem=8M kernel param - it's OK.
+--
+Paula Berger
+E-mail: pberger@inf.ufrgs.br
+--
 
-try to use -march=i586 on gcc-3.3 results in nothing.
-i was build cross-compiler for gcc-2.95.3 for i586 with glibc-2.2.4 and tried to use it - nothing changed.
+EXAMPLE:
 
-where is the problem? how to fix it?
+int main() {
+	uint32_t IpAddr;
+	uint32_t Dst;
+	uint32_t GenMask;
+	struct sockaddr_in Route;
+	struct rtentry Entry;
+	int SockFd, res = 0;
 
-Agri
+	memset ((char *)&Entry, 0, sizeof (struct rtentry));
+
+	Entry.rt_gateway.sa_family = AF_INET;
+	Entry.rt_genmask.sa_family = AF_INET;
+	Entry.rt_dst.sa_family = AF_INET;
+	Entry.rt_flags = RTF_UP | RTF_GATEWAY;
+
+	if(inet_aton("0.0.0.0", (struct in_addr *)&GenMask) == 0)
+		printf("\nroute genmasc error\n");
+
+	if(inet_aton("143.54.83.0", (struct in_addr *)&Dst) == 0)
+		printf("\nroute dst error\n");
+
+	if(inet_aton("143.54.83.1", (struct in_addr *)&IpAddr) == 0)
+		printf("\nroute ip error\n");
+
+	Route.sin_addr.s_addr = htonl(IpAddr);
+	memcpy(&Entry.rt_gateway, &Route, sizeof(struct sockaddr));
+
+	Route.sin_addr.s_addr = htonl(Dst);
+	memcpy(&Entry.rt_dst, &Route, sizeof(struct sockaddr));
+
+	Route.sin_addr.s_addr = htonl(GenMask);
+	memcpy(&Entry.rt_genmask, &Route, sizeof(struct sockaddr));
+
+	if ((SockFd = socket(PF_INET, SOCK_DGRAM, 0)) < 0) {
+		perror("socket");
+		return -1;
+    	}
+
+	res = ioctl(SockFd, SIOCADDRT, &Entry);
+
+	if (res < 0) {
+            perror("\nerror: ");
+	    close(SockFd);
+	    return -1;
+        }
+
+	close(SockFd);
+
+	return 0;
+}
