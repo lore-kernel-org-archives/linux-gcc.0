@@ -1,25 +1,21 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.15.90.0.2 is released
-Date: Tue, 13 Apr 2004 09:23:22 -0700
-Sender: gcc-owner@gcc.gnu.org
-Message-ID: <20040413162322.GA14515@lucon.org>
+Subject: The Linux binutils 2.15.90.0.3 is released
+Date: Thu, 15 Apr 2004 08:48:24 -0700
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <20040415154824.GA28202@lucon.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-94339-gcc=m.gmane.org@gcc.gnu.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>
+To: linux-gcc@vger.kernel.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
 
-This is the beta release of binutils 2.15.90.0.2 for Linux, which is
-based on binutils 2004 0412 in CVS on sources.redhat.com plus various
+This is the beta release of binutils 2.15.90.0.3 for Linux, which is
+based on binutils 2004 0415 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
-Please report any bugs related to binutils 2.15.90.0.2 to hjl@lucon.org.
+Please report any bugs related to binutils 2.15.90.0.3 to hjl@lucon.org.
 
 If you don't use
 
@@ -27,6 +23,13 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches.
+
+Changes from binutils 2.15.90.0.2:
+
+1. Update from binutils 2004 0415.
+2. Fix the linker for weak undefined symbol handling.
+3. Fix the ELF/Sparc and ELF/Sparc64 linker for statically linking PIC
+code.
 
 Changes from binutils 2.15.90.0.1.1:
 
@@ -172,16 +175,16 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.15.90.0.2.tar.bz2. Source code.
-2. binutils-2.15.90.0.1.1-2.15.90.0.2.diff.bz2. Patch against the
+1. binutils-2.15.90.0.3.tar.bz2. Source code.
+2. binutils-2.15.90.0.2-2.15.90.0.3.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.15.90.0.2-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
-4. binutils-2.15.90.0.2-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
-5. binutils-2.15.90.0.2-1.x86_64.rpm. X64_64 binary RPM for RedHat EL 3.
+3. binutils-2.15.90.0.3-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
+4. binutils-2.15.90.0.3-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
+5. binutils-2.15.90.0.3-1.x86_64.rpm. X64_64 binary RPM for RedHat EL 3.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.15.90.0.2.tar.bz2
+# rpmbuild -ta binutils-2.15.90.0.3.tar.bz2
 
 to create both binary and source rpms.
 
@@ -194,4 +197,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-04/13/2004
+04/15/2004
