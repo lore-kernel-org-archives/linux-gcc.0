@@ -1,215 +1,63 @@
-From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.15.91.0.1 is released
-Date: Thu, 27 May 2004 12:02:15 -0700
-Sender: gcc-owner@gcc.gnu.org
-Message-ID: <20040527190215.GA25554@lucon.org>
+From: John Richard Moser <nigelenki@comcast.net>
+Subject: Viability of a New Allocator
+Date: Thu, 24 Jun 2004 02:34:06 -0400
+Sender: linux-c-programming-owner@vger.kernel.org
+Message-ID: <40DA75DE.4020106@comcast.net>
 Mime-Version: 1.0
-Return-path: <gcc-return-96581-gcc=m.gmane.org@gcc.gnu.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Content-Disposition: inline
-List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
+Return-path: <linux-c-programming-owner@vger.kernel.org>
+List-Id: <linux-gcc.vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
+To: linux-c-programming@vger.kernel.org, linux-gcc@vger.kernel.org
 
-This is the beta release of binutils 2.15.91.0.1 for Linux, which is
-based on binutils 2004 0527 in CVS on sources.redhat.com plus various
-changes. It is purely for Linux.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
 
-Please report any bugs related to binutils 2.15.91.0.1 to hjl@lucon.org.
+I've been trying to circulate a new idea for a new allocator for some
+time now, to replace the current glibc allocator.  It would leave behind
+the heap in favor of complex mmap()ing to create what is best described
+as a virtual virtual heap-- a completely noncontiguous virtual heap that
+acts as a contiguous virtual heap that acts as a real heap.  For our
+purposes, we will call a real heap a "real heap," and a virtual virtual
+heap "the heap" or just "heap."
 
-If you don't use
+The advantages of this are many, mainly that unused pages can be
+returned to the system and that memory fragmentation would be reduced in
+severity.  The disadvantages are that the code would be more complex.
 
-# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.bz2
+Any unused, allocated area of memory that touches or crosses a page
+boundary is infinite in size under this scheme, and so can be expanded
+and utilized, reducing the impact of heap fragmentation.
 
-to compile the Linux binutils, please read patches/README in source
-tree to apply Linux patches.
+I believe that this would not only give less memory usage; but also
+increase the speed of allocations.  Allocations could be done by
+checking the largest finite size unused segment of existing allocations,
+and if it's smaller than what you need, using an infinite size fragment.
+~   Seaching out an unused, allocated segment to fit an allocation call
+would be a shorter operation, because all page-aligned and page-crossing
+unused fragments are of inifinite size; and so if a finite size fragment
+exists that fits what is needed, it will be found in a smaller, possibly
+much smaller list.
 
-Changes from binutils 2.15.90.0.3:
+The idea was first developed on a bug posted to the Red Hat Sources
+Bugzilla; and later refined in a blog, and posted in a Red Hat Linux
+Bugzilla bug, and also to libc-alpha.  Those links are as follows:
 
-1. Update from binutils 2004 0527.
-2. Fix -x auto option in the ia64 assembler.
-3. Add the AR check in the ia64 assembler.
-4. Fix the section group support.
-5. Add a new -z relro linker option.
-6. Fix an exception section placement bug in linker.
-7. Add .serialize.data and .serialize.instruction to the ia64
-assembler.
+http://sources.redhat.com/bugzilla/show_bug.cgi?id=167
+http://bluefoxicy.blogspot.com/2004_05_01_bluefoxicy_archive.html#108507154064758877
+https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=123965
+http://sources.redhat.com/ml/libc-alpha/2004-05/msg00216.html
 
-Changes from binutils 2.15.90.0.2:
+I have no idea how to implement this, although from what I gather it is
+feasible.  I believe but can not guarantee that it will give the returns
+I expect.  Is anyone interested in this at all?  I don't have the skill
+to code it, but if someone could find someone to code it or at least
+confirm that it should behave as expected, I'd be grateful.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.4 (GNU/Linux)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
 
-1. Update from binutils 2004 0415.
-2. Fix the linker for weak undefined symbol handling.
-3. Fix the ELF/Sparc and ELF/Sparc64 linker for statically linking PIC
-code.
-
-Changes from binutils 2.15.90.0.1.1:
-
-1. Update from binutils 2004 0412.
-2. Add --as-needed/--no-as-needed to linker.
-3. Fix -z defs in linker.
-4. Always reserve the memory for ia64 dynamic linker.
-5. Fix a race condition in ia64 lazy binding.
-
-Changes from binutils 2.15.90.0.1:
-
-1. Fixed an ia64 assembler bug.
-2. Install the assembler man page.
-
-Changes from binutils 2.14.90.0.8:
-
-1. Update from binutils 2004 0303.
-2. Fixed linker for undefined symbols with non-default visibility.
-3. Sped up linker weakdef symbol handling.
-4. Fixed mixing ELF32 and ELF64 object files in archive.
-5. Added ia64 linker brl optimization.
-6. Fixed ia64 linker to disallow invalid dynamic relocations.
-7. Fixed DT_TEXTREL handling in ia64 linker.
-8. Fixed alignment handling in ia64 assembler.
-9. Improved ia64 assembler unwind table handling. 
-
-Changes from binutils 2.14.90.0.7:
-
-1. Update from binutils 2004 0114.
-2. Fixed an ia64 assembler unwind table bug. 
-3. Better handle IPF linker relaxation overflow.
-4. Fixed misc PPC bugs.
-
-Changes from binutils 2.14.90.0.6:
-
-1. Update from binutils 2003 1029.
-2. Allow type changes for undefined symbols.
-3. Fix EH frame optimization.
-4. Fix the check for undefined versioned symbol with wildcard.
-5. Support generating code for Itanium.
-6. Detect and warn bad symbol index.
-7. Update IPF assemebler DV check.
-
-Changes from binutils 2.14.90.0.5:
-
-1. Update from binutils 2003 0820.
-2. No longer use section names for ELF section types nor flags.
-3. Fix some ELF/IA64 linker bugs.
-4. Fix some ELF/ppc bugs.
-5. Add archive support to readelf.
-
-Changes from binutils 2.14.90.0.4.1:
-
-1. Update from binutils 2003 0722.
-2. Fix an ELF/mips linker bug.
-3. Fix an ELF/hpppa linker bug.
-4. Fix an ELF/ia64 assembler bug.
-5. Fix a linkonce support with C++ debug.
-6. A new working C++ demangler.
-7. Various alpha, mips, ia64, ... bug fixes.
-8. Support for the current gcc and glibc.
-
-Changes from binutils 2.14.90.0.4:
- 
-1. Fix an ia64 assembler hint@pause bug.
-2. Support Intel Precott New Instructions.
-
-Changes from binutils 2.14.90.0.3:
-
-1. Work around the brain dead libtool.
-
-Changes from binutils 2.14.90.0.2:
-
-1. Update from binutils 2003 0523.
-2. Fix 2 ELF visibility bugs.
-3. Fix ELF/ppc linker bugs.
-
-Changes from binutils 2.14.90.0.1:
-
-1. Update from binutils 2003 0515.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Add more IAS compatibilities to ia64 assembler.
-
-Changes from binutils 2.13.90.0.20:
-
-1. Update from binutils 2003 0505.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Fix some ia64 assembler bugs.
-5. Add some IAS compatibilities to ia64 assembler.
-6. Fix ELF common symbol alignment.
-7. Fix ELF weak symbol handling.
-
-Changes from binutils 2.13.90.0.18:
-
-1. Update from binutils 2003 0319.
-2. Fix an ia64 linker brl relaxation bug.
-3. Fix some ELF/ppc linker bugs.
-
-Changes from binutils 2.13.90.0.16:
-
-1. Update from binutils 2003 0121.
-2. Fix an ia64 gas bug.
-3. Fix some TLS bugs.
-4. Fix some ELF/ppc bugs.
-5. Fix an ELF/m68k bug.
-
-2. Include /usr/bin/c++filt.
-Changes from binutils 2.13.90.0.14:
-
-1. Update from binutils 2002 1126.
-2. Include /usr/bin/c++filt.
-3. Fix "ld -r" with execption handling.
-
-Changes from binutils 2.13.90.0.10:
-
-1. Update from binutils 2002 1114.
-2. Fix ELF/alpha bugs.
-3. Fix an ELF/i386 assembler bug.
-
-Changes from binutils 2.13.90.0.4:
-
-1. Update from binutils 2002 1010.
-2. More ELF/PPC linker bug fixes.
-3. Fix an ELF/alpha linker bug.
-4. Fix an ELF/sparc linker bug to support Solaris.
-5. More TLS updates.
-
-Changes from binutils 2.13.90.0.3:
-
-1. Update from binutils 2002 0814.
-2. Fix symbol versioning bugs for gcc 3.2.
-3. Fix mips gas.
-
-Changes from binutils 2.13.90.0.2:
-
-1. Update from binutils 2002 0809.
-2. Fix a mips gas compatibility bug.
-3. Fix an x86 TLS bfd bug.
-4. Fix an x86 PIC gas bug.
-5. Improve symbol versioning support.
-
-The file list:
-
-1. binutils-2.15.91.0.1.tar.bz2. Source code.
-2. binutils-2.15.90.0.3-2.15.91.0.1.diff.bz2. Patch against the
-   previous beta source code.
-3. binutils-2.15.91.0.1-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
-4. binutils-2.15.91.0.1-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
-5. binutils-2.15.91.0.1-1.x86_64.rpm. X64_64 binary RPM for RedHat EL 3.
-
-There is no separate source rpm. You can do
-
-# rpmbuild -ta binutils-2.15.91.0.1.tar.bz2
-
-to create both binary and source rpms.
-
-The primary sites for the beta Linux binutils are:
-
-1. http://www.kernel.org/pub/linux/devel/binutils/
-
-Thanks.
-
-
-H.J. Lu
-hjl@lucon.org
-05/27/2004
+iD8DBQFA2nXahDd4aOud5P8RAuFpAJ9wldF6eEe12w0QUS9jHmmTK6DoaQCdEjDl
+aT3XERefzLEHZ57jtgPU2FA=
+=gZ2e
+-----END PGP SIGNATURE-----
