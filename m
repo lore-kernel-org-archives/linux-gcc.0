@@ -1,92 +1,108 @@
-From: Stephen Satchell <list@fluent2.pyramid.net>
-Subject: Re: C Language Reference for @ and :
-Date: Wed, 28 Aug 2002 15:16:40 -0700
+From: SoloCDM <deedsmis@aculink.net>
+Subject: Syntax Code Compiled Incorrectly
+Date: Wed, 11 Sep 2002 13:39:47 -0600
 Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <5.1.0.14.0.20020828145900.01d25780@fluent2.pyramid.net>
-References: <1028188562.1091.4.camel@skt.int.local>
- <3D49201B.1090102@escriba.com.br>
+Message-ID: <3D7F9C03.9E261B40@cdm01.deedsmiscentral.net>
+Reply-To: deedsmis@aculink.net, linux-gcc@vger.kernel.org
 Mime-Version: 1.0
+Content-Type: multipart/mixed;
+ boundary="------------422736D6292C7257F55E5E7E"
 Return-path: <linux-gcc-owner@vger.kernel.org>
-In-Reply-To: <000301c24ed4$8a6fa100$5001a8c0@uniwest.com>
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+To: "Linux-GCC (Majordomo)" <linux-gcc@vger.kernel.org>
+
+This is a multi-part message in MIME format.
+--------------422736D6292C7257F55E5E7E
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-To: Nate <nate@uniwest.com>, linux-gcc@vger.kernel.org
 
-At 01:50 PM 8/28/02 -0700, Nate wrote:
->I am looking at some C code and I cannot find any language reference as to
->what the '@' symbol or token means...
->
->For, example, from the header file I am trying to interpret....
->
->/////////////////////////////////////////////////////////////////
->static unsigned char P1 @ 0x90;
->static unsigned char P2 @ 0xA0;
->static unsigned char P3 @ 0xB0;
->/////////////////////////////////////////////////////////////////
+Recently I tried to compile sstrcom.cpp with Kernel 2.2.20 on Linux
+Mandrake 8.0.  I used "g++ sstrcom.cpp" and received the following
+errors:
 
-The compiler implements an extension that indicates that the unsigned char 
-P1 is at the absolute address 0x00000090, and when the compiler generates 
-an access it should use this absolute address.  The equivalent ANSI C code 
-using pointer variables might be:
+sstrcom.cpp: In function `int main ()':
+sstrcom.cpp:24: no matching function for call to `basic_string<char, 
+string_char_traits<char>, __default_alloc_template<true, 0> >::compare 
+(int, int, string &, int, int)'
+/usr/include/g++-3/std/bastring.cc:398: candidates are: int 
+basic_string<charT, traits, Allocator>::compare (const 
+basic_string<charT, traits, Allocator> &, unsigned int = 0, unsigned 
+int = basic_string<charT, traits, Allocator>::npos) const [with charT
+= 
+char, traits = string_char_traits<char>, Allocator = 
+__default_alloc_template<true, 0>]
+/usr/include/g++-3/std/bastring.cc:417:                 int 
+basic_string<charT, traits, Allocator>::compare (const charT *, 
+unsigned int, unsigned int) const [with charT = char, traits = 
+string_char_traits<char>, Allocator = __default_alloc_template<true, 
+0>]
+/usr/include/g++-3/std/bastring.h:402:                 int 
+basic_string<charT, traits, Allocator>::compare (const charT *, 
+unsigned int = 0) const [with charT = char, traits = 
+string_char_traits<char>, Allocator = __default_alloc_template<true, 
+0>]
 
-static unsigned char * const P1 = (unsigned char *) 0x90;
-static unsigned char * const P2 = (unsigned char *) 0xA0;
-static unsigned char * const P3 = (unsigned char *) 0xB0;
+Everything points to "n = susername.compare( 0, 2, saname, 0, 2 );",
+even though the immediate line preceding it doesn't have any errors.
 
-Or the other way to do this is to use the preprocessor:
+What is wrong with the attached file?
 
-#define P1 ((unsigned char *)(0x90));
-#define P2 ((unsigned char *)(0xA0));
-#define P3 ((unsigned char *)(0xB0));
+The output indicates that a function doesn't exist in <string>; if so,
+what library needs to be included?
 
-I used to see this with some compilers for machines that had memory-mapped 
-I/O in which the registers were at hardware-fixed locations.  This is 
-actually bad form, particularly when a driver can be used with multiple 
-devices and there was no way to "map in" the particular device interface.
+--
+Note: When you reply to this message, please include the mailing
+      list and/or newsgroup address and my email address in To:
 
-This is an oldie, and VERY machine-dependent.
+*********************************************************************
+Signed,
+SoloCDM
+--------------422736D6292C7257F55E5E7E
+Content-Type: text/plain; charset=us-ascii;
+ name="sstrcom.cpp"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+ filename="sstrcom.cpp"
 
->Also what does these colons mean... ( I understand this is creating a new
->type and it is a "public by default" class for a bit watching type.)  But
->what does the colon do?  Initialize defualts?
->
->/////////////////////////////////////////////////////////////////
->typedef struct
->{
->    unsigned B0:1;
->    unsigned B1:1;
->    unsigned B2:1;
->    unsigned B3:1;
->    unsigned B4:1;
->    unsigned B5:1;
->    unsigned B6:1;
->    unsigned B7:1;
->} SFR;
->/////////////////////////////////////////////////////////////////
+// sstrcom.cpp
+// Comparing string objects
+#include <iostream>
+#include <string>
 
-Bitfield definition.  Page 136-138 in the first edition of K&R _The C 
-Programming Language_, 149-150 in the second edition.  This is part of ANSI 
-C, but the implementation definition makes it a non-portable 
-construct.  Some people like to try to use bitfields in networking, with 
-disastrous results as you change compilers or even versions of the same 
-compiler.
+using namespace std;
 
-The colon introduces a bit-width.  In your definition, you are defining 
-seven bits in the variable SFR to be one-bit values that can be set or 
-reset using a simple assignment statement:
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+int main() {
 
-      SFR.B0 = 1;   /* Set a single bit */
-      SFR.B4 = 0;   /* Reset a single bit */
+	string saname = "George", susername;
 
-The problem is that which structure variables get assigned to which bits is 
-not specified in the standard, but is labelled "implementation 
-defined."  From the definition you show, I suspect that the compiler 
-originally used to compile the code assigned bit fields from the low-order 
-bits to the high-order bits of a regular integer.  Other compilers may 
-start from the most significant bit and work down, which is why this 
-construct is highly non-portable if you store or read the variable to/from 
-storage or a network.
+	std::cout << "Enter your first name: ";
+	cin >> susername;
 
-Satch
+	if ( susername == saname )
+		std::cout << "Greetings, George\n";
+	else if ( susername < saname )
+		std::cout << "You come before George\n";
+	else
+		std::cout << "You come after George\n";
 
+	int n = susername.compare( saname );
+	n = susername.compare( 0, 2, saname, 0, 2 );
+
+	std::cout << "The first two letters of your name ";
+
+	if ( n == 0 )
+		std::cout << "match ";
+	else if ( n < 0 )
+		std::cout << "come before ";
+	else
+		std::cout << "come after ";
+
+	std::cout << saname.substr( 0, 2 ) << endl;
+
+	return 0;
+
+}
+
+
+--------------422736D6292C7257F55E5E7E--
