@@ -1,81 +1,164 @@
-From: Paula Berger <pberger@inf.ufrgs.br>
-Subject: IOCTL problem!!!
-Date: Tue, 28 Oct 2003 16:46:37 +0000
-Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <200310281642.35530.pberger@inf.ufrgs.br>
+From: "H. J. Lu" <hjl@lucon.org>
+Subject: The Linux binutils 2.14.90.0.7 is released
+Date: Wed, 29 Oct 2003 14:12:38 -0800
+Sender: gcc-owner@gcc.gnu.org
+Message-ID: <20031029221238.GA24487@lucon.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-gcc-owner@vger.kernel.org>
+Return-path: <gcc-return-84873-gcc=m.gmane.org@gcc.gnu.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
+Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
-To: linux-gcc@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>
+
+This is the beta release of binutils 2.14.90.0.7 for Linux, which is
+based on binutils 2003 1029 in CVS on sources.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.7 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.6:
+
+1. Update from binutils 2003 1029.
+2. Allow type changes for undefined symbols.
+3. Fix EH frame optimization.
+4. Fix the check for undefined versioned symbol with wildcard.
+5. Support generating code for Itanium.
+6. Detect and warn bad symbol index.
+7. Update IPF assemebler DV check.
+
+Changes from binutils 2.14.90.0.5:
+
+1. Update from binutils 2003 0820.
+2. No longer use section names for ELF section types nor flags.
+3. Fix some ELF/IA64 linker bugs.
+4. Fix some ELF/ppc bugs.
+5. Add archive support to readelf.
+
+Changes from binutils 2.14.90.0.4.1:
+
+1. Update from binutils 2003 0722.
+2. Fix an ELF/mips linker bug.
+3. Fix an ELF/hpppa linker bug.
+4. Fix an ELF/ia64 assembler bug.
+5. Fix a linkonce support with C++ debug.
+6. A new working C++ demangler.
+7. Various alpha, mips, ia64, ... bug fixes.
+8. Support for the current gcc and glibc.
+
+Changes from binutils 2.14.90.0.4:
+ 
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Precott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.7.tar.gz. Source code.
+2. binutils-2.14.90.0.6-2.14.90.0.7.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.7-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.7-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpmbuild -ta binutils-2.14.90.0.7.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
 
 
-	Hi everybody.. I'm new here, so let's see if you guys can help me :-)
-
-	I'm trying to use the ioctl function with the SIOCADDRT flag and I'm having 
-some problems! What i want to do is simply add the default gateway to my 
-routing table. I'm using the struct rtentry (don't know if I'm using it 
-correctly though) then I create a datagram socket and the I use the ioctl 
-function... Does anyone know what's wrong? 
-	I'm sending my source as an example... if someone could please help me, I 
-REALLY nedd to do this!!!
-	Thanks,
-
---
-Paula Berger
-E-mail: pberger@inf.ufrgs.br
---
-
-EXAMPLE:
-
-int main() {
-	uint32_t IpAddr;
-	uint32_t Dst;
-	uint32_t GenMask;
-	struct sockaddr_in Route;
-	struct rtentry Entry;
-	int SockFd, res = 0;
-
-	memset ((char *)&Entry, 0, sizeof (struct rtentry));
-
-	Entry.rt_gateway.sa_family = AF_INET;
-	Entry.rt_genmask.sa_family = AF_INET;
-	Entry.rt_dst.sa_family = AF_INET;
-	Entry.rt_flags = RTF_UP | RTF_GATEWAY;
-
-	if(inet_aton("0.0.0.0", (struct in_addr *)&GenMask) == 0)
-		printf("\nroute genmasc error\n");
-
-	if(inet_aton("143.54.83.0", (struct in_addr *)&Dst) == 0)
-		printf("\nroute dst error\n");
-
-	if(inet_aton("143.54.83.1", (struct in_addr *)&IpAddr) == 0)
-		printf("\nroute ip error\n");
-
-	Route.sin_addr.s_addr = htonl(IpAddr);
-	memcpy(&Entry.rt_gateway, &Route, sizeof(struct sockaddr));
-
-	Route.sin_addr.s_addr = htonl(Dst);
-	memcpy(&Entry.rt_dst, &Route, sizeof(struct sockaddr));
-
-	Route.sin_addr.s_addr = htonl(GenMask);
-	memcpy(&Entry.rt_genmask, &Route, sizeof(struct sockaddr));
-
-	if ((SockFd = socket(PF_INET, SOCK_DGRAM, 0)) < 0) {
-		perror("socket");
-		return -1;
-    	}
-
-	res = ioctl(SockFd, SIOCADDRT, &Entry);
-
-	if (res < 0) {
-            perror("\nerror: ");
-	    close(SockFd);
-	    return -1;
-        }
-
-	close(SockFd);
-
-	return 0;
-}
+H.J. Lu
+hjl@lucon.org
+10/29/2003
