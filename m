@@ -1,114 +1,61 @@
-From: "Mike Black" <mblack@csi-inc.com>
+From: Robert Schiele <rschiele@uni-mannheim.de>
 Subject: Re: Syntax Code Compiled Incorrectly
-Date: Thu, 12 Sep 2002 07:33:01 -0400
+Date: Thu, 12 Sep 2002 18:21:50 +0200
 Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <005a01c25a50$2741c360$f6de11cc@black>
-References: <3D7F9C03.9E261B40@cdm01.deedsmiscentral.net>
+Message-ID: <20020912162150.GA30173@schiele.local>
+References: <3D7F9C03.9E261B40@cdm01.deedsmiscentral.net> <005a01c25a50$2741c360$f6de11cc@black>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-md5;
+	protocol="application/pgp-signature"; boundary="nFreZHaLTZJo0R7j"
 Return-path: <linux-gcc-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <005a01c25a50$2741c360$f6de11cc@black>
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-To: deedsmis@aculink.net, linux-gcc@vger.kernel.org
-
-I can tell you that your program does not compile on gcc 2.95.3
-But it does compile on gcc 3.1
-I tried checking gcc.gnu.org but my queries would never finish.
-I suspect it was a bug that has been fixed.  A google search shows others with the same problem up to gcc 3.0.
+To: Mike Black <mblack@csi-inc.com>
+Cc: deedsmis@aculink.net, linux-gcc@vger.kernel.org
 
 
------ Original Message ----- 
-From: "SoloCDM" <deedsmis@aculink.net>
-To: "Linux-GCC (Majordomo)" <linux-gcc@vger.kernel.org>
-Sent: Wednesday, September 11, 2002 3:39 PM
-Subject: Syntax Code Compiled Incorrectly
+--nFreZHaLTZJo0R7j
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Sep 12, 2002 at 07:33:01AM -0400, Mike Black wrote:
+> I can tell you that your program does not compile on gcc 2.95.3
+> But it does compile on gcc 3.1
+> I tried checking gcc.gnu.org but my queries would never finish.
+> I suspect it was a bug that has been fixed.  A google search shows others=
+ with the same problem up to gcc 3.0.
 
-> Recently I tried to compile sstrcom.cpp with Kernel 2.2.20 on Linux
-> Mandrake 8.0.  I used "g++ sstrcom.cpp" and received the following
-> errors:
-> 
-> sstrcom.cpp: In function `int main ()':
-> sstrcom.cpp:24: no matching function for call to `basic_string<char, 
-> string_char_traits<char>, __default_alloc_template<true, 0> >::compare 
-> (int, int, string &, int, int)'
-> /usr/include/g++-3/std/bastring.cc:398: candidates are: int 
-> basic_string<charT, traits, Allocator>::compare (const 
-> basic_string<charT, traits, Allocator> &, unsigned int = 0, unsigned 
-> int = basic_string<charT, traits, Allocator>::npos) const [with charT
-> = 
-> char, traits = string_char_traits<char>, Allocator = 
-> __default_alloc_template<true, 0>]
-> /usr/include/g++-3/std/bastring.cc:417:                 int 
-> basic_string<charT, traits, Allocator>::compare (const charT *, 
-> unsigned int, unsigned int) const [with charT = char, traits = 
-> string_char_traits<char>, Allocator = __default_alloc_template<true, 
-> 0>]
-> /usr/include/g++-3/std/bastring.h:402:                 int 
-> basic_string<charT, traits, Allocator>::compare (const charT *, 
-> unsigned int = 0) const [with charT = char, traits = 
-> string_char_traits<char>, Allocator = __default_alloc_template<true, 
-> 0>]
-> 
-> Everything points to "n = susername.compare( 0, 2, saname, 0, 2 );",
-> even though the immediate line preceding it doesn't have any errors.
-> 
-> What is wrong with the attached file?
-> 
-> The output indicates that a function doesn't exist in <string>; if so,
-> what library needs to be included?
-> 
-> --
-> Note: When you reply to this message, please include the mailing
->       list and/or newsgroup address and my email address in To:
-> 
-> *********************************************************************
-> Signed,
-> SoloCDM
+That's partially correct. It is not a bug in the compiler, but this
+variant of the compare() method was not implemented in the STL shipped
+with older gccs.
 
+To fix that you have to upgrade your STL. I don't know, if current STL
+works with older compilers, so it might be necessary to upgrade the
+compiler too.
 
---------------------------------------------------------------------------------
+Robert
 
+--=20
+Robert Schiele			Tel.: +49-621-181-2517
+Dipl.-Wirtsch.informatiker	mailto:rschiele@uni-mannheim.de
 
-> // sstrcom.cpp
-> // Comparing string objects
-> #include <iostream>
-> #include <string>
-> 
-> using namespace std;
-> 
-> /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-> int main() {
-> 
-> string saname = "George", susername;
-> 
-> std::cout << "Enter your first name: ";
-> cin >> susername;
-> 
-> if ( susername == saname )
-> std::cout << "Greetings, George\n";
-> else if ( susername < saname )
-> std::cout << "You come before George\n";
-> else
-> std::cout << "You come after George\n";
-> 
-> int n = susername.compare( saname );
-> n = susername.compare( 0, 2, saname, 0, 2 );
-> 
-> std::cout << "The first two letters of your name ";
-> 
-> if ( n == 0 )
-> std::cout << "match ";
-> else if ( n < 0 )
-> std::cout << "come before ";
-> else
-> std::cout << "come after ";
-> 
-> std::cout << saname.substr( 0, 2 ) << endl;
-> 
-> return 0;
-> 
-> }
-> 
-> 
+--nFreZHaLTZJo0R7j
+Content-Type: application/pgp-signature
+Content-Disposition: inline
 
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (GNU/Linux)
+Comment: For info see http://www.gnupg.org
+
+iQEVAwUBPYC/HsQAnns5HcHpAQGOYQgAgD4y+HLzjCqBuaUZpjiXBmvEXM/VdEGn
+rJbREZrnTTLAHOrOmwrhes5Gt8T/o2HpmW0IGSFvUlKaPtJ6aX1mkuykVlelMdPl
+PdgbOKWieE5qHpJ6sDw6w7+JT9UdX0gura0U4Za/EOkqwF+XreDA9xaPCmT2hwLj
+akuNYyNVuzHmTjSZXtSXdwKOwi+4vZJWaSEST8e1AxGhsZS7/okiQ2aj6pHnireg
+nSj7bBXa74mxAhSUgRkFMeSSppZh7SAPDuXg/N9NVs75SxQu/X5J8AU5qZaRZjFW
+6r95UzYek0vCmOJHIU7aB8d1P2Y/TRaMGja8A8W0qgSBh2CjKC2UqQ==
+=hofh
+-----END PGP SIGNATURE-----
+
+--nFreZHaLTZJo0R7j--
