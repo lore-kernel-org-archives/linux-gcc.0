@@ -1,90 +1,64 @@
-From: Andrew Pinski <pinskia@physics.uc.edu>
+From: Denis Zaitsev <zzz@anda.ru>
 Subject: Re: [PATCH] GCC 3.4.3: libobjc build failure
-Date: Mon, 20 Dec 2004 17:03:45 -0500
-Message-ID: <047968C8-52D3-11D9-9FB0-000A95D692F4@physics.uc.edu>
+Date: Tue, 21 Dec 2004 03:07:55 +0500
+Message-ID: <20041221030755.C8330@natasha.ward.six>
 References: <20041221023548.A8330@natasha.ward.six> <81947436-52CF-11D9-9FB0-000A95D692F4@physics.uc.edu> <20041221024810.B8330@natasha.ward.six> <A336BC32-52D1-11D9-9FB0-000A95D692F4@physics.uc.edu>
-Mime-Version: 1.0 (Apple Message framework v619)
-Content-Type: multipart/mixed; boundary=Apple-Mail-26-718973552
-Return-path: <gcc-return-106898-gcc=m.gmane.org@gcc.gnu.org>
+Mime-Version: 1.0
+Return-path: <gcc-return-106899-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
 List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
-In-Reply-To: <A336BC32-52D1-11D9-9FB0-000A95D692F4@physics.uc.edu>
+Content-Disposition: inline
+In-Reply-To: <A336BC32-52D1-11D9-9FB0-000A95D692F4@physics.uc.edu>; from pinskia@physics.uc.edu on Mon, Dec 20, 2004 at 04:53:52PM -0500
 List-Id: <linux-gcc.vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 To: Andrew Pinski <pinskia@physics.uc.edu>
-Cc: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, Denis Zaitsev <zzz@anda.ru>, gcc-patches@gcc.gnu.org, Zack Weinberg <zack@codesourcery.com>
+Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org, gcc-patches@gcc.gnu.org, Zack Weinberg <zack@codesourcery.com>
 
+On Mon, Dec 20, 2004 at 04:53:52PM -0500, Andrew Pinski wrote:
 
---Apple-Mail-26-718973552
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain;
-	charset=US-ASCII;
-	format=flowed
-
-
-On Dec 20, 2004, at 4:53 PM, Andrew Pinski wrote:
->
->> b) libobjc is not compiled without the new patch.  How should it be
->>    fixed then?
->
 > The uses of the macros are not needed as shown by a "grep -r ."
->
+> 
 > Does this patch fix the problem for you?
+> 
+> Thanks,
+> Andrew Pinski
+> 
 
-Actually that patch will not work, sorry about that.
+> Index: gc.c
+> ===================================================================
+> RCS file: /cvs/gcc/gcc/libobjc/gc.c,v
+> retrieving revision 1.6
+> diff -u -p -r1.6 gc.c
+> --- gc.c	23 May 2003 20:04:58 -0000	1.6
+> +++ gc.c	20 Dec 2004 21:51:20 -0000
+> @@ -40,18 +40,6 @@ Boston, MA 02111-1307, USA.  */
+>  typedef GC_word word;
+>  typedef GC_signed_word signed_word;
+>  
+> -#if BITS_PER_WORD == 32
+> -# define LOGWL	5
+> -# define modWORDSZ(n) ((n) & 0x1f)        /* n mod size of word	    */
+> -#endif
+> -
+> -#if BITS_PER_WORD == 64
+> -# define LOGWL 6
+> -# define modWORDSZ(n) ((n) & 0x3f)        /* n mod size of word	    */
+> -#endif
+> -
+> -#define divWORDSZ(n) ((n) >> LOGWL)	   /* divide n by size of word      */
+> -
+>  #include <gc_typed.h>
+>  
+>  /* The following functions set up in `mask` the corresponding pointers.
 
-This one is better and should work.
+The problem is not really here, but there:
 
+line 316 of gc.c:
 
-If it does not report the errors please as it will help to fix the
-problem.
+  size = ROUND (bits_no, BITS_PER_WORD) / BITS_PER_WORD;
 
-Thanks,
-Andrew Pinski
-
-
---Apple-Mail-26-718973552
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain;
-	x-unix-mode=0644;
-	name="temp1.diff.txt"
-Content-Disposition: attachment;
-	filename=temp1.diff.txt
-
-Index: gc.c
-===================================================================
-RCS file: /cvs/gcc/gcc/libobjc/gc.c,v
-retrieving revision 1.6
-diff -u -p -r1.6 gc.c
---- gc.c	23 May 2003 20:04:58 -0000	1.6
-+++ gc.c	20 Dec 2004 22:01:27 -0000
-@@ -35,22 +35,12 @@ Boston, MA 02111-1307, USA.  */
- #if OBJC_WITH_GC
- 
- #include <gc.h>
-+#include <limits.h>
- 
- /* gc_typed.h uses the following but doesn't declare them */
- typedef GC_word word;
- typedef GC_signed_word signed_word;
--
--#if BITS_PER_WORD == 32
--# define LOGWL	5
--# define modWORDSZ(n) ((n) & 0x1f)        /* n mod size of word	    */
--#endif
--
--#if BITS_PER_WORD == 64
--# define LOGWL 6
--# define modWORDSZ(n) ((n) & 0x3f)        /* n mod size of word	    */
--#endif
--
--#define divWORDSZ(n) ((n) >> LOGWL)	   /* divide n by size of word      */
-+#define BITS_PER_WORD (CHAR_BIT * sizeof (word))
- 
- #include <gc_typed.h>
- 
-
---Apple-Mail-26-718973552--
-
+So...  Why doesn't your grep show this?
