@@ -1,84 +1,32 @@
 From: Denis Zaitsev <zzz@anda.ru>
 Subject: Re: [i386] Why g++ _always_ link an executable with libm.so?
-Date: Thu, 6 Jan 2005 03:25:45 +0500
-Message-ID: <20050106032545.L1437@natasha.ward.six>
-References: <20050105030102.G1437@natasha.ward.six> <20050104220523.GA24316@nevyn.them.org> <20050105031847.H1437@natasha.ward.six> <m3u0pwq13m.fsf@uniton.integrable-solutions.net> <20050105035915.I1437@natasha.ward.six> <m3hdlwpv5h.fsf@uniton.integrable-solutions.net>
+Date: Thu, 6 Jan 2005 03:30:03 +0500
+Message-ID: <20050106033003.M1437@natasha.ward.six>
+References: <20050105030102.G1437@natasha.ward.six> <20050104220523.GA24316@nevyn.them.org> <20050105031847.H1437@natasha.ward.six> <m3u0pwq13m.fsf@uniton.integrable-solutions.net> <20050105035915.I1437@natasha.ward.six> <51D8FCE4-5EA5-11D9-9A04-000A95D692F4@physics.uc.edu> <pan.2005.01.05.17.14.24.807180@navi.cx> <9AA708C4-5F46-11D9-A9D4-000A95D692F4@physics.uc.edu> <20050106030954.K1437@natasha.ward.six> <6D7AEFE6-5F67-11D9-A9D4-000A95D692F4@physics.uc.edu>
 Mime-Version: 1.0
-Return-path: <gcc-return-107647-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-107648-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
 List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Disposition: inline
-In-Reply-To: <m3hdlwpv5h.fsf@uniton.integrable-solutions.net>; from gdr@integrable-solutions.net on Wed, Jan 05, 2005 at 01:38:34AM +0100
+In-Reply-To: <6D7AEFE6-5F67-11D9-A9D4-000A95D692F4@physics.uc.edu>; from pinskia@physics.uc.edu on Wed, Jan 05, 2005 at 05:16:20PM -0500
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: Gabriel Dos Reis <gdr@integrable-solutions.net>
-Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
+To: Andrew Pinski <pinskia@physics.uc.edu>
+Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org, Mike Hearn <mike@navi.cx>
 
-On Wed, Jan 05, 2005 at 01:38:34AM +0100, Gabriel Dos Reis wrote:
-> Denis Zaitsev <zzz@anda.ru> writes:
+On Wed, Jan 05, 2005 at 05:16:20PM -0500, Andrew Pinski wrote:
 > 
-> | On Tue, Jan 04, 2005 at 11:30:05PM +0100, Gabriel Dos Reis wrote:
-> | > Denis Zaitsev <zzz@anda.ru> writes:
-> | > | 
-> | > |   a) why g++ assumes that libstdc++ is always needed?
-> | > 
-> | > Because that is the way it is designed.  If you don't want libstdc++,
-> | > say -nostdlib as explained in our documentation.
-> | 
-> | This doesn't work out of the box...
+> On Jan 5, 2005, at 5:09 PM, Denis Zaitsev wrote:
 > 
-> If -nostdlib does not work as explained in the documentation, then you
-> might have found a bug.  If you don't explain why it does not work as
-> explained in the documentation or do not a fill a proper bug report,
-> the probability that it gets fixed is near to zero.
-
-It is not explained in the doc. in a much details.  So I don't know
-either it is error or what.  In short, -nostdlib leads to the 'no std
-objects' as well, and, as I understand, I must link them explicitly.
-Or what does this mean:
-
-/usr/bin/ld: warning: cannot find entry symbol _start; defaulting to 08048094
-
-?
-
-> | Ok, but do we force users to use libm every time libc is used?
+> > Ok.  But the question in general is not about that.  It is not a
+> > problem that libm is NEEDED by libstdc++, but why this NEEDED leads to
+> > the same NEEDED for the app?  Isn't the first depndency enough?
 > 
-> What is libc?  How do you define it?
+> No, because some of libstdc++ code is in the headers, on some targets
+> have two level namespaces which causes this to be rejected.
 
-I assume GLIBC, of course.  For x86, but I don't know either this
-matters.
-
-> |  No, we
-> | don't.  Of course, we don't.  And I emphasised the word 'always':
-> | not _every_ routine from libstdc++ need libm, but it always
-> | required...
-> 
-> The C++ standard library is a whole entity (minus the "freestanding"
-> part) that is hard to split in meaningfully independent parts.
-> Personnaly, I have zilk interest in splitting it into zillions
-> arbitrary parts (or maintain such splits) and require users to supply
-> zillions -lxxx switches. 
-> 
-> As a C++ user, when I say
-> 
->    copy(istream_iterator<int>(cin), istream_iterator<int>(),
->         back_insert(v));
-> 
-> I have no idea of which of those zillions parts are involved
-> underneath, I do not want to know, and a fortiori I do not want to
-> be required to supply a cabalistic combination of switches to get it
-> work. The compiler is better at that than I.
-
-No, no, no...  The initial question has been asked having this in
-mind: why the dependencies are used per-shared-object vs. per-module-inside-it?
-As I understand now, it's impossible to have that per-module deps for
-elf shared objects.  Ok, it's no a question more.
-
-But then another question: if libstdc++ itself has libm in its NEEDED
-list, why the whole app having libstdc++ in its NEEDED list is forced
-(by the linker?) to have libm there too?  While the app itself never
-really needs that libm?
+Sorry, what to be rejected?
