@@ -1,61 +1,26 @@
-From: Robert Schiele <rschiele@uni-mannheim.de>
-Subject: Re: Syntax Code Compiled Incorrectly
-Date: Thu, 12 Sep 2002 18:21:50 +0200
-Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <20020912162150.GA30173@schiele.local>
-References: <3D7F9C03.9E261B40@cdm01.deedsmiscentral.net> <005a01c25a50$2741c360$f6de11cc@black>
+From: Mehran Rezaei <mehran@cs.unt.edu>
+Subject: latex problem
+Date: Tue, 17 Sep 2002 17:51:01 +0000
+Sender: linux-net-owner@vger.kernel.org
+Message-ID: <3D876B85.1CBE054B@cs.unt.edu>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-md5;
-	protocol="application/pgp-signature"; boundary="nFreZHaLTZJo0R7j"
-Return-path: <linux-gcc-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <005a01c25a50$2741c360$f6de11cc@black>
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-net-owner@vger.kernel.org>
 List-Id: <linux-gcc.vger.kernel.org>
-To: Mike Black <mblack@csi-inc.com>
-Cc: deedsmis@aculink.net, linux-gcc@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+To: C news group <linux-c-programming@vger.kernel.org>, gcc news group <linux-gcc@vger.kernel.org>, Network news group <linux-net@vger.kernel.org>
 
+Hello all,
 
---nFreZHaLTZJo0R7j
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It may not be the right place to post this question, but I would like to
+give it a try.
+So I wanted to install a new package to the latex that I have, it is
+latex2e. The package that I tried to install happened to be the color
+package. So after creating sty file, I put it in the input directory
+which is base. Now, when I include the package in the tex file. It could
+not find it. Is there anything else I need to do before using the
+package.
+Any help is appreciated.
 
-On Thu, Sep 12, 2002 at 07:33:01AM -0400, Mike Black wrote:
-> I can tell you that your program does not compile on gcc 2.95.3
-> But it does compile on gcc 3.1
-> I tried checking gcc.gnu.org but my queries would never finish.
-> I suspect it was a bug that has been fixed.  A google search shows others=
- with the same problem up to gcc 3.0.
+Mehran
 
-That's partially correct. It is not a bug in the compiler, but this
-variant of the compare() method was not implemented in the STL shipped
-with older gccs.
-
-To fix that you have to upgrade your STL. I don't know, if current STL
-works with older compilers, so it might be necessary to upgrade the
-compiler too.
-
-Robert
-
---=20
-Robert Schiele			Tel.: +49-621-181-2517
-Dipl.-Wirtsch.informatiker	mailto:rschiele@uni-mannheim.de
-
---nFreZHaLTZJo0R7j
-Content-Type: application/pgp-signature
-Content-Disposition: inline
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.0.6 (GNU/Linux)
-Comment: For info see http://www.gnupg.org
-
-iQEVAwUBPYC/HsQAnns5HcHpAQGOYQgAgD4y+HLzjCqBuaUZpjiXBmvEXM/VdEGn
-rJbREZrnTTLAHOrOmwrhes5Gt8T/o2HpmW0IGSFvUlKaPtJ6aX1mkuykVlelMdPl
-PdgbOKWieE5qHpJ6sDw6w7+JT9UdX0gura0U4Za/EOkqwF+XreDA9xaPCmT2hwLj
-akuNYyNVuzHmTjSZXtSXdwKOwi+4vZJWaSEST8e1AxGhsZS7/okiQ2aj6pHnireg
-nSj7bBXa74mxAhSUgRkFMeSSppZh7SAPDuXg/N9NVs75SxQu/X5J8AU5qZaRZjFW
-6r95UzYek0vCmOJHIU7aB8d1P2Y/TRaMGja8A8W0qgSBh2CjKC2UqQ==
-=hofh
------END PGP SIGNATURE-----
-
---nFreZHaLTZJo0R7j--
