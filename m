@@ -1,136 +1,144 @@
-From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.14.90.0.4 is released
-Date: Sun, 25 May 2003 08:24:31 -0700
-Sender: gcc-owner@gcc.gnu.org
-Message-ID: <20030525082431.A16986@lucon.org>
+From: prasad.simhardi@tekelec.com
+Subject: pthread not abel to create more than 250 threads, in new Linux
+Date: Sun, 25 May 2003 15:30:23 -0400
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <OF5CD4E4C6.3D2394FB-ON85256D31.006B1A7F@nc.tekelec.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-75045-gcc=m.gmane.org@gcc.gnu.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Content-Disposition: inline
+Return-path: <linux-gcc-owner@vger.kernel.org>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: Jack Howarth <howarth@bromo.msbb.uc.edu>
-Cc: GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ron Guilmette <rfg@monkeys.com>, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@cotw.com>, linux-gcc@vger.kernel.org
-
-This release is to work around the libtool issue with libopcodes.
-
-H.J.
-From GCC summit in Ottawa.
----
-This is the beta release of binutils 2.14.90.0.4 for Linux, which is
-based on binutils 2003 0523 in CVS on sourecs.redhat.com plus various
-changes. It is purely for Linux.
-
-Please report any bugs related to binutils 2.14.90.0.4 to hjl@lucon.org.
-
-If you don't use
-
-# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
-
-to compile the Linux binutils, please read patches/README in source
-tree to apply Linux patches.
-
-Changes from binutils 2.14.90.0.3:
-
-1. Work around the brain dead libtool.
-
-Changes from binutils 2.14.90.0.2:
-
-1. Update from binutils 2003 0523.
-2. Fix 2 ELF visibility bugs.
-3. Fix ELF/ppc linker bugs.
-
-Changes from binutils 2.14.90.0.1:
-
-1. Update from binutils 2003 0515.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Add more IAS compatibilities to ia64 assembler.
-
-Changes from binutils 2.13.90.0.20:
-
-1. Update from binutils 2003 0505.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Fix some ia64 assembler bugs.
-5. Add some IAS compatibilities to ia64 assembler.
-6. Fix ELF common symbol alignment.
-7. Fix ELF weak symbol handling.
-
-Changes from binutils 2.13.90.0.18:
-
-1. Update from binutils 2003 0319.
-2. Fix an ia64 linker brl relaxation bug.
-3. Fix some ELF/ppc linker bugs.
-
-Changes from binutils 2.13.90.0.16:
-
-1. Update from binutils 2003 0121.
-2. Fix an ia64 gas bug.
-3. Fix some TLS bugs.
-4. Fix some ELF/ppc bugs.
-5. Fix an ELF/m68k bug.
-
-2. Include /usr/bin/c++filt.
-Changes from binutils 2.13.90.0.14:
-
-1. Update from binutils 2002 1126.
-2. Include /usr/bin/c++filt.
-3. Fix "ld -r" with execption handling.
-
-Changes from binutils 2.13.90.0.10:
-
-1. Update from binutils 2002 1114.
-2. Fix ELF/alpha bugs.
-3. Fix an ELF/i386 assembler bug.
-
-Changes from binutils 2.13.90.0.4:
-
-1. Update from binutils 2002 1010.
-2. More ELF/PPC linker bug fixes.
-3. Fix an ELF/alpha linker bug.
-4. Fix an ELF/sparc linker bug to support Solaris.
-5. More TLS updates.
-
-Changes from binutils 2.13.90.0.3:
-
-1. Update from binutils 2002 0814.
-2. Fix symbol versioning bugs for gcc 3.2.
-3. Fix mips gas.
-
-Changes from binutils 2.13.90.0.2:
-
-1. Update from binutils 2002 0809.
-2. Fix a mips gas compatibility bug.
-3. Fix an x86 TLS bfd bug.
-4. Fix an x86 PIC gas bug.
-5. Improve symbol versioning support.
-
-The file list:
-
-1. binutils-2.14.90.0.4.tar.gz. Source code.
-2. binutils-2.14.90.0.3-2.14.90.0.4.diff.gz. Patch against the
-   previous beta source code.
-3. binutils-2.14.90.0.4-1.i386.rpm. IA-32 binary RPM for RedHat 9.
-4. binutils-2.14.90.0.4-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
-
-There is no separate source rpm. You can do
-
-# rpm -ta binutils-2.14.90.0.4.tar.gz
-
-to create both binary and source rpms.
-
-The primary sites for the beta Linux binutils are:
-
-1. http://ftp.kernel.org/pub/linux/devel/binutils/
-
-Thanks.
+To: linux-gcc@vger.kernel.org
 
 
-H.J. Lu
-hjl@lucon.org
-05/25/2003
+Hi,
+
+I am facing some problem, in creating more than 255 pthreads in
+"linux-2.4.20-9".
+
+The "gcc -v" gives, the following output ----------------------
+Reading specs from /usr/lib/gcc-lib/i386-redhat-linux/3.2.2/specs
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man
+--infodir=/usr/share/info --enable-shared --enable-threads=posix
+--disable-checking --with-system-zlib --enable-__cxa_atexit
+--host=i386-redhat-linux
+Thread model: posix
+gcc version 3.2.2 20030222 (Red Hat Linux 3.2.2-5)
+
+The "ulimit -a" gives the following ---------------------
+core file size        (blocks, -c) 0
+data seg size         (kbytes, -d) unlimited
+file size             (blocks, -f) unlimited
+max locked memory     (kbytes, -l) unlimited
+max memory size       (kbytes, -m) unlimited
+open files                    (-n) 1024
+pipe size          (512 bytes, -p) 8
+stack size            (kbytes, -s) 8192
+cpu time             (seconds, -t) unlimited
+max user processes            (-u) unlimited
+virtual memory        (kbytes, -v) unlimited
+
+I am compiling it as "gcc main.c -lpthread".
+
+using the code given below, and am able to create 1000, threads on
+"linux-2.4.18-24.7.x".
+
+where the "gcc -v" gives ------------------
+Reading specs from /usr/lib/gcc-lib/i386-redhat-linux/2.96/specs
+gcc version 2.96 20000731 (Red Hat Linux 7.3 2.96-113)
+
+and "ulimit -a" gives ------------------
+core file size        (blocks, -c) 0
+data seg size         (kbytes, -d) unlimited
+file size             (blocks, -f) unlimited
+max locked memory     (kbytes, -l) unlimited
+max memory size       (kbytes, -m) unlimited
+open files                    (-n) 1024
+pipe size          (512 bytes, -p) 8
+stack size            (kbytes, -s) 8192
+cpu time             (seconds, -t) unlimited
+max user processes            (-u) 3840
+virtual memory        (kbytes, -v) unlimited
+
+
+Can anyone, tell me how to get through,
+
+Thanks,
+Prasad
+
+
+
+/*************************** The test code is as follows
+**************************************/
+#include <pthread.h>
+
+int createTask(void (*taskPtr) (void *), void *dataPtr)
+{
+      pthread_t threadHandle = 0;
+      pthread_attr_t  attr;
+      pthread_attr_init(&attr);
+      if( 0 == pthread_attr_setdetachstate (&attr,
+PTHREAD_CREATE_DETACHED))
+      {
+            if(0 != pthread_create(&threadHandle, &attr, (void *(*) (void
+*))taskPtr, dataPtr))
+            {
+                  threadHandle = 0;
+            }
+            pthread_attr_destroy(&attr);
+      }
+      else
+      {
+            threadHandle = 0;
+      }
+      return threadHandle;
+}// end createTask() method
+
+
+void testThread(void *data)
+{
+      int   val;
+      val = (int) data;
+      while(1)
+      {
+            sleep(1);
+//          printf("Test thread %d is running(%d)\n", val, time(NULL));
+      }
+}
+
+int main()
+{
+      int i = 1;
+      int failed = 0;
+
+      for (i=1; i <=1000; i++)
+      {
+            if (0 == createTask(testThread, (void*) i))
+            {
+                  printf("Create thread failed for i = %d\n", i);
+                  failed = 1;
+                  break;
+            }
+            else
+            {
+                  printf("Create thread for i = %d\n", i);
+            }
+      }
+
+      if (failed)
+      {
+            printf("Failed to create all threads ************\n");
+      }
+      else
+      {
+            printf("all threads created succesfully ************\n");
+            while (1)
+            {
+                  sleep(1);
+            }
+      }
+}
+
+
+
+
