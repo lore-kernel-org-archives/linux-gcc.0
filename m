@@ -1,45 +1,41 @@
 From: Denis Zaitsev <zzz@anda.ru>
-Subject: Re: [BUG] GCC 3.4.3/x86: -fomit-frame-pointer cause a lot of test failures for libstdc++
-Date: Tue, 28 Dec 2004 02:14:30 +0500
-Message-ID: <20041228021429.B1437@natasha.ward.six>
-References: <20041222084218.A14668@natasha.ward.six> <D23532B5-53CE-11D9-95A4-000A95D692F4@physics.uc.edu>
+Subject: [BUG] GCC 3.4-20041224: __attribute__ ((regparm)) misbehaviour
+Date: Tue, 28 Dec 2004 08:44:07 +0500
+Message-ID: <20041228084407.C1437@natasha.ward.six>
 Mime-Version: 1.0
-Return-path: <gcc-return-107163-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-107171-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
 List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Disposition: inline
-In-Reply-To: <D23532B5-53CE-11D9-95A4-000A95D692F4@physics.uc.edu>; from pinskia@physics.uc.edu on Tue, Dec 21, 2004 at 11:06:13PM -0500
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: Andrew Pinski <pinskia@physics.uc.edu>
-Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
+To: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
 
-On Tue, Dec 21, 2004 at 11:06:13PM -0500, Andrew Pinski wrote:
-> 
-> On Dec 21, 2004, at 10:42 PM, Denis Zaitsev wrote:
-> 
-> > I've built GCC with -fomit-frame-pointer and -fno-omit-frame-pointer.
-> > I mean either of these flags is present in both the exported shell
-> > variables CFLAGS and CXXFLAGS and also in the BOOT_CFLAGS variable
-> > from gcc/Makefile.  Both the builds was successfull.  And these are
-> > some results of 'make check':
-> 
-> I would not doubt this is the -fomit-frame-pointer exception handling
-> bug which was fixed in 3.4.4, 3.3.6, and 4.0.0.
-> See PR 17220 and 6764.
-
-And these are the results for GCC 3.4-20041224:
+This program:
 
 
-                === libstdc++ Summary ===
+static
+int x(int y)
+__attribute__ ((regparm(1)));
 
-# of expected passes            2373
-# of unexpected failures        357
-# of expected failures          7
+static
+int x(int y)
+{
+    return y;
+}
 
 
-So, there are still the same bugs.
+can't be compiled with GCC 3.4.4 20041224.  The compiler complains:
+
+
+y-bug.c:7: error: conflicting types for 'x'
+y-bug.c:3: error: previous declaration of 'x' was here
+y-bug.c:7: error: conflicting types for 'x'
+y-bug.c:3: error: previous declaration of 'x' was here
+
+
+It seems that it's a bug.
