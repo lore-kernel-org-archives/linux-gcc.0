@@ -1,48 +1,49 @@
-From: David Wuertele <dave-gnus@bfnet.com>
-Subject: Repost: gcc cross mips output sizes too big
-Date: Wed, 15 Dec 2004 04:15:54 -0800
-Message-ID: <m3ekhrg3k5.fsf@bfnet.com>
-References: <m37joqznoj.fsf@bfnet.com>
+From: John Richard Moser <nigelenki@comcast.net>
+Subject: Generating shellcode at compile time
+Date: Wed, 15 Dec 2004 22:55:15 -0500
+Message-ID: <41C10723.5070604@comcast.net>
 Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
 To: linux-gcc@vger.kernel.org
 
-It's been a month and I still haven't found any answers.  Anyone here
-know why object files have grown significantly since 2.95.3?
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
 
-I've been using crosstool-generated gcc-3.3.3 to build my mipsel
-targets, and I find that the file sizes are ginormous.  After
-stripping the objects, I get file sizes that are up to TWICE as large
-as similarly generated gcc-2.96 code.  Do these sizes not look out of
-line?
+I need to generate some sort of strcpy()able shell code.  Probably
+something to do
 
-   bytes          gcc-3.3.3 generated files
-  -------       --------------------------------
-  1884160	/lib/libc-2.3.2.so
-  1257472	/lib/libstdc++.so.5.0.5
-  1048576	/usr/local/lib/libfreetype.so.1314.0.0.10
-  1036288	/bin/busybox
-  1011712	/bin/bash
+_exit(255);
 
-   bytes          gcc-2.96 generated files
-  -------       --------------------------------
-  1531904	/lib/libc-2.2.4.so
-  532480	/lib/libstdc++-3-libc6.2-2-2.10.0.so
-  495616	/usr/local/lib/libfreetype.so.1314.0.0.10
-  462848	/bin/busybox
-  847872	/bin/bash
+would be quite enough; though more in-depth demonstrations would benefit
+from being able to actually display a live exploit.  Something like
+calling exec("/bin/bash") for example.
 
-Compiling with -Os helps, but doesn't get close to the file sizes I
-saw with my older cross-compiler.  It seems strange to me that moving
-to a newer compiler will reduce the number of programs I can ship in
-my little NAND flash.
+I'm working on an x86-64, but would like to be able to demonstrate
+exploits and what PaX and the IBM stack smash protector do to stop them
+on x86-64, x86, SPARC, PPC, SPARC64, and PPC64.
 
-Is there some way to generate a more efficient cross-compiler?
+In the worst case, each shellcode could be individually created and
+passed as a reaction to having the example daemon reveal the host type
+(which may be useful in dual-host demonstrations where I could exploit a
+PPC with an x86); however, I have not the time nor the need to invest my
+time in generating such shellcode myself.
 
-Thanks,
-Dave
+I'm not so sure what I want to do, but _exit(255) is fine for my
+regression tests.
 
+- --
+All content of all messages exchanged herein are left in the
+Public Domain, unless otherwise explicitly stated.
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.6 (GNU/Linux)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFBwQcjhDd4aOud5P8RAl+vAJ40ThT0vaa3iyhCp/EgwsNhYp/8nQCfdVpU
+Xv/XTZSogpCMgBI/j0mxqa8=
+=5SD4
+-----END PGP SIGNATURE-----
