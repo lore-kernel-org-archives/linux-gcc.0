@@ -1,38 +1,154 @@
-From: Denis Zaitsev <zzz@anda.ru>
-Subject: Re: i386 inline-asm string functions - some questions
-Date: Tue, 30 Dec 2003 00:37:20 +0500
-Sender: libc-alpha-owner@sources.redhat.com
-Message-ID: <20031230003720.I6728@zzz.ward.six>
-References: <20031227163540.B6728@zzz.ward.six> <87brpum7gm.fsf@egil.codesourcery.com> <20031229015820.C6728@zzz.ward.six> <871xqol5wv.fsf@codesourcery.com> <3FEFA115.90704@redhat.com> <87k74gjmyh.fsf@codesourcery.com> <20031229053151.GA7231@nevyn.them.org> <20031229233708.F6728@zzz.ward.six> <8765fzjvad.fsf@egil.codesourcery.com> <20031230003147.H6728@zzz.ward.six>
+From: Tommy Faasen <tommy@zwanebloem.nl>
+Subject: BUG: 2.6.0 non fatal recoverable errors crash gcc
+Date: Fri, 02 Jan 2004 00:57:27 +0100
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <3FF4B3E7.9050309@zwanebloem.nl>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-14223-glibc-alpha=m.gmane.org@sources.redhat.com>
-List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sources.redhat.com>
-List-Subscribe: <mailto:libc-alpha-subscribe@sources.redhat.com>
-List-Archive: <http://sources.redhat.com/ml/libc-alpha/>
-List-Post: <mailto:libc-alpha@sources.redhat.com>
-List-Help: <mailto:libc-alpha-help@sources.redhat.com>, <http://sources.redhat.com/ml/#faqs>
-Content-Disposition: inline
-In-Reply-To: <20031230003147.H6728@zzz.ward.six>; from zzz@anda.ru on Tue, Dec 30, 2003 at 12:31:47AM +0500
-List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: Zack Weinberg <zack@codesourcery.com>, Daniel Jacobowitz <drow@mvista.com>, Ulrich Drepper <drepper@redhat.com>, Richard Henderson <rth@redhat.com>, Andreas Jaeger <aj@suse.de>, libc-alpha@sources.redhat.com, linux-gcc@vger.kernel.org, gcc@gcc.gnu.org
+Return-path: <linux-gcc-owner@vger.kernel.org>
+List-Id: <linux-gcc.vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
+To: linux-kernel@vger.kernel.org, linux-gcc@vger.kernel.org
 
-On Tue, Dec 30, 2003 at 12:31:47AM +0500, Denis Zaitsev wrote:
+Hi,
 
-> On Mon, Dec 29, 2003 at 11:09:14AM -0800, Zack Weinberg wrote:
+I'm not subscribed to this newsgroup, but i'll try to read the follow-up 
+messages if any.
 
-> > Same if the out-of-line memcpy takes several more instructions to
-> > set up but makes damn sure to do aligned memory accesses
-> > (full-bus-width loads, nontemporal store, prefetches, etc etc etc),
-> > whereas the inline one doesn't.
+When my machine is doing big compiles like the kernel or mythtv , 
+gcc/g++ crashes.
+This happens after syslog tell me  that there is a recoverable error 
+(see output below).
+This happened several times but I don't know why and what I can do about 
+it ..
+The machine seems to be very stable, but it could be a hardware problem 
+i guess.
 
-Sorry, I mean the inline functions below!  Of course!
+I'm using a stock 2.6.0 kernel on a duron 1300 on a via kt133a chipset 
+and has 640MB memory, extra information can be found below, if you need 
+more information please let me know.
 
-> First, they are trying to do so here and there (but ok, not fine).
-> 
-> Second, I have experimented with this nonaligned access some time
-> ago.  I don't remember exactly, but it seems that the modern x86
-> processors do the job as fine as when the memory access is aligned.
-> But as it was too far ago, I can't recollect the details and so I
-> won't insist.  Better I will repeat the measurements...
+
+make[2]: *** [asf.o] Error 1
+make[2]: Leaving directory `/mnt/diskb/newsan/mythtv-0.13/libs/libavformat'
+make[1]: *** [sub-libavformat] Error 2
+make[1]: Leaving directory `/mnt/diskb/newsan/mythtv-0.13/libs'
+make: *** [sub-libs] Error 2
+thuis:/mnt/diskb/newsan/mythtv-0.13#
+Message from syslogd@thuis at Thu Jan  1 21:21:12 2004 ...
+thuis kernel: MCE: The hardware reports a non fatal, correctable 
+incident occurred on CPU 0.
+
+Message from syslogd@thuis at Thu Jan  1 21:21:12 2004 ...
+thuis kernel: Bank 0: a600000000000175
+
+thuis:/mnt/diskb/newsan/mythtv-0.13# uname -a
+Linux thuis 2.6.0-1-k7 #1 Mon Dec 29 17:23:22 CET 2003 i686 unknown
+thuis:/mnt/diskb/newsan/mythtv-0.13# lspci -v
+00:00.0 Host bridge: VIA Technologies, Inc. VT8363/8365 [KT133/KM133] 
+(rev 03)
+        Flags: bus master, medium devsel, latency 8
+        Memory at d0000000 (32-bit, prefetchable) [size=128M]
+        Capabilities: [a0] AGP version 2.0
+        Capabilities: [c0] Power Management version 2
+
+00:01.0 PCI bridge: VIA Technologies, Inc. VT8363/8365 [KT133/KM133 AGP] 
+(prog-if 00 [Normal decode])
+        Flags: bus master, 66Mhz, medium devsel, latency 0
+        Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+        Memory behind bridge: da000000-dbffffff
+        Prefetchable memory behind bridge: d8000000-d9ffffff
+        Capabilities: [80] Power Management version 2
+
+00:07.0 ISA bridge: VIA Technologies, Inc. VT82C686 [Apollo Super South] 
+(rev 40)
+        Subsystem: VIA Technologies, Inc. VT82C686/A PCI to ISA Bridge
+        Flags: bus master, stepping, medium devsel, latency 0
+        Capabilities: [c0] Power Management version 2
+
+00:07.1 IDE interface: VIA Technologies, Inc. Bus Master IDE (rev 06) 
+(prog-if 8a [Master SecP PriP])
+        Subsystem: VIA Technologies, Inc. Bus Master IDE
+        Flags: bus master, medium devsel, latency 32
+        I/O ports at c000 [size=16]
+        Capabilities: [c0] Power Management version 2
+
+00:07.2 USB Controller: VIA Technologies, Inc. UHCI USB (rev 16) 
+(prog-if 00 [UHCI])
+        Subsystem: Unknown device 0925:1234
+        Flags: bus master, medium devsel, latency 32, IRQ 9
+        I/O ports at c400 [size=32]
+        Capabilities: [80] Power Management version 2
+
+00:07.3 USB Controller: VIA Technologies, Inc. UHCI USB (rev 16) 
+(prog-if 00 [UHCI])
+        Subsystem: Unknown device 0925:1234
+        Flags: bus master, medium devsel, latency 32, IRQ 9
+        I/O ports at c800 [size=32]
+        Capabilities: [80] Power Management version 2
+
+00:07.4 Bridge: VIA Technologies, Inc. VT82C686 [Apollo Super ACPI] (rev 40)
+        Subsystem: VIA Technologies, Inc. VT82C686 [Apollo Super ACPI]
+        Flags: medium devsel
+        Capabilities: [68] Power Management version 2
+
+00:07.5 Multimedia audio controller: VIA Technologies, Inc. AC97 Audio 
+Controller (rev 50)
+        Subsystem: VIA Technologies, Inc.: Unknown device 4511
+        Flags: medium devsel, IRQ 10
+        I/O ports at cc00 [size=256]
+        I/O ports at d000 [size=4]
+        I/O ports at d400 [size=4]
+        Capabilities: [c0] Power Management version 2
+
+00:09.0 SCSI storage controller: Adaptec AHA-2940U2/W
+        Subsystem: Adaptec: Unknown device a180
+        Flags: bus master, medium devsel, latency 32, IRQ 11
+        BIST result: 00
+        I/O ports at d800 [disabled] [size=256]
+        Memory at dd200000 (64-bit, non-prefetchable) [size=4K]
+        Expansion ROM at <unassigned> [disabled] [size=128K]
+        Capabilities: [dc] Power Management version 1
+
+00:0a.0 Ethernet controller: Intel Corp. 82557 [Ethernet Pro 100] (rev 05)
+        Subsystem: Compaq Computer Corporation NC3120
+        Flags: bus master, medium devsel, latency 32, IRQ 10
+        Memory at dd204000 (32-bit, prefetchable) [size=4K]
+        I/O ports at dc00 [size=32]
+        Memory at dd000000 (32-bit, non-prefetchable) [size=1M]
+        Expansion ROM at <unassigned> [disabled] [size=1M]
+        Capabilities: [dc] Power Management version 1
+
+00:0b.0 Multimedia video controller: Brooktree Corporation Bt878 (rev 11)
+        Subsystem: Hauppauge computer works Inc. WinTV/GO
+        Flags: bus master, medium devsel, latency 32, IRQ 9
+        Memory at dd201000 (32-bit, prefetchable) [size=4K]
+        Capabilities: [44] Vital Product Data
+        Capabilities: [4c] Power Management version 2
+
+00:0b.1 Multimedia controller: Brooktree Corporation Bt878 (rev 11)
+        Subsystem: Hauppauge computer works Inc. WinTV/GO
+        Flags: bus master, medium devsel, latency 32, IRQ 9
+        Memory at dd202000 (32-bit, prefetchable) [size=4K]
+        Capabilities: [44] Vital Product Data
+        Capabilities: [4c] Power Management version 2
+
+00:0c.0 Ethernet controller: Intel Corp. 82557 [Ethernet Pro 100] (rev 05)
+        Subsystem: Compaq Computer Corporation NC3120
+        Flags: bus master, medium devsel, latency 32, IRQ 10
+        Memory at dd203000 (32-bit, prefetchable) [size=4K]
+        I/O ports at e000 [size=32]
+        Memory at dd100000 (32-bit, non-prefetchable) [size=1M]
+        Expansion ROM at <unassigned> [disabled] [size=1M]
+        Capabilities: [dc] Power Management version 1
+
+01:00.0 VGA compatible controller: nVidia Corporation Vanta [NV6] (rev 
+15) (prog-if 00 [VGA])
+        Subsystem: Unknown device 17f2:4010
+        Flags: bus master, 66Mhz, medium devsel, latency 248, IRQ 12
+        Memory at da000000 (32-bit, non-prefetchable) [size=16M]
+        Memory at d8000000 (32-bit, prefetchable) [size=32M]
+        Expansion ROM at <unassigned> [disabled] [size=64K]
+        Capabilities: [60] Power Management version 1
+        Capabilities: [44] AGP version 2.0
+
