@@ -1,25 +1,60 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.15.90.0.1 is released
-Date: Wed, 3 Mar 2004 15:13:32 -0800
+Subject: Re: binutils 2.15.90.0.1 doesn't install as.1 man page
+Date: Thu, 4 Mar 2004 09:21:42 -0800
 Sender: gcc-owner@gcc.gnu.org
-Message-ID: <20040303231332.GA8972@lucon.org>
+Message-ID: <20040304172142.GA26034@lucon.org>
+References: <Pine.LNX.4.58.0403032141090.322@pervalidus.dyndns.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-92173-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-92197-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
 List-Help: <http://gcc.gnu.org/ml/>
 Content-Disposition: inline
+In-Reply-To: <Pine.LNX.4.58.0403032141090.322@pervalidus.dyndns.org>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>
+To: "Fr?d?ric L. W. Meunier" <1@pervalidus.net>
+Cc: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>, GNU C Library <libc-alpha@sources.redhat.com>
 
+On Wed, Mar 03, 2004 at 09:44:55PM -0300, Fr?d?ric L. W. Meunier wrote:
+> But it creates it:
+> 
+> -rw-r--r--  1 fredlwm fredlwm 36845 2004-03-03 21:28 as.1
+> 
+> It also happened with 2.14.90.0.8. Attached is my make install
+> log.
+> 
+
+Some generated fils in binutils 2.15.90.0.1 weren't updated. As the
+result, the assembler man page isn't installed. The work around
+requires automake 1.8.2 and autoconf 2.59:
+
+# cd gas
+# aclocal
+# automake --cygnus Makefile
+# automake --cygnus doc/Makefile
+# autoconf
+
+
+H.J.
+---
 This is the beta release of binutils 2.15.90.0.1 for Linux, which is
 based on binutils 2004 0303 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
 Please report any bugs related to binutils 2.15.90.0.1 to hjl@lucon.org.
+
+Some generated fils in binutils 2.15.90.0.1 weren't updated. As the
+result, the assembler man page isn't installed. The work around
+requires automake 1.8.2 and autoconf 2.59:
+
+# cd gas
+# aclocal
+# automake --cygnus Makefile
+# automake --cygnus doc/Makefile
+# autoconf
 
 If you don't use
 
