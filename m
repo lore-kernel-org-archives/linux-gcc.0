@@ -1,45 +1,41 @@
 From: Denis Zaitsev <zzz@anda.ru>
-Subject: Re: [BUG] GCC 3.4.3/x86: -fomit-frame-pointer cause a lot of test failures for libstdc++
-Date: Tue, 28 Dec 2004 09:08:04 +0500
-Message-ID: <20041228090804.F1437@natasha.ward.six>
-References: <20041222084218.A14668@natasha.ward.six> <D23532B5-53CE-11D9-95A4-000A95D692F4@physics.uc.edu>
+Subject: [i386] Why g++ _always_ link an executable with libm.so?
+Date: Wed, 5 Jan 2005 03:01:02 +0500
+Message-ID: <20050105030102.G1437@natasha.ward.six>
 Mime-Version: 1.0
-Return-path: <gcc-return-107177-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-107553-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
 List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Disposition: inline
-In-Reply-To: <D23532B5-53CE-11D9-95A4-000A95D692F4@physics.uc.edu>; from pinskia@physics.uc.edu on Tue, Dec 21, 2004 at 11:06:13PM -0500
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: Andrew Pinski <pinskia@physics.uc.edu>
-Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
+To: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
 
-On Tue, Dec 21, 2004 at 11:06:13PM -0500, Andrew Pinski wrote:
-> 
-> On Dec 21, 2004, at 10:42 PM, Denis Zaitsev wrote:
-> 
-> > I've built GCC with -fomit-frame-pointer and -fno-omit-frame-pointer.
-> > I mean either of these flags is present in both the exported shell
-> > variables CFLAGS and CXXFLAGS and also in the BOOT_CFLAGS variable
-> > from gcc/Makefile.  Both the builds was successfull.  And these are
-> > some results of 'make check':
-> 
-> I would not doubt this is the -fomit-frame-pointer exception handling
-> bug which was fixed in 3.4.4, 3.3.6, and 4.0.0.
-> See PR 17220 and 6764.
+I've found some strange behaviour of g++: if it's used to produce an
+executable, i.e.:
 
-And these are the results for GCC 3.4-20041224:
+        g++ xxx.C -o XXX
 
+then that XXX is linked with libm.so, regardless of the fact that math
+is not used in the program.  Also, libstdc++.so and libgcc_s.so are
+linked too, even though they aren't needed as well.
 
-                === libstdc++ Summary ===
+But if g++ is used to compilation only, and the link stage is done by
+gcc or ld, i.e:
 
-# of expected passes            2373
-# of unexpected failures        357
-# of expected failures          7
+        g++ -c xxx.C -o xxx.o
+        gcc xxx.o -o XXX
 
+then neither of that 3 libs are linked (of course, if they aren't
+needed).
 
-Should I submit the new PR so?
+Why g++ does so?  Is it intentional?  Or how this can be solved?
+
+GCC's in question are the current stable, 20041231 snapshot and all
+the 3.x.x versions, as far as I remember.
+
+Thanks in advance.
