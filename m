@@ -1,60 +1,21 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: Re: binutils 2.15.90.0.1 doesn't install as.1 man page
-Date: Thu, 4 Mar 2004 09:21:42 -0800
-Sender: gcc-owner@gcc.gnu.org
-Message-ID: <20040304172142.GA26034@lucon.org>
-References: <Pine.LNX.4.58.0403032141090.322@pervalidus.dyndns.org>
+Subject: The Linux binutils 2.15.90.0.1.1 is released
+Date: Fri, 5 Mar 2004 18:43:43 -0800
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <20040306024343.GA25402@lucon.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-92197-gcc=m.gmane.org@gcc.gnu.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <Pine.LNX.4.58.0403032141090.322@pervalidus.dyndns.org>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: "Fr?d?ric L. W. Meunier" <1@pervalidus.net>
-Cc: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>, GNU C Library <libc-alpha@sources.redhat.com>
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>
 
-On Wed, Mar 03, 2004 at 09:44:55PM -0300, Fr?d?ric L. W. Meunier wrote:
-> But it creates it:
-> 
-> -rw-r--r--  1 fredlwm fredlwm 36845 2004-03-03 21:28 as.1
-> 
-> It also happened with 2.14.90.0.8. Attached is my make install
-> log.
-> 
-
-Some generated fils in binutils 2.15.90.0.1 weren't updated. As the
-result, the assembler man page isn't installed. The work around
-requires automake 1.8.2 and autoconf 2.59:
-
-# cd gas
-# aclocal
-# automake --cygnus Makefile
-# automake --cygnus doc/Makefile
-# autoconf
-
-
-H.J.
----
-This is the beta release of binutils 2.15.90.0.1 for Linux, which is
+This is the beta release of binutils 2.15.90.0.1.1 for Linux, which is
 based on binutils 2004 0303 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
-Please report any bugs related to binutils 2.15.90.0.1 to hjl@lucon.org.
-
-Some generated fils in binutils 2.15.90.0.1 weren't updated. As the
-result, the assembler man page isn't installed. The work around
-requires automake 1.8.2 and autoconf 2.59:
-
-# cd gas
-# aclocal
-# automake --cygnus Makefile
-# automake --cygnus doc/Makefile
-# autoconf
+Please report any bugs related to binutils 2.15.90.0.1.1 to hjl@lucon.org.
 
 If you don't use
 
@@ -62,6 +23,11 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches.
+
+Changes from binutils 2.15.90.0.1:
+
+1. Fixed an ia64 assembler bug.
+2. Install the assembler man page.
 
 Changes from binutils 2.14.90.0.8:
 
@@ -194,16 +160,16 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.15.90.0.1.tar.bz2. Source code.
-2. binutils-2.14.90.0.8-2.15.90.0.1.diff.bz2. Patch against the
+1. binutils-2.15.90.0.1.1.tar.bz2. Source code.
+2. binutils-2.15.90.0.1-2.15.90.0.1.1.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.15.90.0.1-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
-4. binutils-2.15.90.0.1-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
-5. binutils-2.15.90.0.1-1.x86_64.rpm. X64_64 binary RPM for RedHat EL 3.
+3. binutils-2.15.90.0.1.1-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
+4. binutils-2.15.90.0.1.1-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
+5. binutils-2.15.90.0.1.1-1.x86_64.rpm. X64_64 binary RPM for RedHat EL 3.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.15.90.0.1.tar.bz2
+# rpmbuild -ta binutils-2.15.90.0.1.1.tar.bz2
 
 to create both binary and source rpms.
 
@@ -216,4 +182,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-03/03/2004
+03/05/2004
