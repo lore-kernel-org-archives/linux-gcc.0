@@ -1,184 +1,44 @@
 From: Herbert Poetzl <herbert@13thfloor.at>
-Subject: Kernel Cross Compiling
-Date: Fri, 13 Feb 2004 21:57:43 +0100
-Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <20040213205743.GA30245@MAIL.13thfloor.at>
+Subject: Re: Kernel Cross Compiling
+Date: Fri, 13 Feb 2004 22:44:20 +0100
+Sender: linux-kernel-owner@vger.kernel.org
+Message-ID: <20040213214420.GA32006@MAIL.13thfloor.at>
+References: <20040213205743.GA30245@MAIL.13thfloor.at> <16429.16944.521739.223708@napali.hpl.hp.com>
 Mime-Version: 1.0
-Return-path: <linux-gcc-owner@vger.kernel.org>
+Return-path: <linux-kernel-owner+linux-kernel=40quimby.gnus.org@vger.kernel.org>
 Content-Disposition: inline
+In-Reply-To: <16429.16944.521739.223708@napali.hpl.hp.com>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-kernel@vger.kernel.org
-Cc: linux-gcc@vger.kernel.org
+To: davidm@hpl.hp.com
+Cc: linux-kernel@vger.kernel.org, linux-gcc@vger.kernel.org
 
+On Fri, Feb 13, 2004 at 01:31:28PM -0800, David Mosberger wrote:
+> >>>>> On Fri, 13 Feb 2004 21:57:43 +0100, Herbert Poetzl <herbert@13thfloor.at> said:
+> 
+>   Herbert> I got all headers fixed, except for the ia64, which still
+>   Herbert> doesn't work
+> 
+> Something sounds wrong here. You shouldn't have to patch headers.
+> 
+> A recipe for building ia32->ia64 cross-toolchain on Debian can be
+> found here:
+> 
+>  http://www.gelato.unsw.edu.au/IA64wiki/CrossCompilation
 
-Hi Folks!
+that might work with the ia64 libraries and headers,
+but it seems to fail, with the headers included in
+the gcc tarball, for cross compiling, if you get it
+to compile without (g)libc which should not be required
+to build the crossgcc and the kernel, I would be very
+interested ...
 
-I'm currently investigating the requirements/doability
-of a kernel cross compiling test bed/setup, able to do
-automated kernel builds for different architecture,
-just to see if it compiles and later to verify if a 
-given patch breaks that compile on any of the tested
-archs ...
-
-here a short status, and some issues I ran into so far,
-some of them with solutions, others without, and some
-interesting? observations ...
-
-I would be happy if somebody who has done similar, or
-knows how to do it properly ;) could comment on that,
-and/or point out possible improvements ...
-
-TIA,
+anyway, thanks for the url,
 Herbert
 
-
-1) CROSS COMPILER / TOOLCHAIN
-
-   after reading and testing several cross build and
-   toolchain building howtos, I decided to do it a little 
-   different, because I do not need glibc to compile the 
-   kernel ...
-
-   the result are two .spec files[1], or the commands 
-   used to build an appropriate toolchain ...
-   
-   for the binutils the required commands are:
-
-   	configure  	    	    	    	    	\
-		--disable-nls                           \
-		--prefix=/usr                           \
-		--mandir=/usr/share/man                 \
-		--infodir=/usr/share/info               \
-		--target=${CROSS_ARCH}-linux
-   	make
-   
-   and for the gcc (after the binutils have been
-   installed on the host):
-
-   	configure  	    	    	    	    	\
-		--enable-languages=c			\
-        	--disable-nls                           \
-		--disable-threads			\
-		--disable-shared			\
-		--disable-checking			\
-        	--prefix=/usr                           \
-        	--mandir=/usr/share/man                 \
-        	--infodir=/usr/share/info               \
-        	--target=${CROSS_ARCH}-linux
-   	make  TARGET_LIBGCC2_CFLAGS='-Dinhibit_libc  \
-		-D__gthr_posix_h'
-   
-   where ${CROSS_ARCH} is the target architecture you want
-   to compile the toochain for, in my case, this where one
-   of the following:
-
-   	alpha, hppa, hppa64, i386, ia64, m68k, mips, 
-	mips64, ppc, ppc64, s390, sparc, sparc64, x86_64
-
-  PROBLEMS HERE:
-
-   I decided to use binutils 2.14.90.0.8, and gcc 3.3.2,
-   but soon discovered that gcc-3.3.2 will not be able 
-   to build a cross compiler for some archs like the
-   alpha, ia64, powerpc and even i386 ;) without some
-   modifications[2] but with some help, I got all headers
-   fixed, except for the ia64, which still doesn't work
-
-
-2) KERNEL CROSS COMPILING
-
-   equipped with the cross compiling toolchains for all
-   but one of the architectures mentioned above, I wrote
-   a little script, which basically does nothing else 
-   but compiling a given kernel for all possible archs.
-
-   basically this can be accomplished by doing:
-
-	make ARCH=<arch> CROSS_COMPILE=<arch>-linux-
-
-
-   the first result was harrowing:
-
-				2.4.25-pre  2.6.2-rc
-   ----------------------------------------------------
-	[ARCH alpha/alpha]      succeeded.  succeeded.
-	[ARCH hppa/parisc]      failed.     failed.
-	[ARCH hppa64/parisc]    failed.     failed.
-	[ARCH i386/i386]        succeeded.  succeeded.
-	[ARCH m68k/m68k]        failed.     failed.
-	[ARCH mips/mips]        failed.     failed.
-	[ARCH mips64/mips]      failed.     failed.
-	[ARCH ppc/ppc]          succeeded.  succeeded.
-	[ARCH ppc64/ppc64]      failed.     failed.
-	[ARCH s390/s390]        failed.     failed.
-	[ARCH sparc/sparc]      failed.     succeeded.
-	[ARCH sparc64/sparc]    failed.     failed.
-	[ARCH x86_64/x86_64]    failed.     succeeded.
-
-   so only alpha, i386 and ppc did work on the first run.
-
-   what I discovered was, that there IS a big difference
-   between an empty .config file and a non exististing 
-   one, where latter allowed the make oldconfig to work
-   similar to the make defaultconfig available on 2.6,
-   and added some archs (see [3] for details)
-
-  PROBLEMS & SOLUTIONS HERE:
-
-   ppc64: 
-	CROSS32_COMPILE=ppc-linux-  
-	is needed to make this work as expected.
-
-   hppa/hppa64: 
-	seems not to compile without using a very big
-	patch, which changes a lot inside the kernel
-
-   mips/mips64:
-	seem to use the 'obsoleted' -mcpu= option
-	which results in a cc1: error: invalid option 
-	`cpu=<cpu-here>'
-
-   m68k:
-	fails with a hundred errors in the includes
-
-
-3) CONCLUSIONS
-
-   it seems that recent kernels (2.4 and 2.6) do not support
-   most of the architectures they contain without heavy
-   patching (haven't tested for arm, sh3/4, ...)
-
-   building cross compiler toolchains isn't that often done
-   otherwise it would not require such modifications, and
-   the documentation would be up to date ...
-
-   it seems that with some minor patches and kernel tweaks
-   an automated build is in reach, although some archs seem
-   to break from one release to the other ...
-
-   the non mainline branches, if they exist are some kernel
-   versions behind the current mainstream kernel, which 
-   might not mean anything ...
-
-
-4) LINKS & REFERENCES
-
-   [1]	http://vserver.13thfloor.at/Stuff/Cross/binutils-cross.spec
-	http://vserver.13thfloor.at/Stuff/Cross/gcc-cross.spec
-
-   [2]  http://vserver.13thfloor.at/Stuff/Cross/
-		gcc-3.3.2-cross-alpha-fix.diff.bz2
-		gcc-3.3.2-cross-i386-fix.diff.bz2
-		gcc-3.3.2-cross-ia64-fix.diff.bz2
-		gcc-3.3.2-cross-powerpc-fix.diff.bz2
-
-   [3]  http://vserver.13thfloor.at/Stuff/Cross/compile.info
-
-   ia64:	http://www.gelato.unsw.edu.au/kerncomp/
-   mips:	http://www.linux-mips.org/kernel.html
-   hppa:	http://www.parisc-linux.org/kernel/index.html
-   ppc64:	http://linuxppc64.org/
-   	
-
+> 	--david
+> -
+> To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
