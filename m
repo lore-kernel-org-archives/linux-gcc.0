@@ -1,30 +1,87 @@
 From: Denis Zaitsev <zzz@anda.ru>
-Subject: Re: [PATCH] GCC 3.4.3: libobjc build failure
-Date: Tue, 21 Dec 2004 04:14:30 +0500
-Message-ID: <20041221041429.B13027@natasha.ward.six>
-References: <20041221023548.A8330@natasha.ward.six> <81947436-52CF-11D9-9FB0-000A95D692F4@physics.uc.edu> <20041221024810.B8330@natasha.ward.six> <A336BC32-52D1-11D9-9FB0-000A95D692F4@physics.uc.edu> <047968C8-52D3-11D9-9FB0-000A95D692F4@physics.uc.edu> <20041221032621.D8330@natasha.ward.six> <0E23C1A3-52D7-11D9-9FB0-000A95D692F4@physics.uc.edu> <20041221034637.A13027@natasha.ward.six> <3D452AB0-52D9-11D9-9FB0-000A95D692F4@physics.uc.edu>
+Subject: [BUG] GCC 3.4.3/x86: -fomit-frame-pointer cause a lot of test failures for libstdc++
+Date: Wed, 22 Dec 2004 08:42:19 +0500
+Message-ID: <20041222084218.A14668@natasha.ward.six>
 Mime-Version: 1.0
-Return-path: <gcc-return-106916-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-106999-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
 List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Disposition: inline
-In-Reply-To: <3D452AB0-52D9-11D9-9FB0-000A95D692F4@physics.uc.edu>; from pinskia@physics.uc.edu on Mon, Dec 20, 2004 at 05:48:17PM -0500
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: Andrew Pinski <pinskia@physics.uc.edu>
-Cc: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, gcc-patches@gcc.gnu.org, Zack Weinberg <zack@codesourcery.com>
+To: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
 
-On Mon, Dec 20, 2004 at 05:48:17PM -0500, Andrew Pinski wrote:
-> 
-> On Dec 20, 2004, at 5:46 PM, Denis Zaitsev wrote:
-> 
-> > Ok.  Does it means that something alike should be applied for the
-> > files, which are including coretypes.h and tm.h for now?
-> 
-> Those are more complex and will not be fixed until 4.1.
+I've built GCC with -fomit-frame-pointer and -fno-omit-frame-pointer.
+I mean either of these flags is present in both the exported shell
+variables CFLAGS and CXXFLAGS and also in the BOOT_CFLAGS variable
+from gcc/Makefile.  Both the builds was successfull.  And these are
+some results of 'make check':
 
-Ok.  Thanks.
+
+-fno-omit-frame-pointer:
+
+                === libstdc++ Summary ===
+
+# of expected passes            2720
+# of unexpected failures        1
+# of unexpected successes       1
+# of expected failures          6
+
+
+-fomit-frame-pointer:
+
+                === libstdc++ Summary ===
+
+# of expected passes            2364
+# of unexpected failures        357
+# of expected failures          7
+
+
+So, the difference seems to be just huge.  Does it mean some serious
+problems GCC has in the hard-fp-less area for x86?  (BTW, it
+traditionally has some...)  The tests results for gcc and g++ are
+different too, but that differencies are just miserable compared with
+those listed.
+
+Other details about the build and check environment:
+
+CFLAGS, CXXFLAGS, BOOT_CFLAGS:
+
+        -pipe
+        -O3
+        -fno-strength-reduce
+        -fno-inline-functions
+        -fno-align-functions
+        -fno-align-loops
+        -fno-align-jumps
+        -fno-ident
+        -f[no]omit-frame-pointer
+        -D__USE_STRING_INLINES
+        -mpreferred-stack-boundary=2
+
+configure's args:
+
+        --enable-shared
+        --enable-static
+        --disable-debug
+        --disable-profile
+        --disable-nls
+        --disable-libtool-lock
+        --disable-rpath
+        --disable-largefile
+        --with-gnu-as
+        --with-gnu-ld
+        --enable-threads=posix
+        --enable-__cxa_atexit
+        --enable-languages=c,c++,objc
+        --enable-version-specific-runtime-libs
+        --enable-clocale
+        --enable-objc-gc
+        --disable-checking
+        --with-gc=simple
+        --with-system-zlib
+        --with-tune=pentium
