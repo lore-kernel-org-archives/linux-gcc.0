@@ -1,65 +1,40 @@
-From: John Richard Moser <nigelenki@comcast.net>
-Subject: Objective-C Objects and Locking
-Date: Tue, 06 Jul 2004 15:17:46 -0400
-Sender: linux-gcc-owner@vger.kernel.org
-Message-ID: <40EAFADA.3040807@comcast.net>
+From: Jim Wilson <wilson@specifixinc.com>
+Subject: Re: GCC 3.3.2 -Wall affects the code generated...
+Date: Tue, 06 Jul 2004 13:41:02 -0700
+Sender: gcc-owner@gcc.gnu.org
+Message-ID: <40EB0E5E.4020002@specifixinc.com>
+References: <20040702000303.A797@natasha.ward.six>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Return-path: <linux-gcc-owner@vger.kernel.org>
+Return-path: <gcc-return-98932-gcc=m.gmane.org@gcc.gnu.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"; format="flowed"
-To: linux-c-programming@vger.kernel.org, linux-gcc@vger.kernel.org
+To: Denis Zaitsev <zzz@anda.ru>
+Cc: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
+Denis Zaitsev wrote:
+> header an inline function named strip is defined.  And I found that
+> the object code generated for this function depends of the presence of
+> -Wall in the list of option to GCC.  
 
-I'm writing up my own objective-c framework, something to use in place
-of OpenStep/Cocoa/etc.  So, I'm in complete control of what happens with
-my base object, SVObject (which ironically inherits from Object :).
+This is probably a bug.  This is a small loop that is being complied 
+differently, so this might be a problem with a loop optimizer, or with 
+the basic block reorganizer.  I'd guess we have an uninitialized 
+variable, or some other kind of memory corruption somewhere.  I don't 
+know of any other reason why -Wall would effect the code emitted.
 
-I'm attempting to implement a swizzling subsystem which allows any
-SVObject inheriting object to dynamicly handle swizzle requests safely
-and effectively.  Because I want to work in a threaded environment, I
-need to lock properly.
+We need a testcase to look at this.  The source you provided can not be 
+compiled on its own.  I don't happen to have an x86 GLIBC tree, so I can 
+not easily generate my own testcase.  I tried fixing your testcase to 
+make it compilable, but nothing interesting happens when using 
+gcc-3.3.4.  I suspect that there is a complicated interaction going on 
+here, and we actually need the full input file to reproduce the problem, 
+rather than just the source for the one function that changes.  Or maybe 
+the problem has already been fixed.  I can't tell.
+-- 
+Jim Wilson, GNU Tools Support, http://www.SpecifixInc.com
 
-What I'm thinking is to use a mutex lock around all members that may not
-run during a swizzle and deflect in-swizzle calls to the new swizzle
-master.  The current logic I'm pondering is:
-
-- -(void) someMemberThatIsAffected {
-~  if ([my_swizzle_lock tryReadLock]) { /*Can we lock?*/
-~    /*
-~     * We couldn't lock, so we wait for the swizzle lock to become
-~     * unlocked, then send the message to whatever swizzled us.
-~     */
-~    [my_swizzle_lock readLock];
-~    [my_swizzle_master someMemberThatIsAffected];
-~  }
-~  else { /*Or we just complete*/
-~    ...
-~  }
-~  [my_swizzle_lock unlock];
-}
-
-A swizzle would -writeLock my_swizzle_lock, so this would detect the lock.
-
-Here's the issue I have:  Looking at this logic, if the entire swizzle
-is done between the actual message passing call and the -tryReadLock,
-which is quite plausible in an SMP situation, this will fail to detect.
-~ Also, the new object may want to pass messages down to this object, so
-I can't just feed all messages upwards.
-
-I don't want to abandon the idea of supplying simplistic swizzling;
-however, I would have to detect in-progress swizzles reliably.  I can't
-think of anything to atomicize, and don't know how to make chunks of
-code atomic anyway.
-
-Any thoughts?
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.2.4 (GNU/Linux)
-Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
-
-iD8DBQFA6vrZhDd4aOud5P8RAqioAKCOswm5y2OM0ShzROOXvR5R2BEC6QCfW6hQ
-Sf/+aJXpdPUkBDsmq3zcJig=
-=PyRP
------END PGP SIGNATURE-----
