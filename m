@@ -1,28 +1,45 @@
 From: Denis Zaitsev <zzz@anda.ru>
-Subject: Re: [BUG] GCC 3.4-20041224: __attribute__ ((regparm)) misbehaviour
-Date: Tue, 28 Dec 2004 09:04:56 +0500
-Message-ID: <20041228090455.E1437@natasha.ward.six>
-References: <20041228084407.C1437@natasha.ward.six> <83F66334-5883-11D9-9D38-000A95D692F4@physics.uc.edu> <20041228085429.D1437@natasha.ward.six> <8AE8722D-5884-11D9-9D38-000A95D692F4@physics.uc.edu>
+Subject: Re: [BUG] GCC 3.4.3/x86: -fomit-frame-pointer cause a lot of test failures for libstdc++
+Date: Tue, 28 Dec 2004 09:08:04 +0500
+Message-ID: <20041228090804.F1437@natasha.ward.six>
+References: <20041222084218.A14668@natasha.ward.six> <D23532B5-53CE-11D9-95A4-000A95D692F4@physics.uc.edu>
 Mime-Version: 1.0
-Return-path: <gcc-return-107175-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-107177-gcc=m.gmane.org@gcc.gnu.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
 List-Post: <mailto:gcc@gcc.gnu.org>
 List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Disposition: inline
-In-Reply-To: <8AE8722D-5884-11D9-9D38-000A95D692F4@physics.uc.edu>; from pinskia@physics.uc.edu on Mon, Dec 27, 2004 at 10:57:07PM -0500
+In-Reply-To: <D23532B5-53CE-11D9-95A4-000A95D692F4@physics.uc.edu>; from pinskia@physics.uc.edu on Tue, Dec 21, 2004 at 11:06:13PM -0500
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: Andrew Pinski <pinskia@physics.uc.edu>
 Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org
 
-On Mon, Dec 27, 2004 at 10:57:07PM -0500, Andrew Pinski wrote:
+On Tue, Dec 21, 2004 at 11:06:13PM -0500, Andrew Pinski wrote:
 > 
-> On Dec 27, 2004, at 10:54 PM, Denis Zaitsev wrote:
+> On Dec 21, 2004, at 10:42 PM, Denis Zaitsev wrote:
 > 
-> > Hmm...  Is it regparm-only related?  And is it something new though?
-> > GCC 3.3.x doesnt show this behaviour.
+> > I've built GCC with -fomit-frame-pointer and -fno-omit-frame-pointer.
+> > I mean either of these flags is present in both the exported shell
+> > variables CFLAGS and CXXFLAGS and also in the BOOT_CFLAGS variable
+> > from gcc/Makefile.  Both the builds was successfull.  And these are
+> > some results of 'make check':
+> 
+> I would not doubt this is the -fomit-frame-pointer exception handling
+> bug which was fixed in 3.4.4, 3.3.6, and 4.0.0.
+> See PR 17220 and 6764.
 
-Ok, thanks.
+And these are the results for GCC 3.4-20041224:
+
+
+                === libstdc++ Summary ===
+
+# of expected passes            2373
+# of unexpected failures        357
+# of expected failures          7
+
+
+Should I submit the new PR so?
