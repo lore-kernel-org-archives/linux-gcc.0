@@ -1,171 +1,37 @@
-From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.14.90.0.8 is released
-Date: Wed, 14 Jan 2004 14:30:04 -0800
-Sender: gcc-owner@gcc.gnu.org
-Message-ID: <20040114223004.GA6313@lucon.org>
+From: "Angelita Sherwood" <m0lxtstych@ahottieiswhatiwant.com>
+Subject: Adventure Awaits  Linux-admin
+Date: Thu, 22 Jan 04 03:39:10 -0500
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <4q$0-1m5--oi5bgo__29950.1445996158$1074725075@2bw64z>
+Reply-To: "Angelita Sherwood" <m0lxtstych@ahottieiswhatiwant.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-88941-gcc=m.gmane.org@gcc.gnu.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Content-Disposition: inline
+Content-Type: multipart/alternative;
+	boundary="10C7.E2.8B"
+Return-path: <linux-gcc-owner@vger.kernel.org>
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@realitydiluted.com>
-
-This is the beta release of binutils 2.14.90.0.8 for Linux, which is
-based on binutils 2004 0114 in CVS on sources.redhat.com plus various
-changes. It is purely for Linux.
-
-Please report any bugs related to binutils 2.14.90.0.8 to hjl@lucon.org.
-
-If you don't use
-
-# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
-
-to compile the Linux binutils, please read patches/README in source
-tree to apply Linux patches.
-
-Changes from binutils 2.14.90.0.7:
-
-1. Update from binutils 2004 0114.
-2. Fixed an ia64 assembler unwind table bug. 
-3. Better handle IPF linker relaxation overflow.
-4. Fixed misc PPC bugs.
-
-Changes from binutils 2.14.90.0.6:
-
-1. Update from binutils 2003 1029.
-2. Allow type changes for undefined symbols.
-3. Fix EH frame optimization.
-4. Fix the check for undefined versioned symbol with wildcard.
-5. Support generating code for Itanium.
-6. Detect and warn bad symbol index.
-7. Update IPF assemebler DV check.
-
-Changes from binutils 2.14.90.0.5:
-
-1. Update from binutils 2003 0820.
-2. No longer use section names for ELF section types nor flags.
-3. Fix some ELF/IA64 linker bugs.
-4. Fix some ELF/ppc bugs.
-5. Add archive support to readelf.
-
-Changes from binutils 2.14.90.0.4.1:
-
-1. Update from binutils 2003 0722.
-2. Fix an ELF/mips linker bug.
-3. Fix an ELF/hpppa linker bug.
-4. Fix an ELF/ia64 assembler bug.
-5. Fix a linkonce support with C++ debug.
-6. A new working C++ demangler.
-7. Various alpha, mips, ia64, ... bug fixes.
-8. Support for the current gcc and glibc.
-
-Changes from binutils 2.14.90.0.4:
- 
-1. Fix an ia64 assembler hint@pause bug.
-2. Support Intel Precott New Instructions.
-
-Changes from binutils 2.14.90.0.3:
-
-1. Work around the brain dead libtool.
-
-Changes from binutils 2.14.90.0.2:
-
-1. Update from binutils 2003 0523.
-2. Fix 2 ELF visibility bugs.
-3. Fix ELF/ppc linker bugs.
-
-Changes from binutils 2.14.90.0.1:
-
-1. Update from binutils 2003 0515.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Add more IAS compatibilities to ia64 assembler.
-
-Changes from binutils 2.13.90.0.20:
-
-1. Update from binutils 2003 0505.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Fix some ia64 assembler bugs.
-5. Add some IAS compatibilities to ia64 assembler.
-6. Fix ELF common symbol alignment.
-7. Fix ELF weak symbol handling.
-
-Changes from binutils 2.13.90.0.18:
-
-1. Update from binutils 2003 0319.
-2. Fix an ia64 linker brl relaxation bug.
-3. Fix some ELF/ppc linker bugs.
-
-Changes from binutils 2.13.90.0.16:
-
-1. Update from binutils 2003 0121.
-2. Fix an ia64 gas bug.
-3. Fix some TLS bugs.
-4. Fix some ELF/ppc bugs.
-5. Fix an ELF/m68k bug.
-
-2. Include /usr/bin/c++filt.
-Changes from binutils 2.13.90.0.14:
-
-1. Update from binutils 2002 1126.
-2. Include /usr/bin/c++filt.
-3. Fix "ld -r" with execption handling.
-
-Changes from binutils 2.13.90.0.10:
-
-1. Update from binutils 2002 1114.
-2. Fix ELF/alpha bugs.
-3. Fix an ELF/i386 assembler bug.
-
-Changes from binutils 2.13.90.0.4:
-
-1. Update from binutils 2002 1010.
-2. More ELF/PPC linker bug fixes.
-3. Fix an ELF/alpha linker bug.
-4. Fix an ELF/sparc linker bug to support Solaris.
-5. More TLS updates.
-
-Changes from binutils 2.13.90.0.3:
-
-1. Update from binutils 2002 0814.
-2. Fix symbol versioning bugs for gcc 3.2.
-3. Fix mips gas.
-
-Changes from binutils 2.13.90.0.2:
-
-1. Update from binutils 2002 0809.
-2. Fix a mips gas compatibility bug.
-3. Fix an x86 TLS bfd bug.
-4. Fix an x86 PIC gas bug.
-5. Improve symbol versioning support.
-
-The file list:
-
-1. binutils-2.14.90.0.8.tar.gz. Source code.
-2. binutils-2.14.90.0.7-2.14.90.0.8.diff.gz. Patch against the
-   previous beta source code.
-3. binutils-2.14.90.0.8-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
-4. binutils-2.14.90.0.8-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
-
-There is no separate source rpm. You can do
-
-# rpmbuild -ta binutils-2.14.90.0.8.tar.gz
-
-to create both binary and source rpms.
-
-The primary sites for the beta Linux binutils are:
-
-1. http://www.kernel.org/pub/linux/devel/binutils/
-
-Thanks.
+To: linux-admin@vger.kernel.org
 
 
-H.J. Lu
-hjl@lucon.org
-01/14/2004
+--10C7.E2.8B
+Content-Type: text/plain;
+Content-Transfer-Encoding: quoted-printable
+
+A mutual friend believes that you two belong together and has set up a
+meeting.
+
+Click here to accept the invitation:
+http://ahottieiswhatiwant.com/confirm/?oc=3D53038=
+883
+
+
+The FREE dating web site CREATED BY WOMEN
+
+
+Click here if you do not wish to be invited again:
+http://ahottieiswhatiwant.com/remove/?oc=3D53035=
+432
+
+accustom
+
+--10C7.E2.8B--
+
