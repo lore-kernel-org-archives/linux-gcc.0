@@ -1,22 +1,34 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.14.90.0.2 is released
-Date: Fri, 16 May 2003 08:05:44 -0700
-Sender: linux-mips-bounce@linux-mips.org
-Message-ID: <20030516080544.A30912@lucon.org>
+Subject: The Linux binutils 2.14.90.0.3 is released
+Date: Fri, 23 May 2003 11:53:39 -0700
+Sender: linux-gcc-owner@vger.kernel.org
+Message-ID: <20030523115339.A4699@lucon.org>
 Mime-Version: 1.0
-Return-path: <linux-mips-bounce@linux-mips.org>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
-Errors-to: linux-mips-bounce@linux-mips.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ron Guilmette <rfg@monkeys.com>, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, Leonard Zubkoff <lnz@dandelion.com>, "Steven J. Hill" <sjhill@cotw.com>
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Kenneth Albanowski <kjahds@kjahds.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ron Guilmette <rfg@monkeys.com>, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, "Steven J. Hill" <sjhill@cotw.com>
 
-This is the beta release of binutils 2.14.90.0.2 for Linux, which is
-based on binutils 2003 0515 in CVS on sourecs.redhat.com plus various
+This is the beta release of binutils 2.14.90.0.3 for Linux, which is
+based on binutils 2003 0523 in CVS on sourecs.redhat.com plus various
 changes. It is purely for Linux.
 
-Please report any bugs related to binutils 2.14.90.0.2 to hjl@lucon.org.
+Please report any bugs related to binutils 2.14.90.0.3 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
 
 Changes from binutils 2.14.90.0.1:
 
@@ -86,15 +98,15 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.14.90.0.2.tar.gz. Source code.
-2. binutils-2.14.90.0.1-2.14.90.0.2.diff.gz. Patch against the
+1. binutils-2.14.90.0.3.tar.gz. Source code.
+2. binutils-2.14.90.0.2-2.14.90.0.3.diff.gz. Patch against the
    previous beta source code.
-3. binutils-2.14.90.0.2-1.i386.rpm. IA-32 binary RPM for RedHat 9.
-4. binutils-2.14.90.0.2-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+3. binutils-2.14.90.0.3-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.3-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
 
 There is no separate source rpm. You can do
 
-# rpm -ta binutils-2.14.90.0.2.tar.gz
+# rpm -ta binutils-2.14.90.0.3.tar.gz
 
 to create both binary and source rpms.
 
@@ -107,5 +119,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-05/16/2003
-
+05/23/2003
