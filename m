@@ -1,30 +1,36 @@
 From: Andrew Pinski <pinskia@physics.uc.edu>
 Subject: Re: [i386] Why g++ _always_ link an executable with libm.so?
-Date: Wed, 5 Jan 2005 17:30:46 -0500
-Message-ID: <715D33AB-5F69-11D9-A9D4-000A95D692F4@physics.uc.edu>
-References: <20050105030102.G1437@natasha.ward.six> <20050104220523.GA24316@nevyn.them.org> <20050105031847.H1437@natasha.ward.six> <m3u0pwq13m.fsf@uniton.integrable-solutions.net> <20050105035915.I1437@natasha.ward.six> <m3hdlwpv5h.fsf@uniton.integrable-solutions.net> <20050106032545.L1437@natasha.ward.six>
+Date: Wed, 5 Jan 2005 17:32:08 -0500
+Message-ID: <A26ECCB8-5F69-11D9-A9D4-000A95D692F4@physics.uc.edu>
+References: <20050105030102.G1437@natasha.ward.six> <20050104220523.GA24316@nevyn.them.org> <20050105031847.H1437@natasha.ward.six> <m3u0pwq13m.fsf@uniton.integrable-solutions.net> <20050105035915.I1437@natasha.ward.six> <51D8FCE4-5EA5-11D9-9A04-000A95D692F4@physics.uc.edu> <pan.2005.01.05.17.14.24.807180@navi.cx> <9AA708C4-5F46-11D9-A9D4-000A95D692F4@physics.uc.edu> <20050106030954.K1437@natasha.ward.six> <6D7AEFE6-5F67-11D9-A9D4-000A95D692F4@physics.uc.edu> <20050106033003.M1437@natasha.ward.six>
 Mime-Version: 1.0 (Apple Message framework v619)
 Content-Transfer-Encoding: 7bit
 Return-path: <linux-gcc-owner@vger.kernel.org>
-In-Reply-To: <20050106032545.L1437@natasha.ward.six>
+In-Reply-To: <20050106033003.M1437@natasha.ward.six>
 Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"; format="flowed"
 To: Denis Zaitsev <zzz@anda.ru>
-Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org, Gabriel Dos Reis <gdr@integrable-solutions.net>
+Cc: gcc@gcc.gnu.org, linux-gcc@vger.kernel.org, Mike Hearn <mike@navi.cx>
 
 
-On Jan 5, 2005, at 5:25 PM, Denis Zaitsev wrote:
-> But then another question: if libstdc++ itself has libm in its NEEDED
-> list, why the whole app having libstdc++ in its NEEDED list is forced
-> (by the linker?) to have libm there too?  While the app itself never
-> really needs that libm?
+On Jan 5, 2005, at 5:30 PM, Denis Zaitsev wrote:
 
-Because that is not the way it should work.  If it works that way it is
-just plainly wrong really.  All libraries which are needed by a shared
-library should be listed, otherwise you get undefined behavior on
-when libraries get initialized.  This has been discussed before,
-go look it up.
+> On Wed, Jan 05, 2005 at 05:16:20PM -0500, Andrew Pinski wrote:
+>>
+>> On Jan 5, 2005, at 5:09 PM, Denis Zaitsev wrote:
+>>
+>>> Ok.  But the question in general is not about that.  It is not a
+>>> problem that libm is NEEDED by libstdc++, but why this NEEDED leads 
+>>> to
+>>> the same NEEDED for the app?  Isn't the first depndency enough?
+>>
+>> No, because some of libstdc++ code is in the headers, on some targets
+>> have two level namespaces which causes this to be rejected.
+>
+> Sorry, what to be rejected?
+
+Aka you get link errors.
 
 -- Pinski
 
