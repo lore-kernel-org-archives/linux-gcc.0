@@ -1,30 +1,36 @@
-From: Erik Mouw <erik@harddisk-recovery.com>
-Subject: Re: [Crosspost] GNU/Linux userland?
-Date: Wed, 13 Apr 2005 18:04:00 +0200
-Message-ID: <20050413160400.GF13178@harddisk-recovery.com>
-References: <425D75AF.7080802@gmx.de>
+From: Nickolay <nickolay@protei.ru>
+Subject: initrd support in 2.6 kernel
+Date: Wed, 13 Apr 2005 21:33:54 +0400
+Message-ID: <425D5802.3040200@protei.ru>
 Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-gcc-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <425D75AF.7080802@gmx.de>
 Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-To: Oliver Korpilla <Oliver.Korpilla@gmx.de>
-Cc: debian-kernel@lists.debian.org, debian-toolchain@lists.debian.org, linux-gcc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"; format="flowed"
+To: linux-gcc@vger.kernel.org
 
-On Wed, Apr 13, 2005 at 09:40:31PM +0200, Oliver Korpilla wrote:
-> I wondered if there is a project or setup that does allow me to build a 
-> GNU/Linux userland including kernel, build environment, basic tools with 
-> a single script just as you can in NetBSD (build.sh) or FreeBSD (make 
-> world).
+Hallo Guys!
 
-Try uclibc buildroot, see http://www.uclibc.org/toolchains.html .
+I has initrd, that nice loaded by all 2.4 kernels.
+But 2.6.9 kernel has some difference in loading initrd(as i discovered).
+This warning produced by kernel on boot:
+
+...SKIP...
+Kernel command line: console=ttyS0,115200 root=/dev/ram0 
+initrd=0x00800000,32M
+...SKIP...
+checking if image is initramfs...it isn't (ungzip failed); looks like an 
+initrd
+Freeing initrd memory: 32768K
+... SKIP...
+RAMDISK driver initialized: 16 RAM disks of 32768K size 1024 blocksize
+...SKIP...
+RAMDISK: Couldn't find valid RAM disk image starting at 0.
+Kernel panic - not syncing: VFS: Unable to mount root fs on 
+unknown-block(1,0)
 
 
-Erik
+Maybe troubles in kernel command line? But this command line work fine 
+on 2.4 kernels.
 
--- 
-+-- Erik Mouw -- www.harddisk-recovery.com -- +31 70 370 12 90 --
-| Lab address: Delftechpark 26, 2628 XH, Delft, The Netherlands
