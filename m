@@ -1,29 +1,62 @@
-From: Manaswini Sawant <manaswini@gmail.com>
-Subject: using one library within another
-Date: Tue, 17 May 2005 12:58:15 -0700
-Message-ID: <428A4CD7.9080101@gmail.com>
-Reply-To: manaswini@gmail.com
+From: Charlie Zender <zender@uci.edu>
+Subject: Which -march/tune flags for Xeon processor?
+Date: Wed, 08 Jun 2005 21:17:41 -0700
+Message-ID: <d88fkt$367$1@sea.gmane.org>
+Reply-To: zender@uci.edu
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"; format="flowed"
-To: linux-c-programming@vger.kernel.org, linux-gcc@vger.kernel.org
+To: linux-gcc@vger.kernel.org
 
-I have libP.so (source and all) and libQ.so (no such luck).
-libP redefines some standard libc functionality.
-I need to link libQ.so and the object files for libP.so to form one
-common libPQ.so.
+Hi,
 
-Now I would like libP object files to use stuff found within libQ.so
-but would like libQ.so to use the standard libc functions instead of
-using the redefined libP ones.
+I have a dual Intel Xeon workstation which I want to tune for GCC.
+What -march and -mtune flags should I call GCC with to optimize 
+performance? None of the simpleton options that I recognize (pentium2,
+pentium3, etc.) appear to recognize the chip's "Xeon" nature.
+So here's is the /proc/cpuinfo and any help would be appreciated.
 
-When I mash them together into libPQ.so, libP calls the libQ functions
-as required but libQ calls the libP versions instead of the standard
-libc ones.
+Thanks,
+Charlie
 
-Is this possible? Are there some ld flags that can do this?
-Thanks in advance,
-~Manaswini.
+zender@soot:~/nco/bld$ more /proc/cpuinfo
+processor       : 0
+vendor_id       : GenuineIntel
+cpu family      : 15
+model           : 2
+model name      : Intel(R) Xeon(TM) CPU 2.80GHz
+stepping        : 7
+cpu MHz         : 2791.996
+cache size      : 512 KB
+physical id     : 0
+siblings        : 2
+fdiv_bug        : no
+hlt_bug         : no
+f00f_bug        : no
+coma_bug        : no
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 2
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic mtrr pge mca 
+cmov pat pse36 clflush d
+ts acpi mmx fxsr sse sse2 ss ht tm pbe cid
+bogomips        : 5521.40
+
+processor       : 1
+vendor_id       : GenuineIntel
+cpu family      : 15
+model           : 2
+model name      : Intel(R) Xeon(TM) CPU 2.80GHz
+stepping        : 7
+cpu MHz         : 2791.996
+cache size      : 512 KB
+physical id     : 0
+
+-- 
+Charlie Zender, surname@uci.edu, Department of Earth System Science
+University of California, Irvine CA 92697-3100. Tel: (949) 824-2987
+
