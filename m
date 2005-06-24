@@ -1,363 +1,152 @@
-From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.16.91.0.1 is released
-Date: Wed, 22 Jun 2005 17:56:41 -0700
-Message-ID: <20050623005641.GA12018@lucon.org>
+From: Jeff.Fellin@rflelect.com
+Subject: Shared Library memory usage question
+Date: Fri, 24 Jun 2005 14:33:03 -0400
+Message-ID: <OFB3A8DFA1.660DB196-ON8525702A.005F931A@teal.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-116280-gcc=m.gmane.org@gcc.gnu.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Sender: gcc-owner@gcc.gnu.org
-Content-Disposition: inline
+Return-path: <linux-gcc-owner@vger.kernel.org>
+Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, GNU C Library <libc-alpha@sources.redhat.com>
 
-This is the beta release of binutils 2.16.91.0.1 for Linux, which is
-based on binutils 2005 0622 in CVS on sources.redhat.com plus various
-changes. It is purely for Linux.
-
-The new i386/x86_64 assemblers no longer accept instructions for moving
-between a segment register and a 32bit memory location, i.e.,
-
-	movl (%eax),%ds
-	movl %ds,(%eax)
+Sorry if this is the incorrect mailing list for this question. If this
+isn't the correct list, please suggest the correct/better list.
+
+I am trying to use shared libraries in a PPC 405GP Embedded Linux platform.
+I have followed
+the various instructions for creating shared libraries and linking with the
+created shared libraries.
+
+The libraries are created by the following skeleton
+      g++ -fpic -c f.o [ f.cpp | f.c ]
+      g++ -shared -o lib.so *.o
+
+The applications are created by this skeleton
+
+      g++ -c a.o a.cpp
+      g++ -Bdynamic -o a lib.so *.o
+
+When I compare the sizes of the executables I see the expected size
+reductions by eliminating
+the static libraries. The sizes of the shared libraries are comparable to
+the static version.
+
+
+The problem I'm seeing is the amount of memory (SDRAM) in my system has not
+decreased with
+the shared libraries, but has actually decreased.
+
+.HOW can I use shared libraries and decrease the memory space being used by
+the system?
+All suggestions/explanations welcome
+
+The data for one shared library is below.
+
+
+Examining the of  /proc/<pid>/status, I have observed three lines for every
+shared library
+
+The /proc/<pid>/status output for one library is:
+      0ff4c000-0ff50000   r-xp 00000000 1f:04 196    /lib/libNvramAccess.so
+      0ff50000-0ff5c000   ---p 00004000 1f:04 196
+/lib/libNvramAccess.so
+      0ff5c000-0ff61000 rwxp 00000000 1f:04 196    /lib/libNvramAccess.so
+
+If  I'm intepreting the output of status it indicates one section of the
+library is loaded twice
+with different sizes. The first line shows 0x4000 bytes, and the third
+shows 0x5000 bytes
+Also the size of the second line shows the data/bss space is c000 bytes,
+which is larger
+than the entire shared library text and data!
+
+
+The output of size /lib/NvramAccess.so
+   text        data         bss         dec         hex     filename
+  15411        2280         353       18044        467c
+libNvramAccess.so
+
+The output of dump/objdump for the shared library table shows:
+
+
+libNvramAccess.so:     file format elf32-powerpc
+libNvramAccess.so
+architecture: powerpc:common, flags 0x00000150:
+HAS_SYMS, DYNAMIC, D_PAGED
+start address 0x00001920
+
+Program Header:
+    LOAD off    0x00000000 vaddr 0x00000000 paddr 0x00000000 align 2**16
+         filesz 0x00003b00 memsz 0x00003b00 flags r-x
+    LOAD off    0x00003b00 vaddr 0x00013b00 paddr 0x00013b00 align 2**16
+         filesz 0x00000960 memsz 0x00000c14 flags rwx
+ DYNAMIC off    0x00004334 vaddr 0x00014334 paddr 0x00014334 align 2**2
+         filesz 0x00000098 memsz 0x00000098 flags rw-
+
+Dynamic Section:
+  SYMBOLIC    0x0
+  HASH        0x94
+  STRTAB      0xab8
+  SYMTAB      0x3d8
+  STRSZ       0xc03
+  SYMENT      0x10
+  PLTGOT      0x14464
+  PLTRELSZ    0x108
+  PLTREL      0x7
+  JMPREL      0x1818
+  RELA        0x16bc
+  RELASZ      0x264
+  RELAENT     0xc
+  RELACOUNT   0x1c
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .hash         00000344  00000094  00000094  00000094  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .dynsym       000006e0  000003d8  000003d8  000003d8  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .dynstr       00000c03  00000ab8  00000ab8  00000ab8  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .rela.dyn     0000015c  000016bc  000016bc  000016bc  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  4 .rela.plt     00000108  00001818  00001818  00001818  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  5 .text         00001ed8  00001920  00001920  00001920  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  6 .rodata       00000308  000037f8  000037f8  000037f8  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  7 .data         000000d0  00013b00  00013b00  00003b00  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  8 .eh_frame     00000764  00013bd0  00013bd0  00003bd0  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .dynamic      00000098  00014334  00014334  00004334  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+ 10 .ctors        00000004  000143cc  000143cc  000043cc  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+ 11 .dtors        00000004  000143d0  000143d0  000043d0  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+ 12 .got          00000078  000143d4  000143d4  000043d4  2**2
+                  CONTENTS, ALLOC, LOAD, CODE
+ 13 .sdata2       00000000  0001444c  0001444c  0000444c  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 14 .sdata        00000014  0001444c  0001444c  0000444c  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+ 15 .sbss         00000001  00014460  00014460  00004460  2**0
+                  ALLOC
+ 16 .plt          00000150  00014464  00014464  00004463  2**2
+                  ALLOC, CODE
+ 17 .bss          00000160  000145b4  000145b4  00004463  2**2
+                  ALLOC
+ 18 .comment      00000010  00000000  00000000  00004463  2**0
+                  CONTENTS, READONLY
+
+
+
+
+
+Jeff Fellin
+RFL Electronics
+Jeff.Fellin@rflelect.com
+973 334-3100, x 327
 
-To generate instructions for moving between a segment register and a
-16bit memory location without the 16bit operand size prefix, 0x66,
-
-	mov (%eax),%ds
-	mov %ds,(%eax)
-
-should be used. It will work with both new and old assemblers. The
-assembler starting from 2.16.90.0.1 will also support
-
-	movw (%eax),%ds
-	movw %ds,(%eax)
-
-without the 0x66 prefix. Patches for 2.4 and 2.6 Linux kernels are
-available at
-
-http://www.kernel.org/pub/linux/devel/binutils/linux-2.4-seg-4.patch
-http://www.kernel.org/pub/linux/devel/binutils/linux-2.6-seg-5.patch
-
-The ia64 assembler is now defaulted to tune for Itanium 2 processors.
-To build a kernel for Itanium 1 processors, you will need to add
-
-ifeq ($(CONFIG_ITANIUM),y)
-	CFLAGS += -Wa,-mtune=itanium1
-	AFLAGS += -Wa,-mtune=itanium1
-endif
-
-to arch/ia64/Makefile in your kernel source tree.
-
-Please report any bugs related to binutils 2.16.91.0.1 to hjl@lucon.org
-
-and
-
-http://www.sourceware.org/bugzilla/
-
-If you don't use
-
-# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.bz2
-
-to compile the Linux binutils, please read patches/README in source
-tree to apply Linux patches if there are any.
-
-Changes from binutils 2.16.90.0.3:
-
-1. Update from binutils 2005 0622.
-2. Fix a linker versioning bug exposed by gcc 4 (PR 1022/1023/1025).
-3. Optimize ia64 br->brl relaxation (PR 834).
-4. Improve linker empty section removal.
-5. Fix DWARF 2 line number reporting (PR 990).
-6. Fix DWARF 2 line number reporting regression on assembly file (PR
-1000).
-
-Changes from binutils 2.16.90.0.2:
-
-1. Update from binutils 2005 0510.
-2. Update ia64 assembler to support comdat group section generated by
-gcc 4 (PR 940).
-3. Fix a linker crash on bad input (PR 939).
-4. Fix a sh64 assembler regression (PR 936).
-5. Support linker script on executable (PR 882).
-6. Fix the linker -pie regression (PR 878).
-7. Fix an x86_64 disassembler bug (PR 843).
-8. Fix a PPC linker regression.
-9. Misc speed up.
-
-Changes from binutils 2.16.90.0.1:
-
-1. Update from binutils 2005 0429.
-2. Fix an ELF linker regression (PR 815).
-3. Fix an empty section removal related bug.
-4. Fix an ia64 linker regression (PR 855).
-5. Don't allow local symbol to be equated common/undefined symbols (PR
-857).
-6. Fix the ia64 linker to handle local dynamic symbol error reporting.
-7. Make non-debugging reference to discarded section an error (PR 858).
-8. Support Sparc/TLS.
-9. Support rpm build with newer rpm.
-10. Fix an alpha linker regression.
-11. Fix the non-gcc build regression.
-
-Changes from binutils 2.15.94.0.2.2:
-
-1. Update from binutils 2005 0408.
-2. The i386/x86_64 assemblers no longer accept instructions for moving
-between a segment register and a 32bit memory location.
-3. The x86_64 assembler now allows movq between a segment register and
-a 64bit general purpose register.
-4. 20x Speed up linker for input files with >64K sections.
-5. Properly report ia64 linker relaxation failures.
-6. Support tuning ia64 assembler for Itanium 2 processors.
-7. Linker will remove empty unused output sections.
-8. Add -N to readelf to display full section names.
-9. Fix the ia64 linker to support linkonce text sections without unwind
-sections.
-10. More unwind directive checkings in the ia64 assembler.
-11. Speed up linker with wildcard handling.
-12. Fix readelf to properly dump .debug_ranges and .debug_loc sections.
-
-Changes from binutils 2.15.94.0.2:
-
-1. Fix greater than 64K section support in linker.
-2. Properly handle i386 and x86_64 protected symbols in linker.
-3. Fix readelf for LEB128 on 64bit hosts.
-4. Speed up readelf for section group process.
-5. Include ia64 texinfo pages.
-6. Change ia64 assembler to check hint.b for Montecito.
-7. Improve relaxation failure report in ia64 linker.
-8. Fix ia64 linker to allow relax backward branch in the same section.
-
-Changes from binutils 2.15.94.0.1:
-
-1. Update from binutils 2004 1220.
-2. Fix strip for TLS symbol references.
-
-Changes from binutils 2.15.92.0.2:
-
-1. Update from binutils 2004 1121.
-2. Put ia64 .ctors/.dtors sections next to small data section for
-Intel ia64 compiler.
-3. Fix -Bdynamic/-Bstatic handling for linker script.
-4. Provide more information on relocation overflow.
-5. Add --sort-section to linker.
-6. Support icc 8.1 unwind info in readelf.
-7. Fix the infinite loop bug on bad input in the ia64 assembler.
-8. Fix ia64 SECREL relocation in linker.
-9. Fix a section group memory leak in readelf.
-
-Changes from binutils 2.15.91.0.2:
-
-1. Update from binutils 2004 0927.
-2. Work around a section header bug in Intel ia64 compiler.
-3. Fix an unwind directive bug in the ia64 assembler.
-4. Fix various PPC bugs.
-5. Update ARM support.
-6. Fix an x86-64 linker warning while building Linux kernel.
-
-Changes from binutils 2.15.91.0.1:
-
-1. Update from binutils 2004 0727.
-2. Fix the x86_64 linker to prevent non-PIC code in shared library.
-3. Fix the ia64 linker to warn the relotable files which can't be
-relaxed.
-4. Fix the comdat group support. Allow mix single-member comdat group
-with linkonce section.
-5. Added --add-needed/--no-add-needed options to linker.
-6. Fix the SHF_LINK_ORDER support.
-7. Fix the ia64 assembler for multiple sections with the same name and
-SHT_IA_64_UNWIND sections.
-8. Fix the ia64 assembler for merge section and relaxation.
-
-Changes from binutils 2.15.90.0.3:
-
-1. Update from binutils 2004 0527.
-2. Fix -x auto option in the ia64 assembler.
-3. Add the AR check in the ia64 assembler.
-4. Fix the section group support.
-5. Add a new -z relro linker option.
-6. Fix an exception section placement bug in linker.
-7. Add .serialize.data and .serialize.instruction to the ia64
-assembler.
-
-Changes from binutils 2.15.90.0.2:
-
-1. Update from binutils 2004 0415.
-2. Fix the linker for weak undefined symbol handling.
-3. Fix the ELF/Sparc and ELF/Sparc64 linker for statically linking PIC
-code.
-
-Changes from binutils 2.15.90.0.1.1:
-
-1. Update from binutils 2004 0412.
-2. Add --as-needed/--no-as-needed to linker.
-3. Fix -z defs in linker.
-4. Always reserve the memory for ia64 dynamic linker.
-5. Fix a race condition in ia64 lazy binding.
-
-Changes from binutils 2.15.90.0.1:
-
-1. Fixed an ia64 assembler bug.
-2. Install the assembler man page.
-
-Changes from binutils 2.14.90.0.8:
-
-1. Update from binutils 2004 0303.
-2. Fixed linker for undefined symbols with non-default visibility.
-3. Sped up linker weakdef symbol handling.
-4. Fixed mixing ELF32 and ELF64 object files in archive.
-5. Added ia64 linker brl optimization.
-6. Fixed ia64 linker to disallow invalid dynamic relocations.
-7. Fixed DT_TEXTREL handling in ia64 linker.
-8. Fixed alignment handling in ia64 assembler.
-9. Improved ia64 assembler unwind table handling. 
-
-Changes from binutils 2.14.90.0.7:
-
-1. Update from binutils 2004 0114.
-2. Fixed an ia64 assembler unwind table bug. 
-3. Better handle IPF linker relaxation overflow.
-4. Fixed misc PPC bugs.
-
-Changes from binutils 2.14.90.0.6:
-
-1. Update from binutils 2003 1029.
-2. Allow type changes for undefined symbols.
-3. Fix EH frame optimization.
-4. Fix the check for undefined versioned symbol with wildcard.
-5. Support generating code for Itanium.
-6. Detect and warn bad symbol index.
-7. Update IPF assemebler DV check.
-
-Changes from binutils 2.14.90.0.5:
-
-1. Update from binutils 2003 0820.
-2. No longer use section names for ELF section types nor flags.
-3. Fix some ELF/IA64 linker bugs.
-4. Fix some ELF/ppc bugs.
-5. Add archive support to readelf.
-
-Changes from binutils 2.14.90.0.4.1:
-
-1. Update from binutils 2003 0722.
-2. Fix an ELF/mips linker bug.
-3. Fix an ELF/hpppa linker bug.
-4. Fix an ELF/ia64 assembler bug.
-5. Fix a linkonce support with C++ debug.
-6. A new working C++ demangler.
-7. Various alpha, mips, ia64, ... bug fixes.
-8. Support for the current gcc and glibc.
-
-Changes from binutils 2.14.90.0.4:
- 
-1. Fix an ia64 assembler hint@pause bug.
-2. Support Intel Prescott New Instructions.
-
-Changes from binutils 2.14.90.0.3:
-
-1. Work around the brain dead libtool.
-
-Changes from binutils 2.14.90.0.2:
-
-1. Update from binutils 2003 0523.
-2. Fix 2 ELF visibility bugs.
-3. Fix ELF/ppc linker bugs.
-
-Changes from binutils 2.14.90.0.1:
-
-1. Update from binutils 2003 0515.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Add more IAS compatibilities to ia64 assembler.
-
-Changes from binutils 2.13.90.0.20:
-
-1. Update from binutils 2003 0505.
-2. Fix various ELF visibility bugs.
-3. Fix some ia64 linker bugs.
-4. Fix some ia64 assembler bugs.
-5. Add some IAS compatibilities to ia64 assembler.
-6. Fix ELF common symbol alignment.
-7. Fix ELF weak symbol handling.
-
-Changes from binutils 2.13.90.0.18:
-
-1. Update from binutils 2003 0319.
-2. Fix an ia64 linker brl relaxation bug.
-3. Fix some ELF/ppc linker bugs.
-
-Changes from binutils 2.13.90.0.16:
-
-1. Update from binutils 2003 0121.
-2. Fix an ia64 gas bug.
-3. Fix some TLS bugs.
-4. Fix some ELF/ppc bugs.
-5. Fix an ELF/m68k bug.
-
-2. Include /usr/bin/c++filt.
-Changes from binutils 2.13.90.0.14:
-
-1. Update from binutils 2002 1126.
-2. Include /usr/bin/c++filt.
-3. Fix "ld -r" with execption handling.
-
-Changes from binutils 2.13.90.0.10:
-
-1. Update from binutils 2002 1114.
-2. Fix ELF/alpha bugs.
-3. Fix an ELF/i386 assembler bug.
-
-Changes from binutils 2.13.90.0.4:
-
-1. Update from binutils 2002 1010.
-2. More ELF/PPC linker bug fixes.
-3. Fix an ELF/alpha linker bug.
-4. Fix an ELF/sparc linker bug to support Solaris.
-5. More TLS updates.
-
-Changes from binutils 2.13.90.0.3:
-
-1. Update from binutils 2002 0814.
-2. Fix symbol versioning bugs for gcc 3.2.
-3. Fix mips gas.
-
-Changes from binutils 2.13.90.0.2:
-
-1. Update from binutils 2002 0809.
-2. Fix a mips gas compatibility bug.
-3. Fix an x86 TLS bfd bug.
-4. Fix an x86 PIC gas bug.
-5. Improve symbol versioning support.
-
-The file list:
-
-1. binutils-2.16.91.0.1.tar.bz2. Source code.
-2. binutils-2.16.90.0.3-2.16.91.0.1.diff.bz2. Patch against the
-   previous beta source code.
-3. binutils-2.16.91.0.1-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
-4. binutils-2.16.91.0.1-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
-5. binutils-2.16.91.0.1-1.x86_64.rpm. X64_64 binary RPM for RedHat
-   EL 3.
-
-There is no separate source rpm. You can do
-
-# rpmbuild -ta binutils-2.16.91.0.1.tar.bz2
-
-to create both binary and source rpms.
-
-The primary sites for the beta Linux binutils are:
-
-1. http://www.kernel.org/pub/linux/devel/binutils/
-
-Thanks.
-
-
-H.J. Lu
-hjl@lucon.org
-06/22/2005
