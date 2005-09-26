@@ -1,34 +1,31 @@
-From: "Arun Kumar" <arun.kumar@bhartitelesoft.com>
-Subject: Linking error on Linux platform
-Date: Tue, 13 Sep 2005 14:32:55 +0530
-Message-ID: <EKEBKBBDOANDBLFDCHONEEKMCBAA.arun.kumar@bhartitelesoft.com>
+From: Prasant Gopal <prasant_a@students.iiit.net>
+Subject: Reg. gcc
+Date: Tue, 27 Sep 2005 00:11:08 +0530 (IST)
+Message-ID: <Pine.LNX.4.61.0509270009110.14218@students.iiit.net>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: TEXT/PLAIN; charset="us-ascii"; format="flowed"
+Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org
-
-Hi
-
-We are trying to build a solution on Linux machine but we are getting
-folliwng error while linking. Could you please suggest any solution. Are we
-missing any specific flag pertaining to LINUX?
+Cc: linux-kernel@vger.kernel.org
 
 
-make[1]: Leaving directory `/home/stack/SCU_UGANDA/SRC/LCL/tdftha/tdftha_c'
-gcc -L../../iu/SCU/LIB/hss -L../../iu/SCU/LIB/scu -u sgCfnEncode -u
-sgCfnDecode ./td_sys.o                                     ./libry_td.a
-./libsg_td.a ./libiu_td.a ./libmt_td.a
-./libcm_td.a -lnsl -lpthread -lmp_userif -lisc -lissh -lhsstotrill -ltrillto
-hss  -L/usr/bin/gcc -o scu_lcl
-/usr/bin/ld: relocation error: /usr/bin/ld: undefined symbol:
-xmalloc_set_program_name
-collect2: ld returned 127 exit status
-make: *** [scu_lcl] Error 1
+
+hi ,
+
+           can i hav 2 versions of gcc installed on the same kernel..  If 
+so how...please help me out...
+
+regards,
+prasant gopal
+
+-- 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Regards,
-Arun Kumar
+   Only wimps use tape backup :  _real_men just upload their important
+   stuff on ftp and let the rest of the world mirror it
 
+                                        -- Linus Torvalds
