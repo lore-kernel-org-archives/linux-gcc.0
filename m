@@ -1,45 +1,59 @@
-From: "linux-os \(Dick Johnson\)" <linux-os@analogic.com>
-Subject: Re: Reg. gcc
-Date: Mon, 26 Sep 2005 15:29:12 -0400
-Message-ID: <Pine.LNX.4.61.0509261526010.32371@chaos.analogic.com>
-References: <Pine.LNX.4.61.0509270009110.14218@students.iiit.net>
-Reply-To: "linux-os \(Dick Johnson\)" <linux-os@analogic.com>
+From: Prasant Gopal <prasant_a@students.iiit.net>
+Subject: Reg. Multiple GCC 's
+Date: Fri, 30 Sep 2005 22:07:21 +0530 (IST)
+Message-ID: <Pine.LNX.4.61.0509302202010.10927@students.iiit.net>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7BIT
+Content-Type: MULTIPART/MIXED; BOUNDARY="-1463760860-751089758-1128098241=:10927"
 Return-path: <linux-gcc-owner@vger.kernel.org>
-In-Reply-To: <Pine.LNX.4.61.0509270009110.14218@students.iiit.net>
-Content-class: urn:content-classes:message
 Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-To: Prasant Gopal <prasant_a@students.iiit.net>
-Cc: linux-gcc@vger.kernel.org, linux-kernel@vger.kernel.org
+To: linux-gcc@vger.kernel.org
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+---1463760860-751089758-1128098241=:10927
+Content-Type: TEXT/PLAIN; charset="iso-8859-1"; format="flowed"
+Content-Transfer-Encoding: quoted-printable
 
 
-On Mon, 26 Sep 2005, Prasant Gopal wrote:
+   hi ,
+   i am currently using gcc-4.0.0-8.   i wanted to hav gcc3.3 also.. So, i =
 
->
->
-> hi ,
->
->           can i hav 2 versions of gcc installed on the same kernel..  If
-> so how...please help me out...
->
-> regards,
-> prasant gopal
->
+downloaded the gcc-3.3.tgz fr0m a mirror. i follwed the following steps..
 
-Sure:
+           1. untar into my home directory.
 
- 	http://www.goggle.com/search?hl=en&q=gcc
+           2. ./configure --prefix=3D/usr/local/gcc/3.3
+
+           3. make bootstrap
+
+    & got the following error...
 
 
-Cheers,
-Dick Johnson
-Penguin : Linux version 2.6.13 on an i686 machine (5589.55 BogoMips).
-Warning : 98.36% of all statistics are fiction.
+     ./read-rtl.c: In function =E2=80=98read_rtx=E2=80=99:
+     ./read-rtl.c:653: error: invalid lvalue in increment
+     make[2]: *** [read-rtl.o] Error 1
+     make[2]: Leaving directory `/home/prasant/gcc-3.3/gcc'
+     make[1]: *** [stage1_build] Error 2
+     make[1]: Leaving directory `/home/prasant/gcc-3.3/gcc'
+     make: *** [bootstrap] Error 2
 
-****************************************************************
-The information transmitted in this message is confidential and may be privileged.  Any review, retransmission, dissemination, or other use of this information by persons or entities other than the intended recipient is prohibited.  If you are not the intended recipient, please notify Analogic Corporation immediately - by replying to this message or by sending an email to DeliveryErrors@analogic.com - and destroy all copies of this information, including any attachments, without reading or disclosing them.
 
-Thank you.
+
+    Please _help_ me out...
+
+regards ,
+prasant
+
+
+--=20
+---------------------------------------------------------------------------=
+-----------------------------------------------------------------
+
+
+   Only wimps use tape backup :  _real_men just upload their important
+   stuff on ftp and let the rest of the world mirror it
+
+                                        -- Linus Torvalds
+---1463760860-751089758-1128098241=:10927--
