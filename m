@@ -1,23 +1,19 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.16.91.0.5 is released
-Date: Tue, 20 Dec 2005 14:56:02 -0800
-Message-ID: <20051220225602.GA23429@lucon.org>
+Subject: The Linux binutils 2.16.91.0.6 is released
+Date: Mon, 13 Feb 2006 22:11:07 -0800
+Message-ID: <20060214061107.GA7047@lucon.org>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-18346-glibc-alpha=m.gmane.org@sourceware.org>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
-List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
-List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
-List-Archive: <http://sourceware.org/ml/libc-alpha/>
-List-Post: <mailto:libc-alpha@sourceware.org>
-List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
-Sender: libc-alpha-owner@sourceware.org
+Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org
+To: linux-gcc@vger.kernel.org
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
 
-This is the beta release of binutils 2.16.91.0.5 for Linux, which is
-based on binutils 2005 1219 in CVS on sources.redhat.com plus various
+This is the beta release of binutils 2.16.91.0.6 for Linux, which is
+based on binutils 2006 0212 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
 The new x86_64 assembler no longer accepts
@@ -68,7 +64,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.16.91.0.5 to hjl@lucon.org
+Please report any bugs related to binutils 2.16.91.0.6 to hjl@lucon.org
 
 and
 
@@ -80,6 +76,21 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches if there are any.
+
+Changes from binutils 2.16.91.0.5:
+
+1. Update from binutils 2006 0212.
+2. Correct Linux linker search order for DT_NEEDED entries (PR 2290).
+3. Fix the x86-64 disassembler for control/debug register moves.
+4. Properly handle ELF strip/objcopy with unmodified program header
+(PR 2258).
+5. Improve ELF linker error handling when there are not enough room for
+program headers (PR 2322).
+6. Properly handle weak undefined symbols in PIE (PR 2218).
+7. Support new i386/x86-64 TLS relocations.
+8. Fix addr2line for linux kernel (PR 2096).
+9. Fix an assembler memory leak with --statistics.
+10. Avoid an ia64 assembler regression (PR 2117).
 
 Changes from binutils 2.16.91.0.4:
 
@@ -106,6 +117,7 @@ Changes from binutils 2.16.91.0.3:
 13. Improve linker error handling (PR 1208).
 14. Add new SPARC processors to SunOS for objcopy (PR 1472).
 15. Add "@file" to read options from a file.
+16. Add assembler weakref support.
 
 Changes from binutils 2.16.91.0.2:
 
@@ -398,17 +410,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.16.91.0.5.tar.bz2. Source code.
-2. binutils-2.16.91.0.4-2.16.91.0.5.diff.bz2. Patch against the
+1. binutils-2.16.91.0.6.tar.bz2. Source code.
+2. binutils-2.16.91.0.5-2.16.91.0.6.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.16.91.0.5-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
-4. binutils-2.16.91.0.5-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
-5. binutils-2.16.91.0.5-1.x86_64.rpm. X64_64 binary RPM for RedHat
-   EL 3.
+3. binutils-2.16.91.0.6-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.16.91.0.6-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.16.91.0.6-1.x86_64.rpm. X64_64 binary RPM for RedHat
+   EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.16.91.0.5.tar.bz2
+# rpmbuild -ta binutils-2.16.91.0.6.tar.bz2
 
 to create both binary and source rpms.
 
@@ -421,6 +433,6 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-12/20/2005
+02/13/2006
 Reply-To: 
 
