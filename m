@@ -1,23 +1,18 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.16.91.0.7 is released
-Date: Fri, 17 Mar 2006 17:42:59 -0800
-Message-ID: <20060318014259.GA23067@lucon.org>
+Subject: The Linux binutils 2.17.50.0.1 is released
+Date: Sat, 29 Apr 2006 10:13:34 -0700
+Message-ID: <20060429171334.GA4194@lucon.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-125768-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Sender: gcc-owner@gcc.gnu.org
+Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
 
-This is the beta release of binutils 2.16.91.0.7 for Linux, which is
-based on binutils 2006 0317 in CVS on sources.redhat.com plus various
+This is the beta release of binutils 2.17.50.0.1 for Linux, which is
+based on binutils 2006 0427 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
 The new x86_64 assembler no longer accepts
@@ -68,7 +63,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.16.91.0.7 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.1 to hjl@lucon.org
 
 and
 
@@ -80,6 +75,20 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches if there are any.
+
+Changes from binutils 2.16.91.0.7:
+
+1. Update from binutils 2006 0427.
+2. Fix an objcopy regression (PR 2593).
+3. Reduce ar memory usage (PR 2467).
+4. Allow application specific ELF sections (PR 2537).
+5. Fix an i386 TLS linker bug (PR 2513).
+6. Speed up ia64 linker by 1300X in some cases (PR 2442).
+7. Check illegal immediate register operand in i386 assembler (PR
+2533).
+8. Fix a strings bug (PR 2584).
+9. Better handle corrupted ELF files (PR 2257).
+10. Fix a MIPS linker bug (PR 2267).
 
 Changes from binutils 2.16.91.0.6:
 
@@ -430,17 +439,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.16.91.0.7.tar.bz2. Source code.
-2. binutils-2.16.91.0.6-2.16.91.0.7.diff.bz2. Patch against the
+1. binutils-2.17.50.0.1.tar.bz2. Source code.
+2. binutils-2.16.91.0.7-2.17.50.0.1.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.16.91.0.7-1.i386.rpm. IA-32 binary RPM for RedHat EL 3.
-4. binutils-2.16.91.0.7-1.ia64.rpm. IA-64 binary RPM for RedHat EL 3.
-5. binutils-2.16.91.0.7-1.x86_64.rpm. X64_64 binary RPM for RedHat
-   EL 3.
+3. binutils-2.17.50.0.1-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.1-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.1-1.x86_64.rpm. X64_64 binary RPM for RedHat
+   EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.16.91.0.7.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.1.tar.bz2
 
 to create both binary and source rpms.
 
@@ -453,4 +462,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-03/18/2006
+04/29/2006
