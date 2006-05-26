@@ -1,7 +1,7 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.1 is released
-Date: Sat, 29 Apr 2006 10:13:34 -0700
-Message-ID: <20060429171334.GA4194@lucon.org>
+Subject: The Linux binutils 2.17.50.0.2 is released
+Date: Fri, 26 May 2006 12:25:17 -0700
+Message-ID: <20060526192517.GA24173@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
@@ -9,10 +9,10 @@ Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
 
-This is the beta release of binutils 2.17.50.0.1 for Linux, which is
-based on binutils 2006 0427 in CVS on sources.redhat.com plus various
+This is the beta release of binutils 2.17.50.0.2 for Linux, which is
+based on binutils 2006 0526 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
 The new x86_64 assembler no longer accepts
@@ -63,7 +63,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.1 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.2 to hjl@lucon.org
 
 and
 
@@ -75,6 +75,28 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches if there are any.
+
+Changes from binutils 2.17.50.0.1:
+
+1. Update from binutils 2006 0526.
+2. Change the x86-64 maximum page size to 2MB.
+3. Support --enable-targets=all for 64bit target and host (PR 1485).
+4. Properly update CIE/FDE length and align section for .eh_frame
+section (PR 2655/2657).
+5. Properly handle removed ELF section symbols.
+6. Fix an ELF linker regression introduced on 2006-04-21.
+7. Fix an segfault in PPC ELF linker (PR 2658).
+8. Speed up the ELF linker by caching the result of kept section check.
+9. Properly create stabs section for ELF.
+10. Preserve ELF program header when copying ELF files.
+11. Properly handle ELF SHN_LOPROC/SHN_HIOS when checking section
+index (PR 2607).
+12. Misc mips updates.
+13. Misc arm updates.
+14. Misc xtensa updates.
+15. Fix an alpha assembler warning (PR 2598).
+16. Fix assembler buffer overflow.
+17. Properly disassemble sgdt/sidt for x86-64.
 
 Changes from binutils 2.16.91.0.7:
 
@@ -439,17 +461,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.1.tar.bz2. Source code.
-2. binutils-2.16.91.0.7-2.17.50.0.1.diff.bz2. Patch against the
+1. binutils-2.17.50.0.2.tar.bz2. Source code.
+2. binutils-2.17.50.0.1-2.17.50.0.2.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.1-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.1-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.1-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.2-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.2-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.2-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.1.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.2.tar.bz2
 
 to create both binary and source rpms.
 
@@ -462,4 +484,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-04/29/2006
+05/26/2006
