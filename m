@@ -1,7 +1,7 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.2 is released
-Date: Fri, 26 May 2006 12:25:17 -0700
-Message-ID: <20060526192517.GA24173@lucon.org>
+Subject: The Linux binutils 2.17.50.0.3 is released
+Date: Sat, 15 Jul 2006 15:19:05 -0700
+Message-ID: <20060715221905.GA10293@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
@@ -11,8 +11,9 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
 
-This is the beta release of binutils 2.17.50.0.2 for Linux, which is
-based on binutils 2006 0526 in CVS on sources.redhat.com plus various
+
+This is the beta release of binutils 2.17.50.0.3 for Linux, which is
+based on binutils 2006 0715 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
 The new x86_64 assembler no longer accepts
@@ -63,7 +64,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.2 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.3 to hjl@lucon.org
 
 and
 
@@ -75,6 +76,26 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches if there are any.
+
+Changes from binutils 2.17.50.0.2:
+
+1. Update from binutils 2006 0715.
+2. Add --hash-style to ELF linker with DT_GNU_HASH and SHT_GNU_HASH.
+3. Fix a visibility bug in ELF linker (PR 2884).
+4. Properly fix the i386 TLS linker bug (PR 2513).
+5. Add assembler and dissassembler support for Pentium Pro nops.
+6. Optimize x86 nops for Pentium Pro and above.
+7. Add -march=/-mtune= to x86 assembler.
+8. Fix an ELF linker with TLS common symbols.
+9. Improve program header allocation in ELF linker.
+10. Improve MIPS, M68K and ARM support.
+11. Fix an ELF linker crash when reporting alignment change (PR 2735).
+12. Remove unused ELF section symbols (PR 2723).
+13. Add --localize-hidden to objcopy.
+14. Add AMD SSE4a and ABM new instruction support.
+15. Properly handle illegal x86 instructions in group 11 (PR 2829).
+16. Add "-z max-page-size=" and "-z common-page-size=" to ELF linker.
+17. Fix objcopy for .tbss sections.
 
 Changes from binutils 2.17.50.0.1:
 
@@ -461,17 +482,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.2.tar.bz2. Source code.
-2. binutils-2.17.50.0.1-2.17.50.0.2.diff.bz2. Patch against the
+1. binutils-2.17.50.0.3.tar.bz2. Source code.
+2. binutils-2.17.50.0.2-2.17.50.0.3.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.2-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.2-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.2-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.3-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.3-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.3-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.2.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.3.tar.bz2
 
 to create both binary and source rpms.
 
@@ -484,4 +505,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-05/26/2006
+07/15/2006
