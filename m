@@ -1,20 +1,47 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.3 is released
-Date: Sat, 15 Jul 2006 15:19:05 -0700
-Message-ID: <20060715221905.GA10293@lucon.org>
+Subject: The Linux binutils 2.17.50.0.4 is released
+Date: Sun, 24 Sep 2006 10:35:30 -0700
+Message-ID: <20060924173530.GA13779@lucon.org>
 Mime-Version: 1.0
-Return-path: <linux-gcc-owner@vger.kernel.org>
+Return-path: <libc-alpha-return-19386-glibc-alpha=m.gmane.org@sourceware.org>
 Content-Disposition: inline
-Sender: linux-gcc-owner@vger.kernel.org
+List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
+List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
+List-Archive: <http://sourceware.org/ml/libc-alpha/>
+List-Post: <mailto:libc-alpha@sourceware.org>
+List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
+Sender: libc-alpha-owner@sourceware.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
+To: linux-gcc@vger.kernel.org
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
 
-
-This is the beta release of binutils 2.17.50.0.3 for Linux, which is
-based on binutils 2006 0715 in CVS on sources.redhat.com plus various
+This is the beta release of binutils 2.17.50.0.4 for Linux, which is
+based on binutils 2006 0924 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
+
+Starting from the 2.17.50.0.4 release, the default output section LMA
+(load memory address) has changed for allocatable sections from being
+equal to VMA (virtual memory address), to keeping the difference between
+LMA and VMA the same as the previous output section in the same region.
+
+For
+
+.data.init_task : { *(.data.init_task) }
+
+LMA of .data.init_task section is equal to its VMA with the old linker.
+With the new linker, it depends on the previous output section. You
+can use
+
+.data.init_task : AT (ADDR(.data.init_task)) { *(.data.init_task) }
+
+to ensure that LMA of .data.init_task section is always equal to its
+VMA. The linker script in the older 2.6 x86-64 kernel depends on the
+old behavior.  You can add AT (ADDR(section)) to force LMA of
+.data.init_task section equal to its VMA. It will work with both old
+and new linkers. The x86-64 kernel linker script in kernel 2.6.13 and
+above is OK.
 
 The new x86_64 assembler no longer accepts
 
@@ -64,7 +91,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.3 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.4 to hjl@lucon.org
 
 and
 
@@ -76,6 +103,31 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches if there are any.
+
+Changes from binutils 2.17.50.0.3:
+
+1. Update from binutils 2006 0924.
+2. Speed up linker on .o files with debug info on linkonce sections.
+PR 3111.
+3. Added x86-64 PE support.
+4. Fix objcopy/strip on .o files with section groups. PR 3181.
+5. Fix "ld --hash-style=gnu" crash with gcc 3.4.6. PR 3197.
+6. Fix "strip --strip-debug" on .o files generated with
+"gcc -feliminate-dwarf2-dups". PR 3186.
+7. Fix "ld -r" on .o files generated with "gcc -feliminate-dwarf2-dups".
+PR 3249.
+8. Add --dynamic-list to linker to make global symbols dynamic.
+9. Fix magic number for EFI ia64. PR 3171.
+10. Remove PT_NULL segment for "ld -z relro". PR 3015.
+11. Make objcopy to perserve the file formats in archive elements.
+PR 3110.
+12. Optimize x86-64 assembler and fix disassembler for
+"add32 mov xx,$eax". PR 3235.
+13. Improve linker diagnostics. PR 3107.
+14. Fix "ld --sort-section name". PR 3009.
+15. Updated an x86 disassembler bug. PR 3000.
+16. Various updates for PPC, ARM, MIPS, SH, Xtensa.
+17. Added Score support.
 
 Changes from binutils 2.17.50.0.2:
 
@@ -482,17 +534,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.3.tar.bz2. Source code.
-2. binutils-2.17.50.0.2-2.17.50.0.3.diff.bz2. Patch against the
+1. binutils-2.17.50.0.4.tar.bz2. Source code.
+2. binutils-2.17.50.0.3-2.17.50.0.4.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.3-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.3-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.3-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.4-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.4-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.4-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.3.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.4.tar.bz2
 
 to create both binary and source rpms.
 
@@ -505,4 +557,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-07/15/2006
+09/24/2006
