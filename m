@@ -1,27 +1,22 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.4 is released
-Date: Sun, 24 Sep 2006 10:35:30 -0700
-Message-ID: <20060924173530.GA13779@lucon.org>
+Subject: The Linux binutils 2.17.50.0.5 is released
+Date: Wed, 27 Sep 2006 10:58:32 -0700
+Message-ID: <20060927175832.GA3615@lucon.org>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-19386-glibc-alpha=m.gmane.org@sourceware.org>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
-List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
-List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
-List-Archive: <http://sourceware.org/ml/libc-alpha/>
-List-Post: <mailto:libc-alpha@sourceware.org>
-List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
-Sender: libc-alpha-owner@sourceware.org
+Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.4 for Linux, which is
-based on binutils 2006 0924 in CVS on sources.redhat.com plus various
+This is the beta release of binutils 2.17.50.0.5 for Linux, which is
+based on binutils 2006 0927 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
-Starting from the 2.17.50.0.4 release, the default output section LMA
+Starting from the 2.17.50.0.5 release, the default output section LMA
 (load memory address) has changed for allocatable sections from being
 equal to VMA (virtual memory address), to keeping the difference between
 LMA and VMA the same as the previous output section in the same region.
@@ -91,7 +86,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.4 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.5 to hjl@lucon.org
 
 and
 
@@ -103,6 +98,16 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches if there are any.
+
+Changes from binutils 2.17.50.0.4:
+
+1. Update from binutils 2006 0927.
+2. Fix linker regressions of section address and section relative symbol
+with empty output section. PR 3223/3267.
+3. Fix "strings -T". PR 3257.
+4. Fix "objcopy --only-keep-debug". PR 3262.
+5. Add Intell iwmmxt2 support.
+6. Fix an x86 disassembler bug. PR 3100.
 
 Changes from binutils 2.17.50.0.3:
 
@@ -534,17 +539,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.4.tar.bz2. Source code.
-2. binutils-2.17.50.0.3-2.17.50.0.4.diff.bz2. Patch against the
+1. binutils-2.17.50.0.5.tar.bz2. Source code.
+2. binutils-2.17.50.0.4-2.17.50.0.5.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.4-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.4-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.4-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.5-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.5-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.5-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.4.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.5.tar.bz2
 
 to create both binary and source rpms.
 
@@ -557,4 +562,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-09/24/2006
+09/27/2006
