@@ -1,7 +1,7 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.5 is released
-Date: Wed, 27 Sep 2006 10:58:32 -0700
-Message-ID: <20060927175832.GA3615@lucon.org>
+Subject: The Linux binutils 2.17.50.0.6 is released
+Date: Fri, 20 Oct 2006 12:57:28 -0700
+Message-ID: <20061020195728.GA18006@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
@@ -9,14 +9,14 @@ Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
+Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.5 for Linux, which is
-based on binutils 2006 0927 in CVS on sources.redhat.com plus various
+This is the beta release of binutils 2.17.50.0.6 for Linux, which is
+based on binutils 2006 1020 in CVS on sources.redhat.com plus various
 changes. It is purely for Linux.
 
-Starting from the 2.17.50.0.5 release, the default output section LMA
+Starting from the 2.17.50.0.6 release, the default output section LMA
 (load memory address) has changed for allocatable sections from being
 equal to VMA (virtual memory address), to keeping the difference between
 LMA and VMA the same as the previous output section in the same region.
@@ -86,7 +86,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.5 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.6 to hjl@lucon.org
 
 and
 
@@ -98,6 +98,33 @@ If you don't use
 
 to compile the Linux binutils, please read patches/README in source
 tree to apply Linux patches if there are any.
+
+Changes from binutils 2.17.50.0.5:
+
+1. Update from binutils 2006 1020.
+2. Don't make debug symbol dynamic. PR 3290.
+3. Don't page align empty SHF_ALLOC sections, which leads to very large
+executables. PR 3314.
+4. Use a different section index for section relative symbols against
+removed empty sections.
+5. Fix a few ELF EH frame handling bugs.
+6. Don't ignore relocation overflow on branches to undefweaks for
+x86-64. PR 3283.
+7. Rename MNI to SSSE3.
+8. Properly append symbol list for --dynamic-list.
+lists.
+9. Various ARM ELF fixes.
+10. Correct 64bit library search path for Linux/x86 linker with 64bit
+support.
+11. Fix ELF linker to copy OS/PROC specific flags from input section to
+output section.
+12. Fix DW_FORM_ref_addr handling in linker dwarf reader. PR 3191.
+13. Fix ELF indirect symbol handling. PR 3351.
+14. Fix PT_GNU_RELRO segment handling for SHF_TLS sections. Don't add
+PT_GNU_RELRO segment when there are no relro sections. PR 3281.
+15. Various MIPS ELF fixes.
+16. Various Sparc ELF fixes.
+17. Various Xtensa ELF fixes.
 
 Changes from binutils 2.17.50.0.4:
 
@@ -539,17 +566,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.5.tar.bz2. Source code.
-2. binutils-2.17.50.0.4-2.17.50.0.5.diff.bz2. Patch against the
+1. binutils-2.17.50.0.6.tar.bz2. Source code.
+2. binutils-2.17.50.0.5-2.17.50.0.6.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.5-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.5-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.5-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.6-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.6-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.6-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.5.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.6.tar.bz2
 
 to create both binary and source rpms.
 
@@ -562,4 +589,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-09/27/2006
+10/20/2006
