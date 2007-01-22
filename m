@@ -1,22 +1,18 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.9 is released
-Date: Wed, 3 Jan 2007 12:45:35 -0800
-Message-ID: <20070103204535.GA5131@lucon.org>
+Subject: The Linux binutils 2.17.50.0.10 is released
+Date: Mon, 22 Jan 2007 11:46:41 -0800
+Message-ID: <20070122194641.GA27561@lucon.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-133034-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
+Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
+To: GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, linux-gcc@vger.kernel.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.9 for Linux, which is
-based on binutils 2007 0103 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.17.50.0.10 for Linux, which is
+based on binutils 2007 0122 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 Starting from the 2.17.50.0.4 release, the default output section LMA
@@ -89,18 +85,31 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.9 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.10 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
 
-If you don't use
+Changes from binutils 2.17.50.0.9:
 
-# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.bz2
+1. Update from binutils 2007 0122.
+2. Implement sharable section proposal for ia32, x86-64 and ia64:
 
-to compile the Linux binutils, please read patches/README in source
-tree to apply Linux patches if there are any.
+http://groups-beta.google.com/group/generic-abi
+
+3. Implement linker enhancement, -Bsymbolic-functions,
+--dynamic-list-cpp-new and --dynamic-list-data.  PR 3831.
+4. Implement new linker switch, --default-script=FILE/-dT FILE.
+5. Fix x86 assembler error message. PR 3830.
+6. Fix a bug in ld testsuite.  PR 1283.
+7. Don't include archive64.o for 32bit target.  PR 3631.
+8. Support -z max-page-size and -z common-page-size in user provided
+linker script.
+9. Fix 32bit library support for GNU/kFreeBSD/x86-64.  PR 3843.
+10. Fix some bugs in Score assembler. PR 3871.
+11. Fix various bugs in ARM assembler. PR 3707 and more.
+12. Add Fido support.
 
 Changes from binutils 2.17.50.0.8:
 
@@ -118,7 +127,7 @@ PR 3666.
 11. Fix .cfi_endproc handling in assembler. PR 3607.
 12. Various ARM bug fixes.
 13. Various PE linker fixes.
-14. Improve x86 dissassembler for cmpxchg8b.
+14. Improve x86 dissassembler for cmpxchg16b.
 
 Changes from binutils 2.17.50.0.7:
 
@@ -612,17 +621,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.9.tar.bz2. Source code.
-2. binutils-2.17.50.0.8-2.17.50.0.9.diff.bz2. Patch against the
+1. binutils-2.17.50.0.10.tar.bz2. Source code.
+2. binutils-2.17.50.0.9-2.17.50.0.10.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.9-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.9-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.9-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.10-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.10-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.10-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.9.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.10.tar.bz2
 
 to create both binary and source rpms.
 
@@ -635,4 +644,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-01/03/2007
+01/22/2007
