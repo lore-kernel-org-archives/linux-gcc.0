@@ -1,18 +1,19 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.11 is released
-Date: Thu, 25 Jan 2007 20:11:25 -0800
-Message-ID: <20070126041125.GA18175@lucon.org>
+Subject: The Linux binutils 2.17.50.0.12 is released
+Date: Sun, 28 Jan 2007 08:59:48 -0800
+Message-ID: <20070128165948.GA14444@lucon.org>
 Mime-Version: 1.0
+Content-Transfer-Encoding: 8BIT
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
 Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
+To: Mike Frysinger <vapier@gentoo.org>
+Cc: John David Anglin <dave@hiauly1.hia.nrc.ca>, linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.11 for Linux, which is
-based on binutils 2007 0125 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.17.50.0.12 for Linux, which is
+based on binutils 2007 0128 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 Starting from the 2.17.50.0.4 release, the default output section LMA
@@ -85,11 +86,17 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.11 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.12 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.17.50.0.11:
+
+1. Update from binutils 2007 0128.
+2. Remove duplicate code in x86 assembler.
+3. Fix 32bit and 64bit HPPA/ELF.
 
 Changes from binutils 2.17.50.0.10:
 
@@ -632,17 +639,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.11.tar.bz2. Source code.
-2. binutils-2.17.50.0.10-2.17.50.0.11.diff.bz2. Patch against the
+1. binutils-2.17.50.0.12.tar.bz2. Source code.
+2. binutils-2.17.50.0.11-2.17.50.0.12.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.11-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.11-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.11-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.12-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.12-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.12-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.11.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.12.tar.bz2
 
 to create both binary and source rpms.
 
@@ -655,4 +662,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-01/25/2007
+01/28/2007
