@@ -1,23 +1,18 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.13 is released
-Date: Fri, 16 Mar 2007 10:50:07 -0700
-Message-ID: <20070316175007.GA456@lucon.org>
+Subject: The Linux binutils 2.17.50.0.14 is released
+Date: Fri, 23 Mar 2007 09:08:32 -0700
+Message-ID: <20070323160832.GA1229@lucon.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-135457-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
+Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
-Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.13 for Linux, which is
-based on binutils 2007 0315 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.17.50.0.14 for Linux, which is
+based on binutils 2007 0322 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -94,11 +89,28 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.13 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.14 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.17.50.0.13:
+
+1. Update from binutils 2007 0322.
+2. Fix >16byte nop padding regression in x86 assembler.
+3. Fix x86-64 disassembler for xchg. PR 4218.
+4. Optimize opcode for x86-64 xchg.
+5. Allow register operand with x86 nop.
+6. Properly handle holes between sections for PE-COFF. PR 4210.
+7. Print more PE-COFF info for objdump -p.
+8. Report missing matching LO16 relocation for HI16 relocation in mips
+linker.
+9. Use PC-relative relocation for Win64.
+10. Fix strip for Solaris. PR 3535.
+11. Fix a C++ demangler crash.
+12. Some m32c update.
+13. Fix misc ARM bugs.
 
 Changes from binutils 2.17.50.0.12:
 
@@ -670,17 +682,17 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.13.tar.bz2. Source code.
-2. binutils-2.17.50.0.12-2.17.50.0.13.diff.bz2. Patch against the
+1. binutils-2.17.50.0.14.tar.bz2. Source code.
+2. binutils-2.17.50.0.13-2.17.50.0.14.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.13-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.13-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.13-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.14-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
+4. binutils-2.17.50.0.14-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
+5. binutils-2.17.50.0.14-1.x86_64.rpm. X64_64 binary RPM for RedHat
    EL 4.
 
 There is no separate source rpm. You can do
 
-# rpmbuild -ta binutils-2.17.50.0.13.tar.bz2
+# rpmbuild -ta binutils-2.17.50.0.14.tar.bz2
 
 to create both binary and source rpms.
 
@@ -693,4 +705,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-03/16/2007
+03/23/2007
