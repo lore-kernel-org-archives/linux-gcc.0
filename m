@@ -1,7 +1,7 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.14 is released
-Date: Fri, 23 Mar 2007 09:08:32 -0700
-Message-ID: <20070323160832.GA1229@lucon.org>
+Subject: The Linux binutils 2.17.50.0.15 is released
+Date: Thu, 19 Apr 2007 10:03:39 -0700
+Message-ID: <20070419170339.GA14481@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
@@ -9,10 +9,10 @@ Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.14 for Linux, which is
-based on binutils 2007 0322 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.17.50.0.15 for Linux, which is
+based on binutils 2007 0418 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -89,11 +89,32 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.14 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.15 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.17.50.0.14:
+
+1. Update from binutils 2007 0418.
+2. Support Intel SSE4 instructions.
+3. Fix linker --fatal-warnings for --warn-shared-textrel. PR 4304.
+4. Improve linker error message to identify linker script error
+location. PR 4090.
+5. Fix objcopy to allow removing all sections. PR 4348.
+6. Don't print addresses of 32-bit targets as 64-bit values on 64bit
+host. PR 4292.
+7. Improve checking for corrupted input files. PR 4110.
+8. Improve alpha linker performance.
+9. Add a new linker option, -l:foo.
+10. Fix a PPC linker bug. PR 4267.
+11. Misc vxworks bug fixes.
+12. Misc SH bug fixes.
+13. Misc SPU bug fixes.
+14. Misc ARM bug fixes.
+15. Misc MIPS bug fixes.
+16. Misc xtensa bug fixes.
 
 Changes from binutils 2.17.50.0.13:
 
@@ -682,19 +703,15 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.14.tar.bz2. Source code.
-2. binutils-2.17.50.0.13-2.17.50.0.14.diff.bz2. Patch against the
+1. binutils-2.17.50.0.15.tar.bz2. Source code.
+2. binutils-2.17.50.0.13-2.17.50.0.15.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.14-1.i386.rpm. IA-32 binary RPM for RedHat EL 4.
-4. binutils-2.17.50.0.14-1.ia64.rpm. IA-64 binary RPM for RedHat EL 4.
-5. binutils-2.17.50.0.14-1.x86_64.rpm. X64_64 binary RPM for RedHat
+3. binutils-2.17.50.0.15.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-
-There is no separate source rpm. You can do
-
-# rpmbuild -ta binutils-2.17.50.0.14.tar.bz2
-
-to create both binary and source rpms.
+4. binutils-2.17.50.0.15.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+   EL 4.
+5. binutils-2.17.50.0.15.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+   EL 4.
 
 The primary sites for the beta Linux binutils are:
 
@@ -705,4 +722,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-03/23/2007
+04/19/2007
