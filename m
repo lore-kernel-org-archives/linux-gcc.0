@@ -1,18 +1,23 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.15 is released
-Date: Thu, 19 Apr 2007 10:03:39 -0700
-Message-ID: <20070419170339.GA14481@lucon.org>
+Subject: The Linux binutils 2.17.50.0.16 is released
+Date: Fri, 11 May 2007 09:53:27 -0700
+Message-ID: <20070511165327.GA22397@lucon.org>
 Mime-Version: 1.0
-Return-path: <linux-gcc-owner@vger.kernel.org>
+Return-path: <gcc-return-137289-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
-Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
+Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
+Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.15 for Linux, which is
-based on binutils 2007 0418 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.17.50.0.16 for Linux, which is
+based on binutils 2007 0511 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -89,11 +94,28 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.15 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.16 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.17.50.0.15:
+
+1. Update from binutils 2007 0511.
+2. Fix objcopy --only-keep-debug and linker multiple BSS sections handling.
+PR 4479.
+3. Fix "readelf -s -D" for gnu hash.  PR 4476.
+4. Fix ia64 linker crash with --unresolved-symbols=ignore-all. PR 4409.
+5. Improve crc32 support in x86 assembler/dissassembler.
+6. Improve displacement handling in x86 dissassembler. PR 4430.
+7. Correct PC relative displacement handling in x86-64 dissassembler for
+Intel mode. PR 4429.
+8. Fix various PPC bugs.
+9. Fix various SPU bugs.
+10. Fix various ARM bugs.
+11. Fix various m68k bugs.
+12. Fix various xtensa bugs.
 
 Changes from binutils 2.17.50.0.14:
 
@@ -703,14 +725,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.15.tar.bz2. Source code.
-2. binutils-2.17.50.0.13-2.17.50.0.15.diff.bz2. Patch against the
+1. binutils-2.17.50.0.16.tar.bz2. Source code.
+2. binutils-2.17.50.0.15-2.17.50.0.16.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.15.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.17.50.0.16.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.17.50.0.15.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.17.50.0.16.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.17.50.0.15.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.17.50.0.16.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -722,4 +744,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-04/19/2007
+05/11/2007
