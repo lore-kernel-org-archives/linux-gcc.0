@@ -1,9 +1,9 @@
 From: "H. J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.16 is released
-Date: Fri, 11 May 2007 09:53:27 -0700
-Message-ID: <20070511165327.GA22397@lucon.org>
+Subject: The Linux binutils 2.17.50.0.17 is released
+Date: Mon, 18 Jun 2007 14:00:13 -0700
+Message-ID: <20070618210013.GA26404@lucon.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-137289-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-138401-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -13,11 +13,11 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org
 Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Linas Vepstas <linas@linas.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.16 for Linux, which is
-based on binutils 2007 0511 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.17.50.0.17 for Linux, which is
+based on binutils 2007 0615 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -94,11 +94,30 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.16 to hjl@lucon.org
+Please report any bugs related to binutils 2.17.50.0.17 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.17.50.0.16:
+
+1. Update from binutils 2007 0615.
+2. Preserve section alignment for copy relocation.  PR 4504.
+3. Properly fix regression with objcopy --only-keep-debug.  PR 4479.
+4. Fix ELF eh frame handling.  PR 4497.
+5. Fix ia64 string merge.  PR 4590.
+5. Don't use PE target on EFI files nor EFI target on PE files.
+6. Speed up linker with many input files.
+7. Support cross compiling windres.  PR 2737.
+8. Fix various windres bugs.
+9. Fix various arms bugs.
+10. Fix various m68k bugs.
+11. Fix various mips bugs.
+12. Fix various ppc bugs.
+13. Fix various sparc bugs.
+14. Fix various spu bugs.
+15. Fix various xtensa bugs.
 
 Changes from binutils 2.17.50.0.15:
 
@@ -725,14 +744,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.16.tar.bz2. Source code.
-2. binutils-2.17.50.0.15-2.17.50.0.16.diff.bz2. Patch against the
+1. binutils-2.17.50.0.17.tar.bz2. Source code.
+2. binutils-2.17.50.0.16-2.17.50.0.17.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.16.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.17.50.0.17.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.17.50.0.16.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.17.50.0.17.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.17.50.0.16.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.17.50.0.17.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -744,4 +763,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-05/11/2007
+06/18/2007
