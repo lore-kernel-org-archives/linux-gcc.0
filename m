@@ -1,23 +1,24 @@
 From: "H.J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.17.50.0.18 is released
-Date: Wed, 1 Aug 2007 08:43:56 -0700
-Message-ID: <20070801154356.GA3216@lucon.org>
+Subject: The Linux binutils 2.18.50.0.1 is released
+Date: Sat, 8 Sep 2007 16:56:46 -0700
+Message-ID: <20070908235646.GA4804@lucon.org>
 Mime-Version: 1.0
-Return-path: <gcc-return-139711-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <libc-alpha-return-20420-glibc-alpha=m.gmane.org@sourceware.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Sender: gcc-owner@gcc.gnu.org
+List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
+List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
+List-Archive: <http://sourceware.org/ml/libc-alpha/>
+List-Post: <mailto:libc-alpha@sourceware.org>
+List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
+Sender: libc-alpha-owner@sourceware.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
-Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.17.50.0.18 for Linux, which is
-based on binutils 2007 0731 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.18.50.0.1 for Linux, which is
+based on binutils 2007 0908 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -94,11 +95,43 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.17.50.0.18 to hjl@lucon.org
+Please report any bugs related to binutils 2.18.50.0.1 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.17.50.0.18:
+
+1. Update from binutils 2007 0908.
+2. Fix an ELF linker for SHT_NOBITS sections.  PR 2864/5006.
+3. Improve TLS transition check in i386 and x86-64 linkers.
+4. Fix a GD->LE/LD->LE TLS transition bug in i386 and x86-64 linkers.
+PR 4918.
+5. Update ELF linker to dump segment map when a section can't be allocated
+in segment. PR 4909.
+6. Clean up x86 disassembler to remove fixups and make it more
+table driven.
+7. Fix x86 disassember for SSE instructions in Intel mode. PR 4834.
+8. Properly handle bss segments in ELF linker.
+9. Add --string-dump to readelf.
+10. Fix objcopy -R .debug_* --only-keep-debug regression. PR 4888.
+11. Change x86 assembler to follow SVME specification.
+12. Fix x86 assembler for cmpxchg8b, pextrb and pinsrb in Intel mode.
+13. Update x86 assembler to better handle expressions with @GOT suffix.
+PR 4079.
+14. Properly handle section alignment >= 128 byte for PECOFF.
+15. Fix an ELF linker --build-id option crash.  PR 4923.
+16. Fix binutils build on HP-UX. PR 4875.
+17. Fix a regression of the a.out linker -N option. PR 4515.
+18. Update x86 disassembler for invlpg, fxsave, fxrstor, ldmxcsr and
+stmxcsr in Intel mode.
+19. Fix x86 assembler for SSE4 instructions in Intel mode.
+20. Fix various arm bugs.
+21. Fix various mips bugs.
+22. Fix various ppc bugs.
+23. Fix various spu bugs.
+24. Fix various xtensa bugs.
 
 Changes from binutils 2.17.50.0.17:
 
@@ -783,14 +816,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.17.50.0.18.tar.bz2. Source code.
-2. binutils-2.17.50.0.17-2.17.50.0.18.diff.bz2. Patch against the
+1. binutils-2.18.50.0.1.tar.bz2. Source code.
+2. binutils-2.17.50.0.18-2.18.50.0.1.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.17.50.0.18.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.18.50.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.17.50.0.18.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.18.50.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.17.50.0.18.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.18.50.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -802,4 +835,6 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-07/31/2007
+09/08/2007
+Reply-To: 
+
