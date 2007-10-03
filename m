@@ -1,24 +1,19 @@
 From: "H.J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.18.50.0.1 is released
-Date: Sat, 8 Sep 2007 16:56:46 -0700
-Message-ID: <20070908235646.GA4804@lucon.org>
+Subject: The Linux binutils 2.18.50.0.2 is released
+Date: Wed, 3 Oct 2007 10:11:34 -0700
+Message-ID: <20071003171134.GA21069@lucon.org>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-20420-glibc-alpha=m.gmane.org@sourceware.org>
+Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
+Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
-List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
-List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
-List-Archive: <http://sourceware.org/ml/libc-alpha/>
-List-Post: <mailto:libc-alpha@sourceware.org>
-List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
-Sender: libc-alpha-owner@sourceware.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
+Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.18.50.0.1 for Linux, which is
-based on binutils 2007 0908 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.18.50.0.2 for Linux, which is
+based on binutils 2007 1001 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -95,11 +90,34 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.18.50.0.1 to hjl@lucon.org
+Please report any bugs related to binutils 2.18.50.0.2 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.18.50.0.1:
+
+1. Update from binutils 2007 1001.
+2. Speed up hash table lookup in linker. 
+3. Add -c/--archive-index option to readelf.
+4. Fix an readelf crash. PR 5011.
+5. Fix an x86 assembler Intel mode bug. PR 5080.
+6. Add EIP support in x86 assembler.
+7. Add fake index registers, EIZ/RIZ, to x86 assembler/disassembler.
+8. Improve x86 assembler error message for truncated values. PR 5026.
+9. Remove a COFF assertion in COFF assembler. PR 5035.
+10. Add AMD SSE5 support to x86 assembler/disassembler.
+11. Fix x86 assembler for extrq/insertq in Intel mode.
+12. Fix x86 disassembler for invalid opcodes in 64bit. PR 5072.
+13. Fix auto-import in PE-COFF linker.  PR 4844.
+14. Correct -z now in ELF linker.
+15. Fix a --build-id linker crash.  PR 5025.
+16. Improved x86 assembler/disassembler infrastructure for new
+instruction support.
+17. Fix various m68k bugs.
+18. Fix various ppc bugs.
+19. Fix various spu bugs.
 
 Changes from binutils 2.17.50.0.18:
 
@@ -816,14 +834,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.18.50.0.1.tar.bz2. Source code.
-2. binutils-2.17.50.0.18-2.18.50.0.1.diff.bz2. Patch against the
+1. binutils-2.18.50.0.2.tar.bz2. Source code.
+2. binutils-2.18.50.0.1-2.18.50.0.2.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.18.50.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.18.50.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.18.50.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.18.50.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.18.50.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.18.50.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -835,6 +853,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-09/08/2007
-Reply-To: 
-
+10/03/2007
