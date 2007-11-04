@@ -1,7 +1,7 @@
 From: "H.J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.18.50.0.2 is released
-Date: Wed, 3 Oct 2007 10:11:34 -0700
-Message-ID: <20071003171134.GA21069@lucon.org>
+Subject: The Linux binutils 2.18.50.0.3 is released
+Date: Sun, 4 Nov 2007 07:27:42 -0800
+Message-ID: <20071104152742.GA2473@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 Content-Disposition: inline
@@ -9,11 +9,11 @@ Sender: linux-gcc-owner@vger.kernel.org
 List-Id: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>
-Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.18.50.0.2 for Linux, which is
-based on binutils 2007 1001 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.18.50.0.3 for Linux, which is
+based on binutils 2007 1102 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -90,11 +90,42 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.18.50.0.2 to hjl@lucon.org
+Please report any bugs related to binutils 2.18.50.0.3 to hjl@lucon.org
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.18.50.0.2:
+
+1. Update from binutils 2007 1102.
+2. Support link in Linux object files on FreeBSD.  PR 4424.
+3. Add Intel SMX instruction support to x86 assembler/diasassembler.
+4. Fix an objcopy regression where we failed to adjust section
+flags.  PR 5233.
+5. Improve irregular instruction support in x86 assembler.
+6. Improve support for instructions with restricted operands in x86
+diasassembler.
+7. Fix an x86-64 assembler bug where extra REX byte generated in Intel
+mode.  PR 5109.
+8. Update .pushsection directive support in assembler.  PRs 5221.
+9. Improve linker -z relro support.
+10. Add support for generating wide character strings in assembler.
+11. Improve relocation process for DWARF debug info in readelf.
+12. Add a linker warning for invalid merge section with unterminated
+strings.
+13. Improve linker support of DWARF debug info for discarded sections
+duing linker-relaxation.
+14. Improve fabs detection.  PR 5147.
+15. Improve non-bash support.  PR 5215.
+16. Improve support for non-gcc compiler.  PRs 5146/5160.
+17. Improve error messages.  PRs 5172/5173/5161/5158/5155/
+5121-5126/5129/5131-5137/5143/5142/5078/5089/5090.
+18. Fix various cr16 bugs.
+19. Fix various m10300 bugs.
+20. Fix various mips bugs.
+21. Fix various ppc bugs.
+22. Fix various xtensa bugs.
 
 Changes from binutils 2.18.50.0.1:
 
@@ -834,14 +865,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.18.50.0.2.tar.bz2. Source code.
-2. binutils-2.18.50.0.1-2.18.50.0.2.diff.bz2. Patch against the
+1. binutils-2.18.50.0.3.tar.bz2. Source code.
+2. binutils-2.18.50.0.2-2.18.50.0.3.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.18.50.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.18.50.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.18.50.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.18.50.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.18.50.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.18.50.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -853,4 +884,4 @@ Thanks.
 
 H.J. Lu
 hjl@lucon.org
-10/03/2007
+11/03/2007
