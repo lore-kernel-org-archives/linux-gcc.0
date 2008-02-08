@@ -1,24 +1,39 @@
-From: "H.J. Lu" <hjl@lucon.org>
-Subject: The Linux binutils 2.18.50.0.3 is released
-Date: Sun, 4 Nov 2007 07:27:42 -0800
-Message-ID: <20071104152742.GA2473@lucon.org>
+From: "H.J. Lu" <hjl.tools@gmail.com>
+Subject: The Linux binutils 2.18.50.0.4 is released
+Date: Fri, 8 Feb 2008 09:34:53 -0800
+Message-ID: <20080208173453.GA12674@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=gamma;
+        h=domainkey-signature:received:received:received:date:to:cc:subject:message-id:mime-version:content-type:content-disposition:user-agent:from;
+        bh=5kO1BUmYU3raj4Zd5ZtOjxtQk4jckH2PkxHZKziS6eo=;
+        b=LH4r1s+Yxzz5FfoJ7ySm64IN13C6CjRGpe9JiOyTQztInFyxOkgb7/DRaV5XY0q3i5ZBjhzYi4W2epo5aWo+fKd4d84GyWKHJjQBJHv8B42yzscCbqP0ApuZT+FNA1u7+eon5yjpiF7BFOSAiN2L1N4221IAGLT1wwjxq9GgchI=
 Content-Disposition: inline
 Sender: linux-gcc-owner@vger.kernel.org
-List-Id: <linux-gcc.vger.kernel.org>
+List-ID: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sources.redhat.com>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+Cc: GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org
 
-This is the beta release of binutils 2.18.50.0.3 for Linux, which is
-based on binutils 2007 1102 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.18.50.0.4 for Linux, which is
+based on binutils 2008 0208 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
 You can take a look at patches/README to see what have been applied and
 in what order they have been applied.
+
+Starting from the 2.18.50.0.4 release, the x86 assembler no longer
+accepts
+
+	fnstsw %eax
+
+fnstsw stores 16bit into %ax and the upper 16bit of %eax is unchanged.
+Please use
+
+	fnstsw %ax
 
 Starting from the 2.17.50.0.4 release, the default output section LMA
 (load memory address) has changed for allocatable sections from being
@@ -90,11 +105,50 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.18.50.0.3 to hjl@lucon.org
+Please report any bugs related to binutils 2.18.50.0.4 to
+hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.18.50.0.3:
+
+1. Update from binutils 2008 0208.
+2. Update readelf/objdump to dump DWARF frame info with machine
+register names on x86.
+3. Optimize x86-64 assembler to omit REX.W prefix when it is ignored.
+4. Add operand size check to x86 assembler.  PR 5534.
+5. Add -march=CPU[,+EXTENSION...], -mmnemonic, -msyntax, -mindex-reg,
+-mnaked-reg and -mold-gcc options to x86 assembler.
+6. Add -Mintel-mnemonic/-Mintel-mnemonic options to x86 disassembler.
+7. Update x86 disassembler to handle r12 like rsp in memory operand.
+8. Update x86 disassembler to properly support movntq, movntsd,
+movntss, movntps, movntpd, movntdq and movntdqa.
+9. Update x86 disassembler to support AMD nops.
+10. Update x86 disassembler for cvtsi2ss/cvtsi2sd.
+11. Fix x86 assembler to support new instructions on 2 different archs.
+12. Update linker not to generate incorrect debug info for 64bit target
+on 32bit host.  PR 5303.
+13. Update ia64 assembler to support new registers in Itanium 9100
+series.
+14. Fix strip on PT_NOTE segment.  PR 5488.
+15. Fix strip/objcopy on HPUX/ia64.  PR 5449.
+16. Fix strip/objcopy for EFI.  PR 5307.
+17. Remove duplicated sections from objdump for COFF/PE.  PR 5299.
+18. Fix a linker corruption.  PR 5522.
+19. Fix mingw for 64bit targets.
+20. Fix various arm bugs.
+21. Fix various fr30 bugs.
+22. Fix various frv bugs.
+23. Fix various hppa bugs.
+24. Fix various m10300 bugs.
+25. Fix various m32r bugs.
+26. Fix various m68k bugs.
+27. Fix various mips bugs.
+28. Fix various ppc bugs.
+29. Fix various spu bugs.
+30. Fix various xtensa bugs.
 
 Changes from binutils 2.18.50.0.2:
 
@@ -115,7 +169,7 @@ mode.  PR 5109.
 12. Add a linker warning for invalid merge section with unterminated
 strings.
 13. Improve linker support of DWARF debug info for discarded sections
-duing linker-relaxation.
+during linker-relaxation.
 14. Improve fabs detection.  PR 5147.
 15. Improve non-bash support.  PR 5215.
 16. Improve support for non-gcc compiler.  PRs 5146/5160.
@@ -865,14 +919,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.18.50.0.3.tar.bz2. Source code.
-2. binutils-2.18.50.0.2-2.18.50.0.3.diff.bz2. Patch against the
+1. binutils-2.18.50.0.4.tar.bz2. Source code.
+2. binutils-2.18.50.0.3-2.18.50.0.4.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.18.50.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.18.50.0.4.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.18.50.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.18.50.0.4.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.18.50.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.18.50.0.4.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -883,5 +937,5 @@ Thanks.
 
 
 H.J. Lu
-hjl@lucon.org
-11/03/2007
+hjl.tools@gmail.com
+02/08/2008
