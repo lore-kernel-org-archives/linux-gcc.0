@@ -1,24 +1,23 @@
 From: "H.J. Lu" <hjl.tools@gmail.com>
-Subject: The Linux binutils 2.18.50.0.4 is released
-Date: Fri, 8 Feb 2008 09:34:53 -0800
-Message-ID: <20080208173453.GA12674@lucon.org>
+Subject: The Linux binutils 2.18.50.0.5 is released
+Date: Fri, 14 Mar 2008 12:20:44 -0700
+Message-ID: <20080314192044.GA28139@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=gamma;
-        h=domainkey-signature:received:received:received:date:to:cc:subject:message-id:mime-version:content-type:content-disposition:user-agent:from;
-        bh=5kO1BUmYU3raj4Zd5ZtOjxtQk4jckH2PkxHZKziS6eo=;
-        b=LH4r1s+Yxzz5FfoJ7ySm64IN13C6CjRGpe9JiOyTQztInFyxOkgb7/DRaV5XY0q3i5ZBjhzYi4W2epo5aWo+fKd4d84GyWKHJjQBJHv8B42yzscCbqP0ApuZT+FNA1u7+eon5yjpiF7BFOSAiN2L1N4221IAGLT1wwjxq9GgchI=
+        h=domainkey-signature:received:received:received:date:to:subject:message-id:mime-version:content-type:content-disposition:user-agent:from;
+        bh=QIh5QUKY0eoQxJhZHiuA5HNKuenYLEGqieJDmRFmdVA=;
+        b=mKOUDVhqIag0aBo9NEuhvggSaxlhpHJoR2LbDg9JU7Ga399umd4Lf9LD+2agvxwHfbdyKQHiYPbvEIum9P45TIRcailrp5FXU4hP8aeoQhmehCyY1a6m+r9V5RghJaSOhcs4GA6JxctEQpzCKzqmIiCTYDW11ZnxwnMnrieV5Is=
 Content-Disposition: inline
 Sender: linux-gcc-owner@vger.kernel.org
 List-ID: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: GNU C Library <libc-alpha@sources.redhat.com>, gcc@gcc.gnu.org
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.18.50.0.4 for Linux, which is
-based on binutils 2008 0208 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.18.50.0.5 for Linux, which is
+based on binutils 2008 0314 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -105,12 +104,34 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.18.50.0.4 to
+Please report any bugs related to binutils 2.18.50.0.5 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.18.50.0.4:
+
+1. Update from binutils 2008 0314.
+2. Add Intel XSAVE new instruction support.
+3. Fix an ia64 linker crash on unsupported TLS relocations.  PR 5913.
+4. Fix x86 assembler for gcc 4.3.
+5. Fix a linker memory corruption.  PR 5788.
+6. Correct linker 64k section support.  PR 5900.
+7. Correct hidden, weak and undefined symbol handling. PR 5789.
+8. Fix linker for 64bit targets on 32bit hosts.  PR 5303/5755.
+9. Fix assembler crash with .set on register.  PR 5543.
+10. Fix a typo in linker.  PR 5765.
+11. Fix "string -O" infinite loop.  PR 5713.
+12. Fix .exitm in assembler.  PR 5895.
+13. Fix a linker crash.  PR 5761.
+14. Fix various arm bugs.
+15. Fix various bfin bugs.
+16. Fix various h8 bugs.
+17. Fix various ppc bugs.
+18. Fix various spu bugs.
+19. Fix various xtensa bugs.
 
 Changes from binutils 2.18.50.0.3:
 
@@ -919,14 +940,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.18.50.0.4.tar.bz2. Source code.
-2. binutils-2.18.50.0.3-2.18.50.0.4.diff.bz2. Patch against the
+1. binutils-2.18.50.0.5.tar.bz2. Source code.
+2. binutils-2.18.50.0.4-2.18.50.0.5.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.18.50.0.4.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.18.50.0.5.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.18.50.0.4.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.18.50.0.5.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.18.50.0.4.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.18.50.0.5.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -938,4 +959,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-02/08/2008
+03/14/2008
