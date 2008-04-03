@@ -1,23 +1,23 @@
 From: "H.J. Lu" <hjl.tools@gmail.com>
-Subject: The Linux binutils 2.18.50.0.5 is released
-Date: Fri, 14 Mar 2008 12:20:44 -0700
-Message-ID: <20080314192044.GA28139@lucon.org>
+Subject: The Linux binutils 2.18.50.0.6 is released
+Date: Thu, 3 Apr 2008 10:13:07 -0700
+Message-ID: <20080403171307.GA2981@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=gamma;
+        d=gmail.com; s=beta;
         h=domainkey-signature:received:received:received:date:to:subject:message-id:mime-version:content-type:content-disposition:user-agent:from;
-        bh=QIh5QUKY0eoQxJhZHiuA5HNKuenYLEGqieJDmRFmdVA=;
-        b=mKOUDVhqIag0aBo9NEuhvggSaxlhpHJoR2LbDg9JU7Ga399umd4Lf9LD+2agvxwHfbdyKQHiYPbvEIum9P45TIRcailrp5FXU4hP8aeoQhmehCyY1a6m+r9V5RghJaSOhcs4GA6JxctEQpzCKzqmIiCTYDW11ZnxwnMnrieV5Is=
+        bh=85rmdCrwVqxwEcyZ6egraBrM0Wn4CwmAQxXuey8sD5I=;
+        b=rqjElZChpS2ZA/lbJpUx8IJ2O/4VdCpHEMHy8Y4yYzHicGtvsfQmXMsABJNilbkrMfyUo0YqVWD/FGvGZv7Qu3TPYw7XAtTj1cD8t3OG9uwEqFrVEKguDwIpKPDJMO9spg38KUpAGplS9cunEvvcqtD0EmI82i9dkR+pQs0NoYc=
 Content-Disposition: inline
 Sender: linux-gcc-owner@vger.kernel.org
 List-ID: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org
 
-This is the beta release of binutils 2.18.50.0.5 for Linux, which is
-based on binutils 2008 0314 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.18.50.0.6 for Linux, which is
+based on binutils 2008 0403 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -104,12 +104,29 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.18.50.0.5 to
+Please report any bugs related to binutils 2.18.50.0.6 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.18.50.0.5:
+
+1. Update from binutils 2008 0403.
+2. Add Intel AES, CLMUL, AVX/FMA support.
+3. Improve error handling in x86 linker for undefined hidden/internal
+symbols when building a shared object.  PR ld/5789/5943.
+4. Add a new ELF linker, gold.
+5. Add think archive support.
+6. Fix various arm bugs.
+7. Fix various avr bugs.
+8. Fix various bfin bugs.
+9. Fix various hppa bugs.
+10. Fix various m68k bugs.
+11. Fix various mips bugs.
+12. Fix various s390 bugs.
+13. Fix various spu bugs.
 
 Changes from binutils 2.18.50.0.4:
 
@@ -940,14 +957,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.18.50.0.5.tar.bz2. Source code.
-2. binutils-2.18.50.0.4-2.18.50.0.5.diff.bz2. Patch against the
+1. binutils-2.18.50.0.6.tar.bz2. Source code.
+2. binutils-2.18.50.0.5-2.18.50.0.6.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.18.50.0.5.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.18.50.0.6.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.18.50.0.5.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.18.50.0.6.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.18.50.0.5.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.18.50.0.6.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -959,4 +976,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-03/14/2008
+04/03/2008
