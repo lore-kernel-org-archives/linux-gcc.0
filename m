@@ -1,273 +1,999 @@
 From: "H.J. Lu" <hjl.tools@gmail.com>
-Subject: PATCH: Change clmul/CLMUL to pclmul/PCLMUL
-Date: Fri, 4 Apr 2008 09:29:44 -0700
-Message-ID: <6dc9ffc80804040929w38540ee3xbbaab4d796423d14@mail.gmail.com>
+Subject: The Linux binutils 2.18.50.0.7 is released
+Date: Sun, 4 May 2008 08:30:52 -0700
+Message-ID: <20080504153052.GA27936@lucon.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_5620_1545980.1207326589685"
 Return-path: <linux-gcc-owner@vger.kernel.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=gamma;
-        h=domainkey-signature:received:received:message-id:date:from:to:subject:cc:mime-version:content-type;
-        bh=Ksf/Xxh0wGAK1/Ac1dQOyVYLUZWw/k/4hqhbNBZSmeI=;
-        b=bEhfQ+UYcabjI/biZquPovBofCC3jj2KR9pntMkwe0yHfcSdifZb503moJrR0NG6wv4jd3p8yA/0l/Ownw2YTG2m7JlG5gRGsTLZvrCVShNZQydJ42c6eVO+dGFMnI8h2yANkP91XD07TqYS90qPpIUdxZ77HeeV1b9qH/ywFZg=
+        h=domainkey-signature:received:received:received:date:to:subject:message-id:mime-version:content-type:content-disposition:user-agent:from;
+        bh=QzR9WOZfzkn40PRweAKbadKLsOG/YXz3B6eSjbKWrWk=;
+        b=erPZgTprCBuJR7fJ8SzWDKXLKbhNG5lw2z+Wdz+yyn8wR5yg34fps+HXCM9arO3fcq1LY+kpIb1KZIflgCcnCFcCd7+TwU7CFSwdUi4udueV9mu9scDAw8Tf3yRRydsiciYLxOV/a8THCVwoWPiqdQSe3JU3kICFaHGoHeRjxBw=
+Content-Disposition: inline
 Sender: linux-gcc-owner@vger.kernel.org
 List-ID: <linux-gcc.vger.kernel.org>
-To: gcc@gcc.gnu.org, binutils@sources.redhat.com, ludloff@sandpile.org
-Cc: GNU C Library <libc-alpha@sourceware.org>, linux-gcc@vger.kernel.org
-
-------=_Part_5620_1545980.1207326589685
-Content-Type: text/plain; charset=ISO-8859-1
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>
 
-On Fri, Apr 4, 2008 at 6:18 AM, H.J. Lu <hjl.tools@gmail.com> wrote:
-> I got a request to change gcc/assembler option, which enables
->  PCLMULQDQ, from -mclmul to -mpclmul, to reflect packed operation.
->  Is there any objection?
->
->  Thanks.
->
+This is the beta release of binutils 2.18.50.0.7 for Linux, which is
+based on binutils 2008 0502 in CVS on sourceware.org plus various
+changes. It is purely for Linux.
 
-Hi,
+All relevant patches in patches have been applied to the source tree.
+You can take a look at patches/README to see what have been applied and
+in what order they have been applied.
 
-I am checking in this patch to change clmul/CLMUL to pclmul/PCLMUL.
+Starting from the 2.18.50.0.4 release, the x86 assembler no longer
+accepts
+
+	fnstsw %eax
+
+fnstsw stores 16bit into %ax and the upper 16bit of %eax is unchanged.
+Please use
+
+	fnstsw %ax
+
+Starting from the 2.17.50.0.4 release, the default output section LMA
+(load memory address) has changed for allocatable sections from being
+equal to VMA (virtual memory address), to keeping the difference between
+LMA and VMA the same as the previous output section in the same region.
+
+For
+
+.data.init_task : { *(.data.init_task) }
+
+LMA of .data.init_task section is equal to its VMA with the old linker.
+With the new linker, it depends on the previous output section. You
+can use
+
+.data.init_task : AT (ADDR(.data.init_task)) { *(.data.init_task) }
+
+to ensure that LMA of .data.init_task section is always equal to its
+VMA. The linker script in the older 2.6 x86-64 kernel depends on the
+old behavior.  You can add AT (ADDR(section)) to force LMA of
+.data.init_task section equal to its VMA. It will work with both old
+and new linkers. The x86-64 kernel linker script in kernel 2.6.13 and
+above is OK.
+
+The new x86_64 assembler no longer accepts
+
+	monitor %eax,%ecx,%edx
+
+You should use
+
+	monitor %rax,%ecx,%edx
+
+or
+	monitor
+
+which works with both old and new x86_64 assemblers. They should
+generate the same opcode.
+
+The new i386/x86_64 assemblers no longer accept instructions for moving
+between a segment register and a 32bit memory location, i.e.,
+
+	movl (%eax),%ds
+	movl %ds,(%eax)
+
+To generate instructions for moving between a segment register and a
+16bit memory location without the 16bit operand size prefix, 0x66,
+
+	mov (%eax),%ds
+	mov %ds,(%eax)
+
+should be used. It will work with both new and old assemblers. The
+assembler starting from 2.16.90.0.1 will also support
+
+	movw (%eax),%ds
+	movw %ds,(%eax)
+
+without the 0x66 prefix. Patches for 2.4 and 2.6 Linux kernels are
+available at
+
+http://www.kernel.org/pub/linux/devel/binutils/linux-2.4-seg-4.patch
+http://www.kernel.org/pub/linux/devel/binutils/linux-2.6-seg-5.patch
+
+The ia64 assembler is now defaulted to tune for Itanium 2 processors.
+To build a kernel for Itanium 1 processors, you will need to add
+
+ifeq ($(CONFIG_ITANIUM),y)
+	CFLAGS += -Wa,-mtune=itanium1
+	AFLAGS += -Wa,-mtune=itanium1
+endif
+
+to arch/ia64/Makefile in your kernel source tree.
+
+Please report any bugs related to binutils 2.18.50.0.7 to
+hjl.tools@gmail.com
+
+and
+
+http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.18.50.0.6:
+
+1. Update from binutils 2008 0502.
+2. Add Intel EPT and MOVBE support.
+3. Correct Intel FMA operand order.
+4. Change Intel CLMUL to Intel PCLMUL.
+5. Add -msse-check to x86 assembler to warn SSE instruction where
+there is AVX equivalent.
+6. Provide backward compatibility for ELF object files with more
+than 64K sections generated by the older binutils.  PR 6412.
+7. Improve FDPIC support.
+8. Add -wL switch to readelf to dump decoded contents of .debug_line.
+9. Add -ag switch to assembler show general information in listings.
+10. Improve objcopy symbol filtering performance.  PR 6034.
+12. Correct think archive support.
+13. Improve ELF/Sparc support.
+14. Fix various mips bugs.
+15. Fix various sh bugs.
+16. Fix various spu bugs.
+
+Changes from binutils 2.18.50.0.5:
+
+1. Update from binutils 2008 0403.
+2. Add Intel AES, CLMUL, AVX/FMA support.
+3. Improve error handling in x86 linker for undefined hidden/internal
+symbols when building a shared object.  PR ld/5789/5943.
+4. Add a new ELF linker, gold.
+5. Add think archive support.
+6. Fix various arm bugs.
+7. Fix various avr bugs.
+8. Fix various bfin bugs.
+9. Fix various hppa bugs.
+10. Fix various m68k bugs.
+11. Fix various mips bugs.
+12. Fix various s390 bugs.
+13. Fix various spu bugs.
+
+Changes from binutils 2.18.50.0.4:
+
+1. Update from binutils 2008 0314.
+2. Add Intel XSAVE new instruction support.
+3. Fix an ia64 linker crash on unsupported TLS relocations.  PR 5913.
+4. Fix x86 assembler for gcc 4.3.
+5. Fix a linker memory corruption.  PR 5788.
+6. Correct linker 64k section support.  PR 5900.
+7. Correct hidden, weak and undefined symbol handling. PR 5789.
+8. Fix linker for 64bit targets on 32bit hosts.  PR 5303/5755.
+9. Fix assembler crash with .set on register.  PR 5543.
+10. Fix a typo in linker.  PR 5765.
+11. Fix "string -O" infinite loop.  PR 5713.
+12. Fix .exitm in assembler.  PR 5895.
+13. Fix a linker crash.  PR 5761.
+14. Fix various arm bugs.
+15. Fix various bfin bugs.
+16. Fix various h8 bugs.
+17. Fix various ppc bugs.
+18. Fix various spu bugs.
+19. Fix various xtensa bugs.
+
+Changes from binutils 2.18.50.0.3:
+
+1. Update from binutils 2008 0208.
+2. Update readelf/objdump to dump DWARF frame info with machine
+register names on x86.
+3. Optimize x86-64 assembler to omit REX.W prefix when it is ignored.
+4. Add operand size check to x86 assembler.  PR 5534.
+5. Add -march=CPU[,+EXTENSION...], -mmnemonic, -msyntax, -mindex-reg,
+-mnaked-reg and -mold-gcc options to x86 assembler.
+6. Add -Mintel-mnemonic/-Mintel-mnemonic options to x86 disassembler.
+7. Update x86 disassembler to handle r12 like rsp in memory operand.
+8. Update x86 disassembler to properly support movntq, movntsd,
+movntss, movntps, movntpd, movntdq and movntdqa.
+9. Update x86 disassembler to support AMD nops.
+10. Update x86 disassembler for cvtsi2ss/cvtsi2sd.
+11. Fix x86 assembler to support new instructions on 2 different archs.
+12. Update linker not to generate incorrect debug info for 64bit target
+on 32bit host.  PR 5303.
+13. Update ia64 assembler to support new registers in Itanium 9100
+series.
+14. Fix strip on PT_NOTE segment.  PR 5488.
+15. Fix strip/objcopy on HPUX/ia64.  PR 5449.
+16. Fix strip/objcopy for EFI.  PR 5307.
+17. Remove duplicated sections from objdump for COFF/PE.  PR 5299.
+18. Fix a linker corruption.  PR 5522.
+19. Fix mingw for 64bit targets.
+20. Fix various arm bugs.
+21. Fix various fr30 bugs.
+22. Fix various frv bugs.
+23. Fix various hppa bugs.
+24. Fix various m10300 bugs.
+25. Fix various m32r bugs.
+26. Fix various m68k bugs.
+27. Fix various mips bugs.
+28. Fix various ppc bugs.
+29. Fix various spu bugs.
+30. Fix various xtensa bugs.
+
+Changes from binutils 2.18.50.0.2:
+
+1. Update from binutils 2007 1102.
+2. Support link in Linux object files on FreeBSD.  PR 4424.
+3. Add Intel SMX instruction support to x86 assembler/diasassembler.
+4. Fix an objcopy regression where we failed to adjust section
+flags.  PR 5233.
+5. Improve irregular instruction support in x86 assembler.
+6. Improve support for instructions with restricted operands in x86
+diasassembler.
+7. Fix an x86-64 assembler bug where extra REX byte generated in Intel
+mode.  PR 5109.
+8. Update .pushsection directive support in assembler.  PRs 5221.
+9. Improve linker -z relro support.
+10. Add support for generating wide character strings in assembler.
+11. Improve relocation process for DWARF debug info in readelf.
+12. Add a linker warning for invalid merge section with unterminated
+strings.
+13. Improve linker support of DWARF debug info for discarded sections
+during linker-relaxation.
+14. Improve fabs detection.  PR 5147.
+15. Improve non-bash support.  PR 5215.
+16. Improve support for non-gcc compiler.  PRs 5146/5160.
+17. Improve error messages.  PRs 5172/5173/5161/5158/5155/
+5121-5126/5129/5131-5137/5143/5142/5078/5089/5090.
+18. Fix various cr16 bugs.
+19. Fix various m10300 bugs.
+20. Fix various mips bugs.
+21. Fix various ppc bugs.
+22. Fix various xtensa bugs.
+
+Changes from binutils 2.18.50.0.1:
+
+1. Update from binutils 2007 1001.
+2. Speed up hash table lookup in linker. 
+3. Add -c/--archive-index option to readelf.
+4. Fix an readelf crash. PR 5011.
+5. Fix an x86 assembler Intel mode bug. PR 5080.
+6. Add EIP support in x86 assembler.
+7. Add fake index registers, EIZ/RIZ, to x86 assembler/disassembler.
+8. Improve x86 assembler error message for truncated values. PR 5026.
+9. Remove a COFF assertion in COFF assembler. PR 5035.
+10. Add AMD SSE5 support to x86 assembler/disassembler.
+11. Fix x86 assembler for extrq/insertq in Intel mode.
+12. Fix x86 disassembler for invalid opcodes in 64bit. PR 5072.
+13. Fix auto-import in PE-COFF linker.  PR 4844.
+14. Correct -z now in ELF linker.
+15. Fix a --build-id linker crash.  PR 5025.
+16. Improved x86 assembler/disassembler infrastructure for new
+instruction support.
+17. Fix various m68k bugs.
+18. Fix various ppc bugs.
+19. Fix various spu bugs.
+
+Changes from binutils 2.17.50.0.18:
+
+1. Update from binutils 2007 0908.
+2. Fix an ELF linker for SHT_NOBITS sections.  PR 2864/5006.
+3. Improve TLS transition check in i386 and x86-64 linkers.
+4. Fix a GD->LE/LD->LE TLS transition bug in i386 and x86-64 linkers.
+PR 4918.
+5. Update ELF linker to dump segment map when a section can't be allocated
+in segment. PR 4909.
+6. Clean up x86 disassembler to remove fixups and make it more
+table driven.
+7. Fix x86 disassember for SSE instructions in Intel mode. PR 4834.
+8. Properly handle bss segments in ELF linker.
+9. Add --string-dump to readelf.
+10. Fix objcopy -R .debug_* --only-keep-debug regression. PR 4888.
+11. Change x86 assembler to follow SVME specification.
+12. Fix x86 assembler for cmpxchg8b, pextrb and pinsrb in Intel mode.
+13. Update x86 assembler to better handle expressions with @GOT suffix.
+PR 4079.
+14. Properly handle section alignment >= 128 byte for PECOFF.
+15. Fix an ELF linker --build-id option crash.  PR 4923.
+16. Fix binutils build on HP-UX. PR 4875.
+17. Fix a regression of the a.out linker -N option. PR 4515.
+18. Update x86 disassembler for invlpg, fxsave, fxrstor, ldmxcsr and
+stmxcsr in Intel mode.
+19. Fix x86 assembler for SSE4 instructions in Intel mode.
+20. Fix various arm bugs.
+21. Fix various mips bugs.
+22. Fix various ppc bugs.
+23. Fix various spu bugs.
+24. Fix various xtensa bugs.
+
+Changes from binutils 2.17.50.0.17:
+
+1. Update from binutils 2007 0731.
+2. Switching from GPLv2 to GPLv3.
+3. Add a new ELF linker option, --build-id, to generate a unique
+per-binary identifier embedded in a note section.
+4. Remove COFF/x86-64 from PE-COFF/x86-64.
+5. Fix a "nm -l" crash on DWARF info. PR 4797.
+6. Match symbol type when creating symbol aliase in ELF shared library. 
+7. Fix addr2line on relocatable linux kernel. PR 4756.
+8. Change disassembler to print addend as signed.
+9. Support section alignment from 128 to 8192 bytes for PE-COFF.
+10. Add attribute section to ELF linker.
+11. Fix ELF linker to meet gABI alignment requirement. PR 4701.
+12. Add support for reading in debug information via a .gnu_debuglink
+section.
+13. Fix string merge for ia64 linker. PR 4590.
+14. Add --common to size to display total size for *COM* syms.
+15. Fix "strip --strip-unneeded" on relocatable files. PR 4716.
+16. Fix "objcopy/strip --only-keep-debug" for SHT_NOTE sections.
+17. Fix objdump -S with unit-at-a-time.
+18. Properly handle "-shared -pie" in linker. PR 4409.
+19. Fix x86 disassembler in Intel mode for various SIMD instruction.
+PRs 4667/4834.
+20. Update x86-64 assembler to long nop sequence by default.
+21. Fix --32 for x86-64 mingw assembler.
+22. Fix a memory corruption in assembler.  PR 4722.
+22. Properly support 64bit PE-COFF on hosts where long isn't 64bit.
+23. Add #line in generated linker source files.
+24. Fix linker crash on SIZEOF.  PR 4782.
+27. Add CR16 support.
+28. Add windmc tool for Windows.
+29. Generate x86 instruction/register definitions from ascii tables.
+30. Fix strip for Solaris. PR 4712.
+31. Fix various mips bugs.
+32. Fix various ppc bugs.
+33. Fix various spu bugs.
+34. Fix various xtensa bugs.
+
+Changes from binutils 2.17.50.0.16:
+
+1. Update from binutils 2007 0615.
+2. Preserve section alignment for copy relocation.  PR 4504.
+3. Properly fix regression with objcopy --only-keep-debug.  PR 4479.
+4. Fix ELF eh frame handling.  PR 4497.
+5. Fix ia64 string merge.  PR 4590.
+5. Don't use PE target on EFI files nor EFI target on PE files.
+6. Speed up linker with many input files.
+7. Support cross compiling windres.  PR 2737.
+8. Fix various windres bugs.
+9. Fix various arms bugs.
+10. Fix various m68k bugs.
+11. Fix various mips bugs.
+12. Fix various ppc bugs.
+13. Fix various sparc bugs.
+14. Fix various spu bugs.
+15. Fix various xtensa bugs.
+
+Changes from binutils 2.17.50.0.15:
+
+1. Update from binutils 2007 0511.
+2. Fix objcopy --only-keep-debug and linker multiple BSS sections handling.
+PR 4479.
+3. Fix "readelf -s -D" for gnu hash.  PR 4476.
+4. Fix ia64 linker crash with --unresolved-symbols=ignore-all. PR 4409.
+5. Improve crc32 support in x86 assembler/dissassembler.
+6. Improve displacement handling in x86 dissassembler. PR 4430.
+7. Correct PC relative displacement handling in x86-64 dissassembler for
+Intel mode. PR 4429.
+8. Fix various PPC bugs.
+9. Fix various SPU bugs.
+10. Fix various ARM bugs.
+11. Fix various m68k bugs.
+12. Fix various xtensa bugs.
+
+Changes from binutils 2.17.50.0.14:
+
+1. Update from binutils 2007 0418.
+2. Support Intel SSE4 instructions.
+3. Fix linker --fatal-warnings for --warn-shared-textrel. PR 4304.
+4. Improve linker error message to identify linker script error
+location. PR 4090.
+5. Fix objcopy to allow removing all sections. PR 4348.
+6. Don't print addresses of 32-bit targets as 64-bit values on 64bit
+host. PR 4292.
+7. Improve checking for corrupted input files. PR 4110.
+8. Improve alpha linker performance.
+9. Add a new linker option, -l:foo.
+10. Fix a PPC linker bug. PR 4267.
+11. Misc vxworks bug fixes.
+12. Misc SH bug fixes.
+13. Misc SPU bug fixes.
+14. Misc ARM bug fixes.
+15. Misc MIPS bug fixes.
+16. Misc xtensa bug fixes.
+
+Changes from binutils 2.17.50.0.13:
+
+1. Update from binutils 2007 0322.
+2. Fix >16byte nop padding regression in x86 assembler.
+3. Fix x86-64 disassembler for xchg. PR 4218.
+4. Optimize opcode for x86-64 xchg.
+5. Allow register operand with x86 nop.
+6. Properly handle holes between sections for PE-COFF. PR 4210.
+7. Print more PE-COFF info for objdump -p.
+8. Report missing matching LO16 relocation for HI16 relocation in mips
+linker.
+9. Use PC-relative relocation for Win64.
+10. Fix strip for Solaris. PR 3535.
+11. Fix a C++ demangler crash.
+12. Some m32c update.
+13. Fix misc ARM bugs.
+
+Changes from binutils 2.17.50.0.12:
+
+1. Update from binutils 2007 0315.
+2. Add EFI/x86-64 support.
+3. Fix ELF linker for relocation against STN_UNDEF. PR 3958.
+4. Fix ELF linker for SHT_NOBITS section whose VMA > page size. PR 4144.
+5. Make assembler and disassembler consistent for "test %eax,%ebx". PR
+4027.
+6. Fix i386 32bit address wraparound. PR 3966.
+7. Allow Linux/i386 linker to read FreeBSD/i386 object files.
+8. Fix ELF linker crash upon use of .gnu.warning.<symbol> sections. PR
+3953.
+9. Fix ELF linker to issue an error on bad section in segment. PR 4007.
+10. Support enabling both x86_64-mingw32 and i386-mingw32. PR 3945.
+11. Fix assembler to stabilize .gcc_except_table relaxation. PR 4029.
+12. Fix a MIPS linker crash. PR 3852.
+13. Fix readelf for h8300-elf. PR 3800.
+14. Fix strip for Solaris. PR 3535.
+15. Misc xtensa bug fixes.
+16. Misc PPC bug fixes.
+17. Misc SPU bug fixes.
+18. Add support for Toshiba MeP.
+
+Changes from binutils 2.17.50.0.11:
+
+1. Update from binutils 2007 0128.
+2. Remove duplicate code in x86 assembler.
+3. Fix 32bit and 64bit HPPA/ELF.
+
+Changes from binutils 2.17.50.0.10:
+
+1. Update from binutils 2007 0125.
+2. Support environment variables, LD_SYMBOLIC for -Bsymbolic and
+LD_SYMBOLIC_FUNCTIONS for -Bsymbolic-functions.
+3. Build binutils rpm with LD_SYMBOLIC_FUNCTIONS=1 and reduce PLT
+relocations in libfd.so by 84%.
+4. Enable sharable sections only for ia32, x86-64 and ia64.
+5. Properly handle PT_GNU_RELRO segment for objcopy.
+
+Changes from binutils 2.17.50.0.9:
+
+1. Update from binutils 2007 0122.
+2. Implement sharable section proposal for ia32, x86-64 and ia64:
+
+http://groups-beta.google.com/group/generic-abi
+
+3. Implement linker enhancement, -Bsymbolic-functions,
+--dynamic-list-cpp-new and --dynamic-list-data.  PR 3831.
+4. Implement new linker switch, --default-script=FILE/-dT FILE.
+5. Check EI_OSABI when reading ELF files.  PR 3826.
+6. Fix x86 assembler error message. PR 3830.
+7. Fix a bug in ld testsuite.  PR 1283.
+8. Don't include archive64.o for 32bit target.  PR 3631.
+9. Support -z max-page-size and -z common-page-size in user provided
+linker script.
+10. Fix 32bit library support for GNU/kFreeBSD/x86-64.  PR 3843.
+11. Fix some bugs in Score assembler. PR 3871.
+12. Fix various bugs in ARM assembler. PR 3707 and more.
+13. Add Fido support.
+
+Changes from binutils 2.17.50.0.8:
+
+1. Update from binutils 2007 0103.
+2. Fix --wrap linker bug.
+3. Improve handling ELF binaries generated by foreign ELF linkers.
+4. Various ELF M68K bug fixes.
+5. Score bug fixes.
+6. Don't read past end of archive elements. PR 3704.
+7. Improve .eh_frame_hdr section handling.
+8. Fix symbol visibility with comdat/linkonce sections in ELF linker.
+PR 3666.
+9. Fix 4 operand instruction handling in x86 assembler.
+10. Properly check the 4th operand in x86 assembler. PR 3712.
+11. Fix .cfi_endproc handling in assembler. PR 3607.
+12. Various ARM bug fixes.
+13. Various PE linker fixes.
+14. Improve x86 dissassembler for cmpxchg16b.
+
+Changes from binutils 2.17.50.0.7:
+
+1. Update from binutils 2006 1201.
+2. Fix "objcopy --only-keep-debug" crash. PR 3609.
+3. Fix various ARM ELF bugs.
+4. Fix various xtensa bugs.
+5. Update x86 disassembler.
+
+Changes from binutils 2.17.50.0.6:
+
+1. Update from binutils 2006 1127.
+2. Properly set ELF output segment address when the first section in
+input segment is removed.
+3. Better merging of CIEs in linker .eh_frame optimizations.
+4. Support .cfi_personality and .cfi_lsda assembler directives.
+5. Fix an ARM linker crash. PR 3532.
+6. Fix various PPC64 ELF bugs.
+7. Mark discarded debug info more thoroughly in linker output.
+8. Fix various MIPS ELF bugs.
+9. Fix readelf to display program interpreter path > 64 chars. PR 3384.
+10. Add support for PowerPC SPU.
+11. Properly handle cloned symbols used in relocations in assembler. PR
+3469.
+12. Update opcode for POPCNT in amdfam10 architecture.
+
+Changes from binutils 2.17.50.0.5:
+
+1. Update from binutils 2006 1020.
+2. Don't make debug symbol dynamic. PR 3290.
+3. Don't page align empty SHF_ALLOC sections, which leads to very large
+executables. PR 3314.
+4. Use a different section index for section relative symbols against
+removed empty sections.
+5. Fix a few ELF EH frame handling bugs.
+6. Don't ignore relocation overflow on branches to undefweaks for
+x86-64. PR 3283.
+7. Rename MNI to SSSE3.
+8. Properly append symbol list for --dynamic-list.
+lists.
+9. Various ARM ELF fixes.
+10. Correct 64bit library search path for Linux/x86 linker with 64bit
+support.
+11. Fix ELF linker to copy OS/PROC specific flags from input section to
+output section.
+12. Fix DW_FORM_ref_addr handling in linker dwarf reader. PR 3191.
+13. Fix ELF indirect symbol handling. PR 3351.
+14. Fix PT_GNU_RELRO segment handling for SHF_TLS sections. Don't add
+PT_GNU_RELRO segment when there are no relro sections. PR 3281.
+15. Various MIPS ELF fixes.
+16. Various Sparc ELF fixes.
+17. Various Xtensa ELF fixes.
+
+Changes from binutils 2.17.50.0.4:
+
+1. Update from binutils 2006 0927.
+2. Fix linker regressions of section address and section relative symbol
+with empty output section. PR 3223/3267.
+3. Fix "strings -T". PR 3257.
+4. Fix "objcopy --only-keep-debug". PR 3262.
+5. Add Intell iwmmxt2 support.
+6. Fix an x86 disassembler bug. PR 3100.
+
+Changes from binutils 2.17.50.0.3:
+
+1. Update from binutils 2006 0924.
+2. Speed up linker on .o files with debug info on linkonce sections.
+PR 3111.
+3. Added x86-64 PE support.
+4. Fix objcopy/strip on .o files with section groups. PR 3181.
+5. Fix "ld --hash-style=gnu" crash with gcc 3.4.6. PR 3197.
+6. Fix "strip --strip-debug" on .o files generated with
+"gcc -feliminate-dwarf2-dups". PR 3186.
+7. Fix "ld -r" on .o files generated with "gcc -feliminate-dwarf2-dups".
+PR 3249.
+8. Add --dynamic-list to linker to make global symbols dynamic.
+9. Fix magic number for EFI ia64. PR 3171.
+10. Remove PT_NULL segment for "ld -z relro". PR 3015.
+11. Make objcopy to perserve the file formats in archive elements.
+PR 3110.
+12. Optimize x86-64 assembler and fix disassembler for
+"add32 mov xx,$eax". PR 3235.
+13. Improve linker diagnostics. PR 3107.
+14. Fix "ld --sort-section name". PR 3009.
+15. Updated an x86 disassembler bug. PR 3000.
+16. Various updates for PPC, ARM, MIPS, SH, Xtensa.
+17. Added Score support.
+
+Changes from binutils 2.17.50.0.2:
+
+1. Update from binutils 2006 0715.
+2. Add --hash-style to ELF linker with DT_GNU_HASH and SHT_GNU_HASH.
+3. Fix a visibility bug in ELF linker (PR 2884).
+4. Properly fix the i386 TLS linker bug (PR 2513).
+5. Add assembler and dissassembler support for Pentium Pro nops.
+6. Optimize x86 nops for Pentium Pro and above.
+7. Add -march=/-mtune= to x86 assembler.
+8. Fix an ELF linker with TLS common symbols.
+9. Improve program header allocation in ELF linker.
+10. Improve MIPS, M68K and ARM support.
+11. Fix an ELF linker crash when reporting alignment change (PR 2735).
+12. Remove unused ELF section symbols (PR 2723).
+13. Add --localize-hidden to objcopy.
+14. Add AMD SSE4a and ABM new instruction support.
+15. Properly handle illegal x86 instructions in group 11 (PR 2829).
+16. Add "-z max-page-size=" and "-z common-page-size=" to ELF linker.
+17. Fix objcopy for .tbss sections.
+
+Changes from binutils 2.17.50.0.1:
+
+1. Update from binutils 2006 0526.
+2. Change the x86-64 maximum page size to 2MB.
+3. Support --enable-targets=all for 64bit target and host (PR 1485).
+4. Properly update CIE/FDE length and align section for .eh_frame
+section (PR 2655/2657).
+5. Properly handle removed ELF section symbols.
+6. Fix an ELF linker regression introduced on 2006-04-21.
+7. Fix an segfault in PPC ELF linker (PR 2658).
+8. Speed up the ELF linker by caching the result of kept section check.
+9. Properly create stabs section for ELF.
+10. Preserve ELF program header when copying ELF files.
+11. Properly handle ELF SHN_LOPROC/SHN_HIOS when checking section
+index (PR 2607).
+12. Misc mips updates.
+13. Misc arm updates.
+14. Misc xtensa updates.
+15. Fix an alpha assembler warning (PR 2598).
+16. Fix assembler buffer overflow.
+17. Properly disassemble sgdt/sidt for x86-64.
+
+Changes from binutils 2.16.91.0.7:
+
+1. Update from binutils 2006 0427.
+2. Fix an objcopy regression (PR 2593).
+3. Reduce ar memory usage (PR 2467).
+4. Allow application specific ELF sections (PR 2537).
+5. Fix an i386 TLS linker bug (PR 2513).
+6. Speed up ia64 linker by 1300X in some cases (PR 2442).
+7. Check illegal immediate register operand in i386 assembler (PR
+2533).
+8. Fix a strings bug (PR 2584).
+9. Better handle corrupted ELF files (PR 2257).
+10. Fix a MIPS linker bug (PR 2267).
+
+Changes from binutils 2.16.91.0.6:
+
+1. Update from binutils 2006 0317.
+2. Support Intel Merom New Instructions in assembler/disassembler.
+3. Support Intel new instructions in Montecito.
+4. Fix linker "--as-needed" (PR 2434).
+5. Fix linker "-s" regression (PR 2462).
+6. Fix REP prefix for string instructions in x86 disassembler
+(PR 2428).
+7. Fix the weak undefined symbols in PIE (PR 2218).
+8. Fix 2 DWARF reader bugs (PRs 2443, 2338).
+9. Improve ELF linker error message (PR 2322).
+10. Avoid abort with dynamic symbols in >64K sections (PR 2411).
+11. Handle mismatched symbol types for executables (PR 2404).
+12. Avoid a linker linkonce regression (PR 2342).
+
+Changes from binutils 2.16.91.0.5:
+
+1. Update from binutils 2006 0212.
+2. Correct Linux linker search order for DT_NEEDED entries (PR 2290).
+3. Fix the x86-64 disassembler for control/debug register moves.
+4. Properly handle ELF strip/objcopy with unmodified program header
+(PR 2258).
+5. Improve ELF linker error handling when there are not enough room for
+program headers (PR 2322).
+6. Properly handle weak undefined symbols in PIE (PR 2218).
+7. Support new i386/x86-64 TLS relocations.
+8. Fix addr2line for linux kernel (PR 2096).
+9. Fix an assembler memory leak with --statistics.
+10. Avoid an ia64 assembler regression (PR 2117).
+
+Changes from binutils 2.16.91.0.4:
+
+1. Update from binutils 2005 1219.
+2. Fix a MIPS linker regression (PR 1932).
+3. Fix an objcopy bug for ia64 (PR 1991).
+4. Fix a linker crash on bad input (PR 2008).
+5. Fix 64bit monitor and mwait (PR 1874).
+
+Changes from binutils 2.16.91.0.3:
+
+1. Update from binutils 2005 1111.
+2. Fix ELF orphan section handling (PR 1467)
+3. Fix ELF section attribute handleing (PR 1487).
+4. Fix IA64 unwind info dump for relocatable files. (PR 1436).
+5. Add DWARF info dump to objdump.
+6. Fix SHF_LINK_ORDER handling (PR 1321).
+7. Don't allow "ld --just-symbols" on DSO (PR 1263).
+8. Fix a "ld -u" crash on TLS symbol (PR 1301).
+9. Fix an IA64 linker crash (PR 1247).
+10. Fix a MIPS linker bug (PR 1150).
+11. Fix a M68K linker bug (PR 1775).
+12. Fix an ELF symbol versioning linker bug (PR 1540).
+13. Improve linker error handling (PR 1208).
+14. Add new SPARC processors to SunOS for objcopy (PR 1472).
+15. Add "@file" to read options from a file.
+16. Add assembler weakref support.
+
+Changes from binutils 2.16.91.0.2:
+
+1. Update from binutils 2005 0821.
+2. Support x86-64 medium model.
+3. Fix "objdump -S --adjust-vma=xxx" (PR 1179).
+4. Reduce R_IA64_NONE relocations from R_IA64_LDXMOV relaxation.
+5. Fix x86 linker regression for dosemu.
+6. Add "readelf -t/--section-details" to display section details.
+7. Fix "as -al=file" regression (PR 1118).
+
+Changes from binutils 2.16.91.0.1:
+
+1. Update from binutils 2005 0720.
+2. Add Intel VMX support.
+3. Add AMD SVME support.
+4. Add x86-64 new relocations for medium model.
+5. Fix a PIE regression (PR 975).
+6. Fix an x86_64 signed 32bit displacement regression.
+7. Fix PPC PLT (PR 1004). 
+8. Improve empty section removal.
+
+Changes from binutils 2.16.90.0.3:
+
+1. Update from binutils 2005 0622.
+2. Fix a linker versioning bug exposed by gcc 4 (PR 1022/1023/1025).
+3. Optimize ia64 br->brl relaxation (PR 834).
+4. Improve linker empty section removal.
+5. Fix DWARF 2 line number reporting (PR 990).
+6. Fix DWARF 2 line number reporting regression on assembly file (PR
+1000).
+
+Changes from binutils 2.16.90.0.2:
+
+1. Update from binutils 2005 0510.
+2. Update ia64 assembler to support comdat group section generated by
+gcc 4 (PR 940).
+3. Fix a linker crash on bad input (PR 939).
+4. Fix a sh64 assembler regression (PR 936).
+5. Support linker script on executable (PR 882).
+6. Fix the linker -pie regression (PR 878).
+7. Fix an x86_64 disassembler bug (PR 843).
+8. Fix a PPC linker regression.
+9. Misc speed up.
+
+Changes from binutils 2.16.90.0.1:
+
+1. Update from binutils 2005 0429.
+2. Fix an ELF linker regression (PR 815).
+3. Fix an empty section removal related bug.
+4. Fix an ia64 linker regression (PR 855).
+5. Don't allow local symbol to be equated common/undefined symbols (PR
+857).
+6. Fix the ia64 linker to handle local dynamic symbol error reporting.
+7. Make non-debugging reference to discarded section an error (PR 858).
+8. Support Sparc/TLS.
+9. Support rpm build with newer rpm.
+10. Fix an alpha linker regression.
+11. Fix the non-gcc build regression.
+
+Changes from binutils 2.15.94.0.2.2:
+
+1. Update from binutils 2005 0408.
+2. The i386/x86_64 assemblers no longer accept instructions for moving
+between a segment register and a 32bit memory location.
+3. The x86_64 assembler now allows movq between a segment register and
+a 64bit general purpose register.
+4. 20x Speed up linker for input files with >64K sections.
+5. Properly report ia64 linker relaxation failures.
+6. Support tuning ia64 assembler for Itanium 2 processors.
+7. Linker will remove empty unused output sections.
+8. Add -N to readelf to display full section names.
+9. Fix the ia64 linker to support linkonce text sections without unwind
+sections.
+10. More unwind directive checkings in the ia64 assembler.
+11. Speed up linker with wildcard handling.
+12. Fix readelf to properly dump .debug_ranges and .debug_loc sections.
+
+Changes from binutils 2.15.94.0.2:
+
+1. Fix greater than 64K section support in linker.
+2. Properly handle i386 and x86_64 protected symbols in linker.
+3. Fix readelf for LEB128 on 64bit hosts.
+4. Speed up readelf for section group process.
+5. Include ia64 texinfo pages.
+6. Change ia64 assembler to check hint.b for Montecito.
+7. Improve relaxation failure report in ia64 linker.
+8. Fix ia64 linker to allow relax backward branch in the same section.
+
+Changes from binutils 2.15.94.0.1:
+
+1. Update from binutils 2004 1220.
+2. Fix strip for TLS symbol references.
+
+Changes from binutils 2.15.92.0.2:
+
+1. Update from binutils 2004 1121.
+2. Put ia64 .ctors/.dtors sections next to small data section for
+Intel ia64 compiler.
+3. Fix -Bdynamic/-Bstatic handling for linker script.
+4. Provide more information on relocation overflow.
+5. Add --sort-section to linker.
+6. Support icc 8.1 unwind info in readelf.
+7. Fix the infinite loop bug on bad input in the ia64 assembler.
+8. Fix ia64 SECREL relocation in linker.
+9. Fix a section group memory leak in readelf.
+
+Changes from binutils 2.15.91.0.2:
+
+1. Update from binutils 2004 0927.
+2. Work around a section header bug in Intel ia64 compiler.
+3. Fix an unwind directive bug in the ia64 assembler.
+4. Fix various PPC bugs.
+5. Update ARM support.
+6. Fix an x86-64 linker warning while building Linux kernel.
+
+Changes from binutils 2.15.91.0.1:
+
+1. Update from binutils 2004 0727.
+2. Fix the x86_64 linker to prevent non-PIC code in shared library.
+3. Fix the ia64 linker to warn the relotable files which can't be
+relaxed.
+4. Fix the comdat group support. Allow mix single-member comdat group
+with linkonce section.
+5. Added --add-needed/--no-add-needed options to linker.
+6. Fix the SHF_LINK_ORDER support.
+7. Fix the ia64 assembler for multiple sections with the same name and
+SHT_IA_64_UNWIND sections.
+8. Fix the ia64 assembler for merge section and relaxation.
+
+Changes from binutils 2.15.90.0.3:
+
+1. Update from binutils 2004 0527.
+2. Fix -x auto option in the ia64 assembler.
+3. Add the AR check in the ia64 assembler.
+4. Fix the section group support.
+5. Add a new -z relro linker option.
+6. Fix an exception section placement bug in linker.
+7. Add .serialize.data and .serialize.instruction to the ia64
+assembler.
+
+Changes from binutils 2.15.90.0.2:
+
+1. Update from binutils 2004 0415.
+2. Fix the linker for weak undefined symbol handling.
+3. Fix the ELF/Sparc and ELF/Sparc64 linker for statically linking PIC
+code.
+
+Changes from binutils 2.15.90.0.1.1:
+
+1. Update from binutils 2004 0412.
+2. Add --as-needed/--no-as-needed to linker.
+3. Fix -z defs in linker.
+4. Always reserve the memory for ia64 dynamic linker.
+5. Fix a race condition in ia64 lazy binding.
+
+Changes from binutils 2.15.90.0.1:
+
+1. Fixed an ia64 assembler bug.
+2. Install the assembler man page.
+
+Changes from binutils 2.14.90.0.8:
+
+1. Update from binutils 2004 0303.
+2. Fixed linker for undefined symbols with non-default visibility.
+3. Sped up linker weakdef symbol handling.
+4. Fixed mixing ELF32 and ELF64 object files in archive.
+5. Added ia64 linker brl optimization.
+6. Fixed ia64 linker to disallow invalid dynamic relocations.
+7. Fixed DT_TEXTREL handling in ia64 linker.
+8. Fixed alignment handling in ia64 assembler.
+9. Improved ia64 assembler unwind table handling. 
+
+Changes from binutils 2.14.90.0.7:
+
+1. Update from binutils 2004 0114.
+2. Fixed an ia64 assembler unwind table bug. 
+3. Better handle IPF linker relaxation overflow.
+4. Fixed misc PPC bugs.
+
+Changes from binutils 2.14.90.0.6:
+
+1. Update from binutils 2003 1029.
+2. Allow type changes for undefined symbols.
+3. Fix EH frame optimization.
+4. Fix the check for undefined versioned symbol with wildcard.
+5. Support generating code for Itanium.
+6. Detect and warn bad symbol index.
+7. Update IPF assemebler DV check.
+
+Changes from binutils 2.14.90.0.5:
+
+1. Update from binutils 2003 0820.
+2. No longer use section names for ELF section types nor flags.
+3. Fix some ELF/IA64 linker bugs.
+4. Fix some ELF/ppc bugs.
+5. Add archive support to readelf.
+
+Changes from binutils 2.14.90.0.4.1:
+
+1. Update from binutils 2003 0722.
+2. Fix an ELF/mips linker bug.
+3. Fix an ELF/hpppa linker bug.
+4. Fix an ELF/ia64 assembler bug.
+5. Fix a linkonce support with C++ debug.
+6. A new working C++ demangler.
+7. Various alpha, mips, ia64, ... bug fixes.
+8. Support for the current gcc and glibc.
+
+Changes from binutils 2.14.90.0.4:
+ 
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Prescott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.18.50.0.7.tar.bz2. Source code.
+2. binutils-2.18.50.0.6-2.18.50.0.7.diff.bz2. Patch against the
+   previous beta source code.
+3. binutils-2.18.50.0.7.i686.tar.bz2. IA-32 binary tar ball for RedHat
+   EL 4.
+4. binutils-2.18.50.0.7.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+   EL 4.
+5. binutils-2.18.50.0.7.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+   EL 4.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
 
 
-H.J.
-
-------=_Part_5620_1545980.1207326589685
-Content-Type: text/x-patch; name=gas-x86-pclmul-1.patch
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_femyz60r0
-Content-Disposition: attachment; filename=gas-x86-pclmul-1.patch
-
-Z2FzLwoKMjAwOC0wNC0wNCAgSC5KLiBMdSAgPGhvbmdqaXUubHVAaW50ZWwuY29tPgoKCSogTkVX
-UzogTWVudGlvbiBYU0FWRS4gIENoYW5nZSBDTE1VTCB0byBQQ0xNVUwuCgoJKiBjb25maWcvdGMt
-aTM4Ni5jIChjcHVfYXJjaCk6IEFkZCAucGNsbXVsLgoJKG1kX3Nob3dfdXNhZ2UpOiBSZXBsYWNl
-IGNsbXVsIHdpdGggcGNsbXVsLgoJKiBkb2MvYy1pMzg2LnRleGk6IExpa2V3aXNlLgoKZ2FzL3Rl
-c3RzdWl0ZS8KCjIwMDgtMDQtMDQgIEguSi4gTHUgIDxob25naml1Lmx1QGludGVsLmNvbT4KCgkq
-IGdhcy9pMzg2L2FyY2gtMTAtMS5sOiBSZXBsYWNlIENMTVVMIHdpdGggUENMTVVMLgoJKiBnYXMv
-aTM4Ni9hcmNoLTEwLTIubDogTGlrZXdpc2UuCgkqIGdhcy9pMzg2L2FyY2gtMTAtMy5sOiBMaWtl
-d2lzZS4KCSogZ2FzL2kzODYvYXJjaC0xMC00Lmw6IExpa2V3aXNlLgoJKiBnYXMvaTM4Ni9hcmNo
-LTEwLnM6IExpa2V3aXNlLgoJKiBnYXMvaTM4Ni9jbG11bC1pbnRlbC5kOiBMaWtld2lzZS4KCSog
-Z2FzL2kzODYvY2xtdWwuZDogTGlrZXdpc2UuCgkqIGdhcy9pMzg2L2NsbXVsLnM6IExpa2V3aXNl
-LgoJKiBnYXMvaTM4Ni94ODYtNjQtYXJjaC0yLnM6IExpa2V3aXNlLgoJKiBnYXMvaTM4Ni94ODYt
-NjQtY2xtdWwtaW50ZWwuZDogTGlrZXdpc2UuCgkqIGdhcy9pMzg2L3g4Ni02NC1jbG11bC5kOiBM
-aWtld2lzZS4KCSogZ2FzL2kzODYveDg2LTY0LWNsbXVsLnM6IExpa2V3aXNlLgoKCSogZ2FzL2kz
-ODYvYXJjaC0xMC5kOiBSZXBsYWNlIGNsbXVsIHdpdGggcGNsbXVsLgoJKiBnYXMvaTM4Ni94ODYt
-NjQtYXJjaC0yLmQ6IExpa2V3aXNlLgoKb3Bjb2Rlcy8KCjIwMDgtMDQtMDQgIEguSi4gTHUgIDxo
-b25naml1Lmx1QGludGVsLmNvbT4KCgkqIGkzODYtZ2VuLmMgKGNwdV9mbGFnX2luaXQpOiBSZXBs
-YWNlIENQVV9DTE1VTF9GTEFHUy9DcHVDTE1VTAoJd2l0aCBDUFVfUENMTVVMX0ZMQUdTL0NwdVBD
-TE1VTC4KCShjcHVfZmxhZ3MpOiBSZXBsYWNlIENwdUNMTVVMIHdpdGggQ3B1UENMTVVMLgoJKiBp
-Mzg2LW9wYy50Ymw6IExpa2V3aXNlLgoKCSogaTM4Ni1vcGMuaCAoQ3B1Q0xNVUwpOiBSZW5hbWVk
-IHRvIC4uLgoJKENwdVBDTE1VTCk6IFRoaXMuCgkoQ3B1Rk1BKTogVXBkYXRlZC4KCShpMzg2X2Nw
-dV9mbGFncyk6IFJlcGxhY2UgY3B1Y2xtdWwgd2l0aCBjcHVwY2xtdWwuCgoJKiBpMzg2LWluaXQu
-aDogUmVnZW5lcmF0ZWQuCgotLS0gYmludXRpbHMvZ2FzL05FV1MuZm9vCTIwMDgtMDQtMDMgMDg6
-NTQ6MDguMDAwMDAwMDAwIC0wNzAwCisrKyBiaW51dGlscy9nYXMvTkVXUwkyMDA4LTA0LTA0IDA5
-OjAxOjAwLjAwMDAwMDAwMCAtMDcwMApAQCAtMiw3ICsyLDcgQEAKICogTmV3IGNvbW1hbmQgbGlu
-ZSBvcHRpb24gLW1zc2UyYXZ4IGZvciB4ODYgdGFyZ2V0IHRvIGVuY29kZSBTU0UKICAgaW5zdHJ1
-Y3Rpb25zIHdpdGggVkVYIHByZWZpeC4KIAotKiBBZGQgSW50ZWwgQUVTLCBDTE1VTCwgQVZYL0ZN
-QSBzdXBwb3J0IGZvciB4ODYgdGFyZ2V0LgorKiBBZGQgSW50ZWwgWFNBVkUsIEFFUywgUENMTVVM
-LCBBVlgvRk1BIHN1cHBvcnQgZm9yIHg4NiB0YXJnZXQuCiAKICogTmV3IGNvbW1hbmQgbGluZSBv
-cHRpb25zLCAtbWFyY2g9Q1BVWywrRVhURU5TSU9OLi4uXSwgLW10dW5lPUNQVSwKICAgLW1tbmVt
-b25pYz1bYXR0fGludGVsXSwgLW1zeW50YXg9W2F0dHxpbnRlbF0sIC1taW5kZXgtcmVnLAotLS0g
-YmludXRpbHMvZ2FzL2NvbmZpZy90Yy1pMzg2LmMuZm9vCTIwMDgtMDQtMDMgMDg6NTQ6MDguMDAw
-MDAwMDAwIC0wNzAwCisrKyBiaW51dGlscy9nYXMvY29uZmlnL3RjLWkzODYuYwkyMDA4LTA0LTA0
-IDA4OjUwOjMzLjAwMDAwMDAwMCAtMDcwMApAQCAtNjQ3LDggKzY0NywxMCBAQCBzdGF0aWMgY29u
-c3QgYXJjaF9lbnRyeSBjcHVfYXJjaFtdID0KICAgICBDUFVfWFNBVkVfRkxBR1MgfSwKICAgeyAi
-LmFlcyIsIFBST0NFU1NPUl9VTktOT1dOLAogICAgIENQVV9BRVNfRkxBR1MgfSwKKyAgeyAiLnBj
-bG11bCIsIFBST0NFU1NPUl9VTktOT1dOLAorICAgIENQVV9QQ0xNVUxfRkxBR1MgfSwKICAgeyAi
-LmNsbXVsIiwgUFJPQ0VTU09SX1VOS05PV04sCi0gICAgQ1BVX0NMTVVMX0ZMQUdTIH0sCisgICAg
-Q1BVX1BDTE1VTF9GTEFHUyB9LAogICB7ICIuZm1hIiwgUFJPQ0VTU09SX1VOS05PV04sCiAgICAg
-Q1BVX0ZNQV9GTEFHUyB9LAogICB7ICIuM2Rub3ciLCBQUk9DRVNTT1JfVU5LTk9XTiwKQEAgLTgw
-NDUsNyArODA0Nyw3IEBAIG1kX3Nob3dfdXNhZ2UgKHN0cmVhbSkKICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGdlbmVyaWMzMiwgZ2VuZXJpYzY0XG5cCiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIEVYVEVOU0lPTiBpcyBjb21iaW5hdGlvbiBvZjpcblwKICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIG1teCwgc3NlLCBzc2UyLCBzc2UzLCBzc3NlMywgc3NlNC4xLCBzc2U0LjIsIHNzZTQs
-XG5cCi0gICAgICAgICAgICAgICAgICAgICAgICAgICBhdngsIHZteCwgc214LCB4c2F2ZSwgYWVz
-LCBjbG11bCwgZm1hLCAzZG5vdyxcblwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGF2eCwg
-dm14LCBzbXgsIHhzYXZlLCBhZXMsIHBjbG11bCwgZm1hLCAzZG5vdyxcblwKIAkJCSAgIDNkbm93
-YSwgc3NlNGEsIHNzZTUsIHN2bWUsIGFibSwgcGFkbG9ja1xuIikpOwogICBmcHJpbnRmIChzdHJl
-YW0sIF8oIlwKICAgLW10dW5lPUNQVSAgICAgICAgICAgICAgb3B0aW1pemUgZm9yIENQVSwgQ1BV
-IGlzIG9uZSBvZjpcblwKLS0tIGJpbnV0aWxzL2dhcy9kb2MvYy1pMzg2LnRleGkuZm9vCTIwMDgt
-MDQtMDMgMDg6NTQ6MDguMDAwMDAwMDAwIC0wNzAwCisrKyBiaW51dGlscy9nYXMvZG9jL2MtaTM4
-Ni50ZXhpCTIwMDgtMDQtMDQgMDg6NTA6NDQuMDAwMDAwMDAwIC0wNzAwCkBAIC0xMjUsNyArMTI1
-LDcgQEAgYWNjZXB0IHZhcmlvdXMgZXh0ZW5zaW9uIG1uZW1vbmljcy4gIEZvcgogQGNvZGV7c214
-fSwKIEBjb2Rle3hzYXZlfSwKIEBjb2Rle2Flc30sCi1AY29kZXtjbG11bH0sCitAY29kZXtwY2xt
-dWx9LAogQGNvZGV7Zm1hfSwKIEBjb2RlezNkbm93fSwKIEBjb2RlezNkbm93YX0sCkBAIC04MzIs
-NyArODMyLDcgQEAgc3VwcG9ydGVkIG9uIHRoZSBDUFUgc3BlY2lmaWVkLiAgVGhlIGNobwogQGl0
-ZW0gQHNhbXB7Lm1teH0gQHRhYiBAc2FtcHsuc3NlfSBAdGFiIEBzYW1wey5zc2UyfSBAdGFiIEBz
-YW1wey5zc2UzfQogQGl0ZW0gQHNhbXB7LnNzc2UzfSBAdGFiIEBzYW1wey5zc2U0LjF9IEB0YWIg
-QHNhbXB7LnNzZTQuMn0gQHRhYiBAc2FtcHsuc3NlNH0KIEBpdGVtIEBzYW1wey5hdnh9IEB0YWIg
-QHNhbXB7LnZteH0gQHRhYiBAc2FtcHsuc214fSBAdGFiIEBzYW1wey54c2F2ZX0KLUBpdGVtIEBz
-YW1wey5hZXN9IEB0YWIgQHNhbXB7LmNsbXVsfSBAdGFiIEBzYW1wey5mbWF9CitAaXRlbSBAc2Ft
-cHsuYWVzfSBAdGFiIEBzYW1wey5wY2xtdWx9IEB0YWIgQHNhbXB7LmZtYX0KIEBpdGVtIEBzYW1w
-ey4zZG5vd30gQHRhYiBAc2FtcHsuM2Rub3dhfSBAdGFiIEBzYW1wey5zc2U0YX0gQHRhYiBAc2Ft
-cHsuc3NlNX0KIEBpdGVtIEBzYW1wey5zdm1lfSBAdGFiIEBzYW1wey5hYm19CiBAaXRlbSBAc2Ft
-cHsucGFkbG9ja30KLS0tIGJpbnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYvYXJjaC0xMC0x
-LmwuZm9vCTIwMDgtMDQtMDMgMDg6NTQ6MDguMDAwMDAwMDAwIC0wNzAwCisrKyBiaW51dGlscy9n
-YXMvdGVzdHN1aXRlL2dhcy9pMzg2L2FyY2gtMTAtMS5sCTIwMDgtMDQtMDQgMDg6NTg6MDcuMDAw
-MDAwMDAwIC0wNzAwCkBAIC01Myw3ICs1Myw3IEBAIEdBUyBMSVNUSU5HIC4qCiBbIAldKjI2WyAJ
-XSt4Z2V0YnYKIFsgCV0qMjdbIAldK1wjIEFFUwogWyAJXSoyOFsgCV0rYWVzZW5jICBcKCVlY3hc
-KSwleG1tMAotWyAJXSoyOVsgCV0rXCMgQ0xNVUwKK1sgCV0qMjlbIAldK1wjIFBDTE1VTAogWyAJ
-XSozMFsgCV0rcGNsbXVscWRxIFwkOCwleG1tMSwleG1tMAogWyAJXSozMVsgCV0rXCMgRk1BCiBb
-IAldKjMyWyAJXSt2Zm1hZGRwZCAleW1tNCwleW1tNiwleW1tMiwleW1tNwotLS0gYmludXRpbHMv
-Z2FzL3Rlc3RzdWl0ZS9nYXMvaTM4Ni9hcmNoLTEwLTIubC5mb28JMjAwOC0wNC0wMyAwODo1NDow
-OC4wMDAwMDAwMDAgLTA3MDAKKysrIGJpbnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYvYXJj
-aC0xMC0yLmwJMjAwOC0wNC0wNCAwODo1ODoxMS4wMDAwMDAwMDAgLTA3MDAKQEAgLTUyLDcgKzUy
-LDcgQEAgR0FTIExJU1RJTkcgLioKIFsgCV0qMjZbIAldK3hnZXRidgogWyAJXSoyN1sgCV0rXCMg
-QUVTCiBbIAldKjI4WyAJXSthZXNlbmMgIFwoJWVjeFwpLCV4bW0wCi1bIAldKjI5WyAJXStcIyBD
-TE1VTAorWyAJXSoyOVsgCV0rXCMgUENMTVVMCiBbIAldKjMwWyAJXStwY2xtdWxxZHEgXCQ4LCV4
-bW0xLCV4bW0wCiBbIAldKjMxWyAJXStcIyBGTUEKIFsgCV0qMzJbIAldK3ZmbWFkZHBkICV5bW00
-LCV5bW02LCV5bW0yLCV5bW03Ci0tLSBiaW51dGlscy9nYXMvdGVzdHN1aXRlL2dhcy9pMzg2L2Fy
-Y2gtMTAtMy5sLmZvbwkyMDA4LTA0LTAzIDA4OjU0OjA4LjAwMDAwMDAwMCAtMDcwMAorKysgYmlu
-dXRpbHMvZ2FzL3Rlc3RzdWl0ZS9nYXMvaTM4Ni9hcmNoLTEwLTMubAkyMDA4LTA0LTA0IDA4OjU4
-OjE2LjAwMDAwMDAwMCAtMDcwMApAQCAtNDgsNyArNDgsNyBAQCBHQVMgTElTVElORyAuKgogWyAJ
-XSoyNlsgCV0reGdldGJ2CiBbIAldKjI3WyAJXStcIyBBRVMKIFsgCV0qMjhbIAldK2Flc2VuYyAg
-XCglZWN4XCksJXhtbTAKLVsgCV0qMjlbIAldK1wjIENMTVVMCitbIAldKjI5WyAJXStcIyBQQ0xN
-VUwKIFsgCV0qMzBbIAldK3BjbG11bHFkcSBcJDgsJXhtbTEsJXhtbTAKIFsgCV0qMzFbIAldK1wj
-IEZNQQogWyAJXSozMlsgCV0rdmZtYWRkcGQgJXltbTQsJXltbTYsJXltbTIsJXltbTcKLS0tIGJp
-bnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYvYXJjaC0xMC00LmwuZm9vCTIwMDgtMDQtMDMg
-MDg6NTQ6MDguMDAwMDAwMDAwIC0wNzAwCisrKyBiaW51dGlscy9nYXMvdGVzdHN1aXRlL2dhcy9p
-Mzg2L2FyY2gtMTAtNC5sCTIwMDgtMDQtMDQgMDg6NTg6MjAuMDAwMDAwMDAwIC0wNzAwCkBAIC00
-Niw3ICs0Niw3IEBAIEdBUyBMSVNUSU5HIC4qCiBbIAldKjI2WyAJXSt4Z2V0YnYKIFsgCV0qMjdb
-IAldK1wjIEFFUwogWyAJXSoyOFsgCV0rYWVzZW5jICBcKCVlY3hcKSwleG1tMAotWyAJXSoyOVsg
-CV0rXCMgQ0xNVUwKK1sgCV0qMjlbIAldK1wjIFBDTE1VTAogWyAJXSozMFsgCV0rcGNsbXVscWRx
-IFwkOCwleG1tMSwleG1tMAogWyAJXSozMVsgCV0rXCMgRk1BCiBbIAldKjMyWyAJXSt2Zm1hZGRw
-ZCAleW1tNCwleW1tNiwleW1tMiwleW1tNwotLS0gYmludXRpbHMvZ2FzL3Rlc3RzdWl0ZS9nYXMv
-aTM4Ni9hcmNoLTEwLmQuZm9vCTIwMDgtMDQtMDMgMDg6NTQ6MDguMDAwMDAwMDAwIC0wNzAwCisr
-KyBiaW51dGlscy9nYXMvdGVzdHN1aXRlL2dhcy9pMzg2L2FyY2gtMTAuZAkyMDA4LTA0LTA0IDA4
-OjU2OjMzLjAwMDAwMDAwMCAtMDcwMApAQCAtMSw0ICsxLDQgQEAKLSNhczogLW1hcmNoPWk2ODYr
-YXZ4K3ZteCtzbXgreHNhdmUrYWVzK2NsbXVsK2ZtYStzc2U1KzNkbm93YStzdm1lK3BhZGxvY2sK
-KyNhczogLW1hcmNoPWk2ODYrYXZ4K3ZteCtzbXgreHNhdmUrYWVzK3BjbG11bCtmbWErc3NlNSsz
-ZG5vd2Erc3ZtZStwYWRsb2NrCiAjb2JqZHVtcDogLWR3CiAjbmFtZTogaTM4NiBhcmNoIDEwCiAK
-LS0tIGJpbnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYvYXJjaC0xMC5zLmZvbwkyMDA4LTA0
-LTAzIDA4OjU0OjA4LjAwMDAwMDAwMCAtMDcwMAorKysgYmludXRpbHMvZ2FzL3Rlc3RzdWl0ZS9n
-YXMvaTM4Ni9hcmNoLTEwLnMJMjAwOC0wNC0wNCAwODo1ODoyNC4wMDAwMDAwMDAgLTA3MDAKQEAg
-LTI2LDcgKzI2LDcgQEAgZ2V0c2VjCiB4Z2V0YnYKICMgQUVTCiBhZXNlbmMgICglZWN4KSwleG1t
-MAotIyBDTE1VTAorIyBQQ0xNVUwKIHBjbG11bHFkcSAkOCwleG1tMSwleG1tMAogIyBGTUEKIHZm
-bWFkZHBkICV5bW00LCV5bW02LCV5bW0yLCV5bW03Ci0tLSBiaW51dGlscy9nYXMvdGVzdHN1aXRl
-L2dhcy9pMzg2L2NsbXVsLWludGVsLmQuZm9vCTIwMDgtMDQtMDMgMDc6MDM6MTguMDAwMDAwMDAw
-IC0wNzAwCisrKyBiaW51dGlscy9nYXMvdGVzdHN1aXRlL2dhcy9pMzg2L2NsbXVsLWludGVsLmQJ
-MjAwOC0wNC0wNCAwODo1OTowOC4wMDAwMDAwMDAgLTA3MDAKQEAgLTEsNiArMSw2IEBACiAjc291
-cmNlOiBjbG11bC5zCiAjb2JqZHVtcDogLWR3IC1NaW50ZWwKLSNuYW1lOiBpMzg2IENMTVVMIChJ
-bnRlbCBtb2RlKQorI25hbWU6IGkzODYgUENMTVVMIChJbnRlbCBtb2RlKQogCiAuKjogK2ZpbGUg
-Zm9ybWF0IC4qCiAKLS0tIGJpbnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYvY2xtdWwuZC5m
-b28JMjAwOC0wNC0wMyAwNzowMzoxOC4wMDAwMDAwMDAgLTA3MDAKKysrIGJpbnV0aWxzL2dhcy90
-ZXN0c3VpdGUvZ2FzL2kzODYvY2xtdWwuZAkyMDA4LTA0LTA0IDA4OjU5OjA1LjAwMDAwMDAwMCAt
-MDcwMApAQCAtMSw1ICsxLDUgQEAKICNvYmpkdW1wOiAtZHcKLSNuYW1lOiBpMzg2IENMTVVMCisj
-bmFtZTogaTM4NiBQQ0xNVUwKIAogLio6ICtmaWxlIGZvcm1hdCAuKgogCi0tLSBiaW51dGlscy9n
-YXMvdGVzdHN1aXRlL2dhcy9pMzg2L2NsbXVsLnMuZm9vCTIwMDgtMDQtMDMgMDc6MDM6MTguMDAw
-MDAwMDAwIC0wNzAwCisrKyBiaW51dGlscy9nYXMvdGVzdHN1aXRlL2dhcy9pMzg2L2NsbXVsLnMJ
-MjAwOC0wNC0wNCAwODo1OTo0My4wMDAwMDAwMDAgLTA3MDAKQEAgLTEsNCArMSw0IEBACi0jIENo
-ZWNrIENMTVVMIG5ldyBpbnN0cnVjdGlvbnMuCisjIENoZWNrIFBDTE1VTCBuZXcgaW5zdHJ1Y3Rp
-b25zLgogCiAJLnRleHQKIGZvbzoKLS0tIGJpbnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYv
-eDg2LTY0LWFyY2gtMi5kLmZvbwkyMDA4LTA0LTAzIDA4OjU0OjA4LjAwMDAwMDAwMCAtMDcwMAor
-KysgYmludXRpbHMvZ2FzL3Rlc3RzdWl0ZS9nYXMvaTM4Ni94ODYtNjQtYXJjaC0yLmQJMjAwOC0w
-NC0wNCAwODo1NjozOS4wMDAwMDAwMDAgLTA3MDAKQEAgLTEsNCArMSw0IEBACi0jYXM6IC1tYXJj
-aD1nZW5lcmljNjQrYXZ4K3ZteCtzbXgreHNhdmUrYWVzK2NsbXVsK2ZtYStzc2U1KzNkbm93YStz
-dm1lK3BhZGxvY2sKKyNhczogLW1hcmNoPWdlbmVyaWM2NCthdngrdm14K3NteCt4c2F2ZSthZXMr
-cGNsbXVsK2ZtYStzc2U1KzNkbm93YStzdm1lK3BhZGxvY2sKICNvYmpkdW1wOiAtZHcKICNuYW1l
-OiB4ODYtNjQgYXJjaCAyCiAKLS0tIGJpbnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYveDg2
-LTY0LWFyY2gtMi5zLmZvbwkyMDA4LTA0LTAzIDA4OjU0OjA4LjAwMDAwMDAwMCAtMDcwMAorKysg
-YmludXRpbHMvZ2FzL3Rlc3RzdWl0ZS9nYXMvaTM4Ni94ODYtNjQtYXJjaC0yLnMJMjAwOC0wNC0w
-NCAwODo1OTo0Ny4wMDAwMDAwMDAgLTA3MDAKQEAgLTI2LDcgKzI2LDcgQEAgZ2V0c2VjCiB4Z2V0
-YnYKICMgQUVTCiBhZXNlbmMgICglcmN4KSwleG1tMAotIyBDTE1VTAorIyBQQ0xNVUwKIHBjbG11
-bHFkcSAkOCwleG1tMSwleG1tMAogIyBGTUEKIHZmbWFkZHBkICV5bW00LCV5bW02LCV5bW0yLCV5
-bW03Ci0tLSBiaW51dGlscy9nYXMvdGVzdHN1aXRlL2dhcy9pMzg2L3g4Ni02NC1jbG11bC1pbnRl
-bC5kLmZvbwkyMDA4LTA0LTAzIDA3OjAzOjE5LjAwMDAwMDAwMCAtMDcwMAorKysgYmludXRpbHMv
-Z2FzL3Rlc3RzdWl0ZS9nYXMvaTM4Ni94ODYtNjQtY2xtdWwtaW50ZWwuZAkyMDA4LTA0LTA0IDA4
-OjU5OjE0LjAwMDAwMDAwMCAtMDcwMApAQCAtMSw3ICsxLDcgQEAKICNzb3VyY2U6IHg4Ni02NC1j
-bG11bC5zCiAjYXM6IC1KCiAjb2JqZHVtcDogLWR3IC1NaW50ZWwKLSNuYW1lOiB4ODYtNjQgQ0xN
-VUwgKEludGVsIG1vZGUpCisjbmFtZTogeDg2LTY0IFBDTE1VTCAoSW50ZWwgbW9kZSkKIAogLio6
-ICtmaWxlIGZvcm1hdCAuKgogCi0tLSBiaW51dGlscy9nYXMvdGVzdHN1aXRlL2dhcy9pMzg2L3g4
-Ni02NC1jbG11bC5kLmZvbwkyMDA4LTA0LTAzIDA3OjAzOjE5LjAwMDAwMDAwMCAtMDcwMAorKysg
-YmludXRpbHMvZ2FzL3Rlc3RzdWl0ZS9nYXMvaTM4Ni94ODYtNjQtY2xtdWwuZAkyMDA4LTA0LTA0
-IDA4OjU5OjExLjAwMDAwMDAwMCAtMDcwMApAQCAtMSw2ICsxLDYgQEAKICNhczogLUoKICNvYmpk
-dW1wOiAtZHcKLSNuYW1lOiB4ODYtNjQgQ0xNVUwKKyNuYW1lOiB4ODYtNjQgUENMTVVMCiAKIC4q
-OiArZmlsZSBmb3JtYXQgLioKIAotLS0gYmludXRpbHMvZ2FzL3Rlc3RzdWl0ZS9nYXMvaTM4Ni94
-ODYtNjQtY2xtdWwucy5mb28JMjAwOC0wNC0wMyAwNzowMzoxOS4wMDAwMDAwMDAgLTA3MDAKKysr
-IGJpbnV0aWxzL2dhcy90ZXN0c3VpdGUvZ2FzL2kzODYveDg2LTY0LWNsbXVsLnMJMjAwOC0wNC0w
-NCAwODo1OTo1MC4wMDAwMDAwMDAgLTA3MDAKQEAgLTEsNCArMSw0IEBACi0jIENoZWNrIDY0Yml0
-IENMTVVMIG5ldyBpbnN0cnVjdGlvbnMuCisjIENoZWNrIDY0Yml0IFBDTE1VTCBuZXcgaW5zdHJ1
-Y3Rpb25zLgogCiAJLnRleHQKIGZvbzoKLS0tIGJpbnV0aWxzL29wY29kZXMvaTM4Ni1nZW4uYy5m
-b28JMjAwOC0wNC0wMyAwODo1NDowNy4wMDAwMDAwMDAgLTA3MDAKKysrIGJpbnV0aWxzL29wY29k
-ZXMvaTM4Ni1nZW4uYwkyMDA4LTA0LTA0IDA4OjUxOjI5LjAwMDAwMDAwMCAtMDcwMApAQCAtMTA0
-LDggKzEwNCw4IEBAIHN0YXRpYyBpbml0aWFsaXplciBjcHVfZmxhZ19pbml0IFtdID0KICAgICAi
-Q3B1WHNhdmUiIH0sCiAgIHsgIkNQVV9BRVNfRkxBR1MiLAogICAgICJDcHVNTVh8Q3B1U1NFfENw
-dVNTRTJ8Q3B1U1NFM3xDcHVTU1NFM3xDcHVTU0U0XzF8Q3B1U1NFNF8yfENwdUFFUyIgfSwKLSAg
-eyAiQ1BVX0NMTVVMX0ZMQUdTIiwKLSAgICAiQ3B1TU1YfENwdVNTRXxDcHVTU0UyfENwdVNTRTN8
-Q3B1U1NTRTN8Q3B1U1NFNF8xfENwdVNTRTRfMnxDcHVDTE1VTCIgfSwKKyAgeyAiQ1BVX1BDTE1V
-TF9GTEFHUyIsCisgICAgIkNwdU1NWHxDcHVTU0V8Q3B1U1NFMnxDcHVTU0UzfENwdVNTU0UzfENw
-dVNTRTRfMXxDcHVTU0U0XzJ8Q3B1UENMTVVMIiB9LAogICB7ICJDUFVfRk1BX0ZMQUdTIiwKICAg
-ICAiQ3B1TU1YfENwdVNTRXxDcHVTU0UyfENwdVNTRTN8Q3B1U1NTRTN8Q3B1U1NFNF8xfENwdVNT
-RTRfMnxDcHVBVlh8Q3B1Rk1BIiB9LAogICB7ICJDUFVfM0ROT1dfRkxBR1MiLApAQCAtMjYzLDcg
-KzI2Myw3IEBAIHN0YXRpYyBiaXRmaWVsZCBjcHVfZmxhZ3NbXSA9CiAgIEJJVEZJRUxEIChDcHVB
-Qk0pLAogICBCSVRGSUVMRCAoQ3B1WHNhdmUpLAogICBCSVRGSUVMRCAoQ3B1QUVTKSwKLSAgQklU
-RklFTEQgKENwdUNMTVVMKSwKKyAgQklURklFTEQgKENwdVBDTE1VTCksCiAgIEJJVEZJRUxEIChD
-cHVGTUEpLAogICBCSVRGSUVMRCAoQ3B1TE0pLAogICBCSVRGSUVMRCAoQ3B1NjQpLAotLS0gYmlu
-dXRpbHMvb3Bjb2Rlcy9pMzg2LWluaXQuaC5mb28JMjAwOC0wNC0wMyAwODo1NDowNy4wMDAwMDAw
-MDAgLTA3MDAKKysrIGJpbnV0aWxzL29wY29kZXMvaTM4Ni1pbml0LmgJMjAwOC0wNC0wNCAwODo1
-NDoyOC4wMDAwMDAwMDAgLTA3MDAKQEAgLTE0Niw3ICsxNDYsNyBAQAogICB7IHsgMCwgMCwgMCwg
-MCwgMCwgMCwgMCwgMCwgMCwgMSwgMSwgMSwgMCwgMCwgMSwgMCwgMCwgMCwgMCwgMSwgIFwKICAg
-ICAgIDAsIDAsIDEsIDEsIDAsIDAsIDAsIDEsIDAsIDAsIDAsIDAsIDAsIDAgfSB9CiAKLSNkZWZp
-bmUgQ1BVX0NMTVVMX0ZMQUdTIFwKKyNkZWZpbmUgQ1BVX1BDTE1VTF9GTEFHUyBcCiAgIHsgeyAw
-LCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAxLCAxLCAxLCAwLCAwLCAxLCAwLCAwLCAwLCAwLCAx
-LCAgXAogICAgICAgMCwgMCwgMSwgMSwgMCwgMCwgMCwgMCwgMSwgMCwgMCwgMCwgMCwgMCB9IH0K
-IAotLS0gYmludXRpbHMvb3Bjb2Rlcy9pMzg2LW9wYy5oLmZvbwkyMDA4LTA0LTAzIDA4OjU0OjA3
-LjAwMDAwMDAwMCAtMDcwMAorKysgYmludXRpbHMvb3Bjb2Rlcy9pMzg2LW9wYy5oCTIwMDgtMDQt
-MDQgMDg6NTE6NDYuMDAwMDAwMDAwIC0wNzAwCkBAIC04NiwxMCArODYsMTAgQEAKICNkZWZpbmUg
-Q3B1WHNhdmUJKENwdUFWWCArIDEpCiAvKiBBRVMgc3VwcG9ydCByZXF1aXJlZCAqLwogI2RlZmlu
-ZSBDcHVBRVMJCShDcHVYc2F2ZSArIDEpCi0vKiBDTE1VTCBzdXBwb3J0IHJlcXVpcmVkICovCi0j
-ZGVmaW5lIENwdUNMTVVMCShDcHVBRVMgKyAxKQorLyogUENMTVVMIHN1cHBvcnQgcmVxdWlyZWQg
-Ki8KKyNkZWZpbmUgQ3B1UENMTVVMCShDcHVBRVMgKyAxKQogLyogRk1BIHN1cHBvcnQgcmVxdWly
-ZWQgKi8KLSNkZWZpbmUgQ3B1Rk1BCQkoQ3B1Q0xNVUwgKyAxKQorI2RlZmluZSBDcHVGTUEJCShD
-cHVQQ0xNVUwgKyAxKQogLyogNjRiaXQgc3VwcG9ydCBhdmFpbGFibGUsIHVzZWQgYnkgLW1hcmNo
-PSBpbiBhc3NlbWJsZXIuICAqLwogI2RlZmluZSBDcHVMTQkJKENwdUZNQSArIDEpCiAvKiA2NGJp
-dCBzdXBwb3J0IHJlcXVpcmVkICAqLwpAQCAtMTQyLDcgKzE0Miw3IEBAIHR5cGVkZWYgdW5pb24g
-aTM4Nl9jcHVfZmxhZ3MKICAgICAgIHVuc2lnbmVkIGludCBjcHVhdng6MTsKICAgICAgIHVuc2ln
-bmVkIGludCBjcHV4c2F2ZToxOwogICAgICAgdW5zaWduZWQgaW50IGNwdWFlczoxOwotICAgICAg
-dW5zaWduZWQgaW50IGNwdWNsbXVsOjE7CisgICAgICB1bnNpZ25lZCBpbnQgY3B1cGNsbXVsOjE7
-CiAgICAgICB1bnNpZ25lZCBpbnQgY3B1Zm1hOjE7CiAgICAgICB1bnNpZ25lZCBpbnQgY3B1bG06
-MTsKICAgICAgIHVuc2lnbmVkIGludCBjcHU2NDoxOwotLS0gYmludXRpbHMvb3Bjb2Rlcy9pMzg2
-LW9wYy50YmwuZm9vCTIwMDgtMDQtMDMgMDg6NTQ6MDcuMDAwMDAwMDAwIC0wNzAwCisrKyBiaW51
-dGlscy9vcGNvZGVzL2kzODYtb3BjLnRibAkyMDA4LTA0LTA0IDA4OjU0OjI2LjAwMDAwMDAwMCAt
-MDcwMApAQCAtMTcyNCwxMSArMTcyNCwxMSBAQCBhZXNrZXlnZW5hc3Npc3QsIDMsIDB4NjYwZjNh
-ZGYsIE5vbmUsIDMsCiAKIC8vIENMTVVMCiAKLXBjbG11bHFkcSwgMywgMHg2NjBmM2E0NCwgTm9u
-ZSwgMywgQ3B1Q0xNVUwsIE1vZHJtfElnbm9yZVNpemV8Tm9fYlN1ZnxOb193U3VmfE5vX2xTdWZ8
-Tm9fc1N1ZnxOb19xU3VmfE5vX2xkU3VmLCB7IEltbTgsIFhtbXdvcmR8VW5zcGVjaWZpZWR8QmFz
-ZUluZGV4fERpc3A4fERpc3AxNnxEaXNwMzJ8RGlzcDMyU3xSZWdYTU0sIFJlZ1hNTSB9Ci1wY2xt
-dWxscWxxZHEsIDIsIDB4NjYwZjNhNDQsIDB4MCwgMywgQ3B1Q0xNVUwsIE1vZHJtfElnbm9yZVNp
-emV8Tm9fYlN1ZnxOb193U3VmfE5vX2xTdWZ8Tm9fc1N1ZnxOb19xU3VmfE5vX2xkU3VmfEltbUV4
-dCwgeyBYbW13b3JkfFVuc3BlY2lmaWVkfEJhc2VJbmRleHxEaXNwOHxEaXNwMTZ8RGlzcDMyfERp
-c3AzMlN8UmVnWE1NLCBSZWdYTU0gfQotcGNsbXVsaHFscWRxLCAyLCAweDY2MGYzYTQ0LCAweDEs
-IDMsIENwdUNMTVVMLCBNb2RybXxJZ25vcmVTaXplfE5vX2JTdWZ8Tm9fd1N1ZnxOb19sU3VmfE5v
-X3NTdWZ8Tm9fcVN1ZnxOb19sZFN1ZnxJbW1FeHQsIHsgWG1td29yZHxVbnNwZWNpZmllZHxCYXNl
-SW5kZXh8RGlzcDh8RGlzcDE2fERpc3AzMnxEaXNwMzJTfFJlZ1hNTSwgUmVnWE1NIH0KLXBjbG11
-bGxxaHFkcSwgMiwgMHg2NjBmM2E0NCwgMHgxMCwgMywgQ3B1Q0xNVUwsIE1vZHJtfElnbm9yZVNp
-emV8Tm9fYlN1ZnxOb193U3VmfE5vX2xTdWZ8Tm9fc1N1ZnxOb19xU3VmfE5vX2xkU3VmfEltbUV4
-dCwgeyBYbW13b3JkfFVuc3BlY2lmaWVkfEJhc2VJbmRleHxEaXNwOHxEaXNwMTZ8RGlzcDMyfERp
-c3AzMlN8UmVnWE1NLCBSZWdYTU0gfQotcGNsbXVsaHFocWRxLCAyLCAweDY2MGYzYTQ0LCAweDEx
-LCAzLCBDcHVDTE1VTCwgTW9kcm18SWdub3JlU2l6ZXxOb19iU3VmfE5vX3dTdWZ8Tm9fbFN1ZnxO
-b19zU3VmfE5vX3FTdWZ8Tm9fbGRTdWZ8SW1tRXh0LCB7IFhtbXdvcmR8VW5zcGVjaWZpZWR8QmFz
-ZUluZGV4fERpc3A4fERpc3AxNnxEaXNwMzJ8RGlzcDMyU3xSZWdYTU0sIFJlZ1hNTSB9CitwY2xt
-dWxxZHEsIDMsIDB4NjYwZjNhNDQsIE5vbmUsIDMsIENwdVBDTE1VTCwgTW9kcm18SWdub3JlU2l6
-ZXxOb19iU3VmfE5vX3dTdWZ8Tm9fbFN1ZnxOb19zU3VmfE5vX3FTdWZ8Tm9fbGRTdWYsIHsgSW1t
-OCwgWG1td29yZHxVbnNwZWNpZmllZHxCYXNlSW5kZXh8RGlzcDh8RGlzcDE2fERpc3AzMnxEaXNw
-MzJTfFJlZ1hNTSwgUmVnWE1NIH0KK3BjbG11bGxxbHFkcSwgMiwgMHg2NjBmM2E0NCwgMHgwLCAz
-LCBDcHVQQ0xNVUwsIE1vZHJtfElnbm9yZVNpemV8Tm9fYlN1ZnxOb193U3VmfE5vX2xTdWZ8Tm9f
-c1N1ZnxOb19xU3VmfE5vX2xkU3VmfEltbUV4dCwgeyBYbW13b3JkfFVuc3BlY2lmaWVkfEJhc2VJ
-bmRleHxEaXNwOHxEaXNwMTZ8RGlzcDMyfERpc3AzMlN8UmVnWE1NLCBSZWdYTU0gfQorcGNsbXVs
-aHFscWRxLCAyLCAweDY2MGYzYTQ0LCAweDEsIDMsIENwdVBDTE1VTCwgTW9kcm18SWdub3JlU2l6
-ZXxOb19iU3VmfE5vX3dTdWZ8Tm9fbFN1ZnxOb19zU3VmfE5vX3FTdWZ8Tm9fbGRTdWZ8SW1tRXh0
-LCB7IFhtbXdvcmR8VW5zcGVjaWZpZWR8QmFzZUluZGV4fERpc3A4fERpc3AxNnxEaXNwMzJ8RGlz
-cDMyU3xSZWdYTU0sIFJlZ1hNTSB9CitwY2xtdWxscWhxZHEsIDIsIDB4NjYwZjNhNDQsIDB4MTAs
-IDMsIENwdVBDTE1VTCwgTW9kcm18SWdub3JlU2l6ZXxOb19iU3VmfE5vX3dTdWZ8Tm9fbFN1ZnxO
-b19zU3VmfE5vX3FTdWZ8Tm9fbGRTdWZ8SW1tRXh0LCB7IFhtbXdvcmR8VW5zcGVjaWZpZWR8QmFz
-ZUluZGV4fERpc3A4fERpc3AxNnxEaXNwMzJ8RGlzcDMyU3xSZWdYTU0sIFJlZ1hNTSB9CitwY2xt
-dWxocWhxZHEsIDIsIDB4NjYwZjNhNDQsIDB4MTEsIDMsIENwdVBDTE1VTCwgTW9kcm18SWdub3Jl
-U2l6ZXxOb19iU3VmfE5vX3dTdWZ8Tm9fbFN1ZnxOb19zU3VmfE5vX3FTdWZ8Tm9fbGRTdWZ8SW1t
-RXh0LCB7IFhtbXdvcmR8VW5zcGVjaWZpZWR8QmFzZUluZGV4fERpc3A4fERpc3AxNnxEaXNwMzJ8
-RGlzcDMyU3xSZWdYTU0sIFJlZ1hNTSB9CiAKIC8vIEFWWCBpbnN0cnVjdGlvbnMuCiAK
-------=_Part_5620_1545980.1207326589685--
+H.J. Lu
+hjl.tools@gmail.com
+05/04/2008
