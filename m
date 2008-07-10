@@ -1,23 +1,28 @@
 From: "H.J. Lu" <hjl.tools@gmail.com>
-Subject: The Linux binutils 2.18.50.0.7 is released
-Date: Sun, 4 May 2008 08:30:52 -0700
-Message-ID: <20080504153052.GA27936@lucon.org>
+Subject: The Linux binutils 2.18.50.0.8 is released
+Date: Thu, 10 Jul 2008 09:01:21 -0700
+Message-ID: <20080710160121.GA13538@lucon.org>
 Mime-Version: 1.0
 Return-path: <linux-gcc-owner@vger.kernel.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=gamma;
-        h=domainkey-signature:received:received:received:date:to:subject:message-id:mime-version:content-type:content-disposition:user-agent:from;
-        bh=QzR9WOZfzkn40PRweAKbadKLsOG/YXz3B6eSjbKWrWk=;
-        b=erPZgTprCBuJR7fJ8SzWDKXLKbhNG5lw2z+Wdz+yyn8wR5yg34fps+HXCM9arO3fcq1LY+kpIb1KZIflgCcnCFcCd7+TwU7CFSwdUi4udueV9mu9scDAw8Tf3yRRydsiciYLxOV/a8THCVwoWPiqdQSe3JU3kICFaHGoHeRjxBw=
+        h=domainkey-signature:received:received:received:date:to:cc:subject
+         :message-id:mime-version:content-type:content-disposition:user-agent
+         :from;
+        bh=KtWF3kihfmTxjpZ69Lc9nKdmk3Ya0fXKovUyrHt9fAo=;
+        b=WcJp7xHNwEI+WErk9ucuxP6o9tTTj7yUirF5tPw18gRudNrOr1zpDqSQd90I/jKEqw
+         pOUgJ47Lr1AxL7UtF1rvoA/61QcnaZZq3ZoVgzFK/oUVEKkeaclJTmAkIvs2zD9N8nv0
+         s1fke5rrr3QcvtyTJiZPWLC2KJQpfv8/QrfLc=
 Content-Disposition: inline
 Sender: linux-gcc-owner@vger.kernel.org
 List-ID: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>
+To: linux-gcc@vger.kernel.org
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>
 
-This is the beta release of binutils 2.18.50.0.7 for Linux, which is
-based on binutils 2008 0502 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.18.50.0.8 for Linux, which is
+based on binutils 2008 0709 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -104,12 +109,35 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.18.50.0.7 to
+Please report any bugs related to binutils 2.18.50.0.8 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.18.50.0.7:
+
+1. Update from binutils 2008 0709.
+2. Allow vmovd with 64bit operand in x86 assembler.
+3. Improve -msse-check in x86 assembler.
+4. Fix an AVX assembler bug in Intel syntax.  PR 6517.
+5. Improve error message in Intel syntax for x86 assembler.  PR 6518.
+6. Add the ".sse_check" directive to x86 assembler.
+7. Improve gold.
+8. Improve objcopy/strip.  PR 2995/6473.
+9. Improve objdump -g.  PR 6483.
+10. Improve ld --sort-common.  PR 6430.
+11. Add multi-GOT support for m68k.
+12. Fix various arm bugs.
+13. Fix various avr bugs.
+14. Fix various hppa bugs.
+15. Fix various m68k bugs.
+16. Fix various mips bugs.
+17. Fix various mmix bugs.
+18. Fix various ppc bugs.
+19. Fix various spu bugs.
+20. Fix various xtensa bugs.
 
 Changes from binutils 2.18.50.0.6:
 
@@ -977,14 +1005,14 @@ Changes from binutils 2.13.90.0.2:
 
 The file list:
 
-1. binutils-2.18.50.0.7.tar.bz2. Source code.
-2. binutils-2.18.50.0.6-2.18.50.0.7.diff.bz2. Patch against the
+1. binutils-2.18.50.0.8.tar.bz2. Source code.
+2. binutils-2.18.50.0.7-2.18.50.0.8.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.18.50.0.7.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.18.50.0.8.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.18.50.0.7.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.18.50.0.8.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.18.50.0.7.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.18.50.0.8.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -996,4 +1024,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-05/04/2008
+07/09/2008
