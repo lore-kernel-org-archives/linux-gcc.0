@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.19.51.0.6 is release
-Date: Fri, 29 May 2009 14:26:27 -0700
-Message-ID: <20090529212627.GA26877@lucon.org>
+Subject: The Linux binutils 2.19.51.0.7 is released.
+Date: Mon, 1 Jun 2009 09:56:55 -0700
+Message-ID: <20090601165655.GA14041@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-154331-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-154358-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,9 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-
-This is the beta release of binutils 2.19.51.0.6 for Linux, which is
-based on binutils 2009 0529 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.19.51.0.7 for Linux, which is
+based on binutils 2009 0601 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -105,12 +104,18 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.19.51.0.6 to
+Please report any bugs related to binutils 2.19.51.0.7 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.19.51.0.6:
+
+1. Update from binutils 2009 0601.
+2. Update STT_GNU_IFUNC support. PR 10205.
+3. Fix x86 asssembler Intel syntax regression with '$'. PR 10198.
 
 Changes from binutils 2.19.51.0.5:
 
@@ -237,14 +242,14 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.19.51.0.6.tar.bz2. Source code.
-2. binutils-2.19.51.0.5-2.19.51.0.6.diff.bz2. Patch against the
+1. binutils-2.19.51.0.7.tar.bz2. Source code.
+2. binutils-2.19.51.0.6-2.19.51.0.7.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.19.51.0.6.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.19.51.0.7.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.19.51.0.6.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.19.51.0.7.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.19.51.0.6.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.19.51.0.7.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -256,4 +261,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-04/29/2009
+06/01/2009
