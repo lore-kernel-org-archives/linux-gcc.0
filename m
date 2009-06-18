@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.19.51.0.9 is released.
-Date: Sat, 6 Jun 2009 17:43:11 -0700
-Message-ID: <20090607004311.GA10655@lucon.org>
+Subject: The Linux binutils 2.19.51.0.10 is released.
+Date: Thu, 18 Jun 2009 14:38:57 -0700
+Message-ID: <20090618213857.GA8094@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-154475-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-154797-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,11 +14,20 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: jakub@redhat.com, drepper@redhat.com
+Cc: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.19.51.0.9 for Linux, which is
-based on binutils 2009 0606 in CVS on sourceware.org plus various
+Hi,
+
+Hopeful, this release has all IFUNC bugs fixed.
+
+Thanks.
+
+
+H.J.
+----
+This is the beta release of binutils 2.19.51.0.10 for Linux, which is
+based on binutils 2009 0618 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -105,12 +114,26 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.19.51.0.9 to
+Please report any bugs related to binutils 2.19.51.0.10 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.19.51.0.9:
+
+1. Update from binutils 2009 0618.
+2. Update STT_GNU_IFUNC symbol support.  PR 10269/10270.
+3. Fix an assembler CFI bug.  PR 10255.
+4. Improve objdump.  PR 10263/10288
+5. Improve readelf.
+6. Improve arm support.
+7. Improve moxie support.
+8. Improve spu support.
+9. Improve vax support.
+10. Improve COFF/PE support.
+11. Improve MacOS support.
 
 Changes from binutils 2.19.51.0.8:
 
@@ -253,14 +276,14 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.19.51.0.9.tar.bz2. Source code.
-2. binutils-2.19.51.0.8-2.19.51.0.9.diff.bz2. Patch against the
+1. binutils-2.19.51.0.10.tar.bz2. Source code.
+2. binutils-2.19.51.0.9-2.19.51.0.10.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.19.51.0.9.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.19.51.0.10.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.19.51.0.9.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.19.51.0.10.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.19.51.0.9.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.19.51.0.10.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -272,4 +295,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-06/06/2009
+06/18/2009
