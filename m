@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.19.51.0.10 is released.
-Date: Thu, 18 Jun 2009 14:38:57 -0700
-Message-ID: <20090618213857.GA8094@lucon.org>
+Subject: The Linux binutils 2.19.51.0.11 is released
+Date: Sat, 27 Jun 2009 15:15:04 -0700
+Message-ID: <20090627221504.GA1350@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-154797-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-154991-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,20 +14,19 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: jakub@redhat.com, drepper@redhat.com
-Cc: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: GNU C Library <libc-alpha@sourceware.org>
+Cc: jakub@redhat.com, drepper@redhat.com, linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-Hi,
+Main changes from binutils 2.19.51.0.10:
 
-Hopeful, this release has all IFUNC bugs fixed.
-
-Thanks.
+Fix strip on static executable with STT_GNU_IFUNC symbol.  PR 10337.
+Add STB_GNU_UNIQU support.
 
 
 H.J.
-----
-This is the beta release of binutils 2.19.51.0.10 for Linux, which is
-based on binutils 2009 0618 in CVS on sourceware.org plus various
+---
+This is the beta release of binutils 2.19.51.0.11 for Linux, which is
+based on binutils 2009 0627 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -114,12 +113,27 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.19.51.0.10 to
+Please report any bugs related to binutils 2.19.51.0.11 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.19.51.0.10:
+
+1. Update from binutils 2009 0627.
+2. Fix strip on static executable with STT_GNU_IFUNC symbol.  PR 10337.
+3. Add STB_GNU_UNIQU support.
+4. Fix objcopy on empty file.  PR 10321.
+5. Fix debug section for PE-COFF.
+6. Suport build with gcc 4.5.0.
+7. Improve arm support.
+8. Improve ppc support.
+9. Improve m10300 support.
+10. Improve mep support.
+11. Improve MacOS support.
+12. Improve gold support.
 
 Changes from binutils 2.19.51.0.9:
 
@@ -276,14 +290,14 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.19.51.0.10.tar.bz2. Source code.
-2. binutils-2.19.51.0.9-2.19.51.0.10.diff.bz2. Patch against the
+1. binutils-2.19.51.0.11.tar.bz2. Source code.
+2. binutils-2.19.51.0.10-2.19.51.0.11.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.19.51.0.10.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.19.51.0.11.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.19.51.0.10.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.19.51.0.11.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.19.51.0.10.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.19.51.0.11.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -295,4 +309,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-06/18/2009
+06/27/2009
