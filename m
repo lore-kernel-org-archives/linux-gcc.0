@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.19.51.0.14 is released
-Date: Wed, 22 Jul 2009 15:15:19 -0700
-Message-ID: <20090722221519.GA20778@lucon.org>
+Subject: The Linux binutils 2.20.51.0.1 is released
+Date: Tue, 8 Sep 2009 10:50:50 -0700
+Message-ID: <20090908175050.GA8544@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-155478-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-156460-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -15,10 +15,10 @@ Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org
-Cc: GNU C Library <libc-alpha@sourceware.org>, jakub@redhat.com, drepper@redhat.com, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.19.51.0.14 for Linux, which is
-based on binutils 2009 0722 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.1 for Linux, which is
+based on binutils 2009 0905 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -105,12 +105,38 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.19.51.0.14 to
+Please report any bugs related to binutils 2.20.51.0.1 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.19.51.0.14:
+
+1. Update from binutils 2009 0905.
+2. Add Intel L1OM support.
+3. Add MicroBlaze support.
+4. Fix assembler for DWARF info without .file/.loc directives.  PR 10531.
+5. Improve -pie with TLS relocations on ia32 and x86-64.  PRs 6443/10434.
+6. Fix linker page size support.  PR 10569.
+7. Fix wildcard in linker version script.  PR 10518.
+8. Fix strip with STB_GNU_UNIQUE. PR 10492.
+9. Fix strip on unwriteable files.  PR 10364.
+10. Fix crash with "ld --build-id /usr/lib/libc.a".  PR 10555.
+11. Fix linker for Linux kernel build.  PR 10429.
+12. Support string merge on .comment section.
+13. Improve build with C++ compiler.
+14. Improve gold.
+15. Improve arm support.
+16. Improve bfin support.
+11. Improve m32c support.
+17. Improve m68k support.
+18. Improve mep support.
+19. Improve mips support.
+20. Improve ppc support.
+21. Improve spu support.
+22. Improve xtensa support.
 
 Changes from binutils 2.19.51.0.13:
 
@@ -137,6 +163,7 @@ Changes from binutils 2.19.51.0.11:
 5. Support x86 FMA4.
 6. Fix linker regression with Linux kernel build.
 7. Support unordered references in DWARF reader.
+8. Improve PE/COFF support.
 8. Improve arm support.
 9. Improve m10300 support.
 10. Improve ppc support.
@@ -313,14 +340,14 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.19.51.0.14.tar.bz2. Source code.
-2. binutils-2.19.51.0.13-2.19.51.0.14.diff.bz2. Patch against the
+1. binutils-2.20.51.0.1.tar.bz2. Source code.
+2. binutils-2.19.51.0.14-2.20.51.0.1.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.19.51.0.14.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.20.51.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.19.51.0.14.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.20.51.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.19.51.0.14.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.20.51.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -332,4 +359,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-07/22/2009
+09/08/2009
