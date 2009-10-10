@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.1 is released
-Date: Tue, 8 Sep 2009 10:50:50 -0700
-Message-ID: <20090908175050.GA8544@lucon.org>
+Subject: The Linux binutils 2.20.51.0.2 is released
+Date: Sat, 10 Oct 2009 08:32:51 -0700
+Message-ID: <20091010153251.GA6989@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-156460-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-157168-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,11 +14,10 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.20.51.0.1 for Linux, which is
-based on binutils 2009 0905 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.2 for Linux, which is
+based on binutils 2009 1009 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -105,12 +104,31 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.20.51.0.1 to
+Please report any bugs related to binutils 2.20.51.0.2 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.20.51.0.1:
+
+1. Update from binutils 2009 1009.
+2. Add .cfi_sections to assembler.
+3. Fix a linker bug with local dynamic symbols. PR 10630.
+4. Add DWARF-3/DWARF-4 support.
+5. Fix the x86 assembler PIC bug. PR 10677.
+6. Fix the x86-64 displacement assembler bug.  PR 10636.
+7. Fix the x86 assembler bug with Intel memory syntax.  PR 10637.
+8. Fix the x86 PIC assembler bug with Intel syntax. PR 10704.
+9. Add RX support.
+10. Improve gold.
+11. Improve arm support.
+12. Improve bfin support.
+13. Improve cr16 support.
+14. Improve m68k support.
+15. Improve mips support.
+16. Improve ppc support.
 
 Changes from binutils 2.19.51.0.14:
 
@@ -340,14 +358,14 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.20.51.0.1.tar.bz2. Source code.
-2. binutils-2.19.51.0.14-2.20.51.0.1.diff.bz2. Patch against the
+1. binutils-2.20.51.0.2.tar.bz2. Source code.
+2. binutils-2.20.51.0.1-2.20.51.0.2.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.20.51.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.20.51.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.20.51.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.20.51.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.20.51.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.20.51.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -359,4 +377,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-09/08/2009
+10/10/2009
