@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.2 is released
-Date: Sat, 10 Oct 2009 08:32:51 -0700
-Message-ID: <20091010153251.GA6989@lucon.org>
+Subject: The Linux binutils 2.20.51.0.3 is released
+Date: Wed, 11 Nov 2009 09:40:45 -0800
+Message-ID: <20091111174045.GA9124@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-157168-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-157907-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,15 +14,22 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.20.51.0.2 for Linux, which is
-based on binutils 2009 1009 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.3 for Linux, which is
+based on binutils 2009 1109 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
 You can take a look at patches/README to see what have been applied and
 in what order they have been applied.
+
+You can enable both gold and bfd ld with --enable-gold=both. Gold will
+be installed as ld.gold and bfd ld will be installed as ld.bfd.  By
+default, ld.bfd will be installed as ld.  You can use the configure
+option, --enable-linker=[bfd,gold] to choose the default linker, ld.
+IA-32 binary and X64_64 binary tar balls are configured with
+--enable-gold=both --enable-plugins.
 
 Starting from the 2.18.50.0.4 release, the x86 assembler no longer
 accepts
@@ -104,12 +111,34 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.20.51.0.2 to
+Please report any bugs related to binutils 2.20.51.0.3 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.20.51.0.2:
+
+1. Update from binutils 2009 1109.
+2. Fix "ld -s -static" with STT_GNU_IFUNC symbols.  PR 10911.
+3. Fix file permission on PIE with objcopy. PR 10802.
+4. Fix x86 Intel syntax assembler with relocation.  PR 10856.
+5. Fix x86 Intel syntax assembler with far jump.  PR 10740.
+6. Add AMD LWP support.
+7. Renamed linker option --add-needed to --copy-dt-needed-entries.
+8. Support enabling both ld and gold with --enable-gold=both and
+--enable-linker=[bfd,gold].
+9. Improve gold.
+10. Improve arm support.
+11. Improve cris support.
+12. Improve hppa support.
+13. Improve m68k support.
+14. Improve RX support.
+15. Improve spu support.
+16. Improve vax support.
+17. Improve MacOS support.
+18. Improve Windows support.
 
 Changes from binutils 2.20.51.0.1:
 
@@ -358,14 +387,14 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.20.51.0.2.tar.bz2. Source code.
-2. binutils-2.20.51.0.1-2.20.51.0.2.diff.bz2. Patch against the
+1. binutils-2.20.51.0.3.tar.bz2. Source code.
+2. binutils-2.20.51.0.2-2.20.51.0.3.diff.bz2. Patch against the
    previous beta source code.
-3. binutils-2.20.51.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
+3. binutils-2.20.51.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.20.51.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+4. binutils-2.20.51.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.20.51.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+5. binutils-2.20.51.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -377,4 +406,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-10/10/2009
+11/11/2009
