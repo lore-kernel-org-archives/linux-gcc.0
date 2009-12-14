@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.3 is released
-Date: Wed, 11 Nov 2009 09:40:45 -0800
-Message-ID: <20091111174045.GA9124@lucon.org>
+Subject: The Linux binutils 2.20.51.0.4 is released
+Date: Mon, 14 Dec 2009 09:37:24 -0800
+Message-ID: <20091214173724.GA24239@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-157907-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-158627-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,22 +14,26 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>
+Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.20.51.0.3 for Linux, which is
-based on binutils 2009 1109 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.4 for Linux, which is
+based on binutils 2009 1214 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
 You can take a look at patches/README to see what have been applied and
 in what order they have been applied.
 
+Starting from the 2.20.51.0.4 release, no diffs against the previous
+release will be provided.
+
 You can enable both gold and bfd ld with --enable-gold=both. Gold will
 be installed as ld.gold and bfd ld will be installed as ld.bfd.  By
 default, ld.bfd will be installed as ld.  You can use the configure
 option, --enable-linker=[bfd,gold] to choose the default linker, ld.
 IA-32 binary and X64_64 binary tar balls are configured with
---enable-gold=both --enable-plugins.
+--enable-gold=both --enable-plugins --enable-threads.
 
 Starting from the 2.18.50.0.4 release, the x86 assembler no longer
 accepts
@@ -117,6 +121,25 @@ hjl.tools@gmail.com
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.20.51.0.3:
+
+1. Update from binutils 2009 1214.
+2. Update x86 assembler to check lockable instructions for lock prefix.
+3. Update x86 disassembler to display all prefixes.
+4. Support AMD XOP new instructions.
+5. Fix an x86 assembler regression on Intel syntax.  PR 11037.
+6. Improve ia64 linker relaxation.  PR 10955.
+7. Add --no-relax linker option.
+8. Update readelf to dump .debug_pubtype sections.
+9. Improve gold:
+	a. Support linking against STT_GNU_IFUNC symbols defined in
+	   shared libraries.
+	b. Support linking with STB_GNU_UNIQUE symbols.
+10. Improve arm support.
+11. Improve m68k support.
+12. Improve mips support.
+13. Improve ppc support.
 
 Changes from binutils 2.20.51.0.2:
 
@@ -388,13 +411,11 @@ Changes from binutils 2.19.50.0.1:
 The file list:
 
 1. binutils-2.20.51.0.3.tar.bz2. Source code.
-2. binutils-2.20.51.0.2-2.20.51.0.3.diff.bz2. Patch against the
-   previous beta source code.
-3. binutils-2.20.51.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
+2. binutils-2.20.51.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-4. binutils-2.20.51.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.20.51.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-5. binutils-2.20.51.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.20.51.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -406,4 +427,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-11/11/2009
+12/14/2009
