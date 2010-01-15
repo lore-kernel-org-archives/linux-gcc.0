@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.4 is released
-Date: Mon, 14 Dec 2009 09:37:24 -0800
-Message-ID: <20091214173724.GA24239@lucon.org>
+Subject: The Linux binutils 2.20.51.0.5 is released
+Date: Fri, 15 Jan 2010 11:44:00 -0800
+Message-ID: <20100115194400.GA3170@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-158627-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-159185-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,11 +14,11 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org
 Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.20.51.0.4 for Linux, which is
-based on binutils 2009 1214 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.5 for Linux, which is
+based on binutils 2010 0115 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -28,12 +28,12 @@ in what order they have been applied.
 Starting from the 2.20.51.0.4 release, no diffs against the previous
 release will be provided.
 
-You can enable both gold and bfd ld with --enable-gold=both. Gold will
+You can enable both gold and bfd ld with --enable-gold=both.  Gold will
 be installed as ld.gold and bfd ld will be installed as ld.bfd.  By
-default, ld.bfd will be installed as ld.  You can use the configure
-option, --enable-linker=[bfd,gold] to choose the default linker, ld.
-IA-32 binary and X64_64 binary tar balls are configured with
---enable-gold=both --enable-plugins --enable-threads.
+default, ld.gold will be installed as ld.  You can use the configure
+option, --enable-gold=both/bfd to choose bfd ld as the default linker,
+ld.  IA-32 binary and X64_64 binary tar balls are configured with
+--enable-gold=both/bfd --enable-plugins --enable-threads.
 
 Starting from the 2.18.50.0.4 release, the x86 assembler no longer
 accepts
@@ -121,6 +121,24 @@ hjl.tools@gmail.com
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.20.51.0.4:
+
+1. Update from binutils 2010 0115.
+2. Optimize x86 assembler/disassembler.
+3. Add a new program, elfedit, to edit ELF files.  PR 11131.
+4. Add --dyn-syms to readelf.  PR 11146.
+5. Remove "Warning: " from objcopy error message.  PR 11130.
+6. Fix linker --gc-sections with undefined __start_XXX/__stop_XXX symbols.
+PR 11133.
+7. Fix linker --gc-sections with SHT_NOTE section.  PR 11143.
+8. Fix a c++filt bug.  PR 11137.
+9. Fix assembler listing.  PR 11122.
+10. Improve gold. Change --enable-gold to --enable-gold=[both[/{gold,bfd}]].
+11. Improve arm support.
+12. Improve mips support.
+13. Improve ppc support.
+14. Improve MacOS support.
 
 Changes from binutils 2.20.51.0.3:
 
@@ -410,12 +428,12 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.20.51.0.3.tar.bz2. Source code.
-2. binutils-2.20.51.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.20.51.0.5.tar.bz2. Source code.
+2. binutils-2.20.51.0.5.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-3. binutils-2.20.51.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.20.51.0.5.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-4. binutils-2.20.51.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.20.51.0.5.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -427,4 +445,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-12/14/2009
+01/15/2010
