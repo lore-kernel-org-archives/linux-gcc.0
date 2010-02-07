@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.5 is released
-Date: Fri, 15 Jan 2010 11:44:00 -0800
-Message-ID: <20100115194400.GA3170@lucon.org>
+Subject: The Linux binutils 2.20.51.0.6 is released
+Date: Sun, 7 Feb 2010 07:28:35 -0800
+Message-ID: <20100207152835.GA13717@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-159185-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-159517-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,11 +14,10 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org
-Cc: Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.20.51.0.5 for Linux, which is
-based on binutils 2010 0115 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.6 for Linux, which is
+based on binutils 2010 0205 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -121,6 +120,28 @@ hjl.tools@gmail.com
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.20.51.0.5:
+
+1. Update from binutils 2010 0205.
+2. Support x86 XSAVE extended state core dump.
+3. Add an option, -mavxscalar=, to x86 assembler to encoding AVX
+scalar instructios with VL=256 and update x86 disassembler.
+4. Add xsave64/xrstor64 to x86 assembler/disassembler.
+5. Add all the possible aliases for VPCOM* insns to x86 assembler.
+5. Fix --gc-sections to detect unresolved symbol in DSO.  PR 11218.
+6. Support number of ELF program segments > 64K.
+7. Support BSD4.4 extended archive write.
+8. Report error on bad section name with "objdump -j". PR 11225.
+9. Linker now checks if all files are present and indicates those missing.
+PR 4437.
+10. Allow adding section from empy file with objcopy.
+11. Update C++ demangler to support vector.
+12. Improve gold.
+13. Improve arm support.
+14. Improve hppa support.
+15. Improve ppc support.
+16. Improve s390 support.
 
 Changes from binutils 2.20.51.0.4:
 
@@ -428,12 +449,12 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.20.51.0.5.tar.bz2. Source code.
-2. binutils-2.20.51.0.5.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.20.51.0.6.tar.bz2. Source code.
+2. binutils-2.20.51.0.6.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-3. binutils-2.20.51.0.5.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.20.51.0.6.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-4. binutils-2.20.51.0.5.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.20.51.0.6.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -445,4 +466,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-01/15/2010
+02/07/2010
