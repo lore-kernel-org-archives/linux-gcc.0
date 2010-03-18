@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.6 is released
-Date: Sun, 7 Feb 2010 07:28:35 -0800
-Message-ID: <20100207152835.GA13717@lucon.org>
+Subject: The Linux binutils 2.20.51.0.7 is released
+Date: Thu, 18 Mar 2010 13:53:23 -0700
+Message-ID: <20100318205323.GA12579@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-159517-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-160130-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,10 +14,10 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
+To: linux-gcc@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>, gcc@gcc.gnu.org, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.20.51.0.6 for Linux, which is
-based on binutils 2010 0205 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.7 for Linux, which is
+based on binutils 2010 0318 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -114,19 +114,42 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.20.51.0.3 to
+Please report any bugs related to binutils 2.20.51.0.7 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
 
+Changes from binutils 2.20.51.0.6:
+
+1. Update from binutils 2010 0318.
+2. Don't set ELFOSABI_LINUX for undefined STT_GNU_IFUNC symbols.
+3. Improve x86 assembler error messages.
+4. Support vpermilp[ds] for x86.
+5. Fix strip for group sections.
+6. Fix objcopy for PE PIE.  PR 11396.
+7. Avoid 32bit overflow in linker.
+8. Correct backslash quote logic in assembler.  PR 11356.
+9. Improve linker --section-start support.  PR 11304.
+10. Properly update LMA.  PR 11219.
+11. Don't combine .init_array/.fini_array sections for relocatable link.
+12. Add Solaris Sparc/x86 linker support.
+13. Support dumping .ARM.exidx/.ARM.extab.
+14. Add STT_GNU_IFUNC support for Sparc.
+15. Improve gold.
+16. Improve arm support.
+17. Improve avr support.
+18. Improve mips support.
+19. Improve ppc support.
+20. Improve xtensa support.
+
 Changes from binutils 2.20.51.0.5:
 
 1. Update from binutils 2010 0205.
 2. Support x86 XSAVE extended state core dump.
 3. Add an option, -mavxscalar=, to x86 assembler to encoding AVX
-scalar instructios with VL=256 and update x86 disassembler.
+scalar instructions with VL=256 and update x86 disassembler.
 4. Add xsave64/xrstor64 to x86 assembler/disassembler.
 5. Add all the possible aliases for VPCOM* insns to x86 assembler.
 5. Fix --gc-sections to detect unresolved symbol in DSO.  PR 11218.
@@ -449,12 +472,12 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.20.51.0.6.tar.bz2. Source code.
-2. binutils-2.20.51.0.6.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.20.51.0.7.tar.bz2. Source code.
+2. binutils-2.20.51.0.7.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 4.
-3. binutils-2.20.51.0.6.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.20.51.0.7.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 4.
-4. binutils-2.20.51.0.6.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.20.51.0.7.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 4.
 
 The primary sites for the beta Linux binutils are:
@@ -466,4 +489,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-02/07/2010
+03/18/2010
