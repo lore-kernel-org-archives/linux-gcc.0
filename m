@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.9 is released
-Date: Thu, 27 May 2010 12:58:10 -0700
-Message-ID: <20100527195810.GA17604@lucon.org>
+Subject: The Linux binutils 2.20.51.0.10 is released
+Date: Fri, 9 Jul 2010 13:41:53 -0700
+Message-ID: <20100709204153.GA14862@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-162001-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-163214-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.20.51.0.9 for Linux, which is
-based on binutils 2010 0526 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.10 for Linux, which is
+based on binutils 2010 0707 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -114,12 +114,31 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.20.51.0.9 to
+Please report any bugs related to binutils 2.20.51.0.10 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.20.51.0.9:
+
+1. Update from binutils 2010 0707.
+2. Support AVX Programming Reference (June, 2010)
+3. Add --compress-debug-sections support to assembler, disassembler and
+readelf.
+4. Fix a linker crash due to unintialized field in a structure.
+5. Fix an x86 assembler crash with Intel syntax and invalid GOTPCREL.
+PR 11732.
+6. Enable SOM support for any hosts.
+7. Improve gold.
+8. Improve VMS support.
+9. Improve arm support.
+10. Improve mips support.
+11. Improve RX support.
+12. Improve TI C6X support.
+13. Improve ppc support.
+14. Remove maxq support.
 
 Changes from binutils 2.20.51.0.8:
 
@@ -517,12 +536,12 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.20.51.0.9.tar.bz2. Source code.
-2. binutils-2.20.51.0.9.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.20.51.0.10.tar.bz2. Source code.
+2. binutils-2.20.51.0.10.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.20.51.0.9.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.20.51.0.10.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.20.51.0.9.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.20.51.0.10.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -534,4 +553,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-05/27/2010
+07/09/2010
