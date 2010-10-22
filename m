@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.20.51.0.11 is released
-Date: Wed, 11 Aug 2010 15:29:14 -0700
-Message-ID: <20100811222914.GA15409@lucon.org>
+Subject: The Linux binutils 2.20.51.0.12 is released
+Date: Fri, 22 Oct 2010 11:16:15 -0700
+Message-ID: <20101022181615.GA27713@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-163705-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-164924-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,11 +14,10 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.20.51.0.11 for Linux, which is
-based on binutils 2010 0810 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.20.51.0.12 for Linux, which is
+based on binutils 2010 1020 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -115,12 +114,44 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.20.51.0.11 to
+Please report any bugs related to binutils 2.20.51.0.12 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.20.51.0.11:
+
+1. Update from binutils 2010 1020.
+2. Add plugin support to ld. 
+3. Support mixing REL and RELA relocations. 
+4. Mark ELF linker generated dynamic symbols as ELF.  PR 11812.
+5. Improve ar/nm plugin support.  PR 12004/12088.
+6. Avoid unnecessary relaxation in assembler.  PR 12049.
+7. Add .d32 suffix support to x86 assembler to force 32bit displacement.
+8. Improve ELF linker diagnostic with incompatible inputs.  PR 11944/11933.
+9. Speed up ELF linker hash table size computation.  PR 11843.
+10. Update elfedit to update ELF OSABI.
+11. Fix linker for moving location counter backwards.  PR 12066.
+12. Fix Invalid memory access in ELF linker.  PR 11946.
+13. Fix ld --build-id crash with non-ELF input.  PR 11937.
+14. Update expression evaluation in linker scripts.
+15. Proper dump relocation addend as signed in readelf.
+16. Fix x86-64 Window 64bit immediate in assembler.  PR 11974.
+17. Fix readelf crashes.  PR 11889.
+18. Fix opjcopy.  PR 11953.
+19. Fix a linker crash.  PR 11939.
+20. Improve handling of invalid ELF section flags in assembler. PR 12011.
+21. Improve gold.
+22. Improve VMS support.
+23. Improve Windows SEH support.
+24. Improve alpha support.
+25. Improve arm support.
+26. Improve bfin support.
+27. Improve mips support.
+28. Improve spu support.
+29. Improve tic6x support.
 
 Changes from binutils 2.20.51.0.10:
 
@@ -565,12 +596,12 @@ Changes from binutils 2.19.50.0.1:
 
 The file list:
 
-1. binutils-2.20.51.0.11.tar.bz2. Source code.
-2. binutils-2.20.51.0.11.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.20.51.0.12.tar.bz2. Source code.
+2. binutils-2.20.51.0.12.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.20.51.0.11.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.20.51.0.12.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.20.51.0.11.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.20.51.0.12.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -582,4 +613,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-08/10/2010
+10/22/2010
