@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.1 is released
-Date: Fri, 12 Nov 2010 11:33:20 -0800
-Message-ID: <20101112193320.GA2462@lucon.org>
+Subject: The Linux binutils 2.21.51.0.2 is released
+Date: Mon, 6 Dec 2010 15:43:40 -0800
+Message-ID: <20101206234340.GA4604@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-165390-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-166014-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,13 +16,26 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.51.0.1 for Linux, which is
-based on binutils 2010 1110 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.51.0.2 for Linux, which is
+based on binutils 2010 1206 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
 You can take a look at patches/README to see what have been applied and
 in what order they have been applied.
+
+Starting from the 2.21.51.0.2 release, BFD linker has the working LTO
+plugin support. It can be used with GCC 4.5 and above. For GCC 4.5, you
+need to configure GCC with --enable-gold to enable LTO plugin support.
+
+Starting from the 2.21.51.0.2 release, binutils fully supports compressed
+debug sections.  However, compressed debug section isn't turned on by
+default in assembler. I am planning to turn it on for x86 assembler in
+the future release, which may lead to the Linux kernel bug messages like
+
+WARNING: lib/ts_kmp.o (.zdebug_aranges): unexpected non-allocatable section.
+
+But the resulting kernel works fine.
 
 Starting from the 2.20.51.0.4 release, no diffs against the previous
 release will be provided.
@@ -114,12 +127,35 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.1 to
+Please report any bugs related to binutils 2.21.51.0.2 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.51.0.1:
+
+1. Update from binutils 2010 1206.
+2. Fix BFD and GOLD linker for compressed debug section support.
+3. Fix BFD linker plugin support.  PR ld/12246, ld/12247, ld/12248,
+ld/12277, ld/12288 and ld/12289.
+4. Update BFD linker to group .text.exit, text.startup and .text.hot
+sections.
+5. Fix linker for W_EH_PE_datarel handling.  PR ld/12253.
+6. Fix array access bug in readelf/elfedit.  PR binutils/11742 and
+binutils/12235.
+7. Support dumping GDB .gdb_index section.
+8. Install plugin-api.h.
+9. Improve gold.
+10. Improve Solaris support.
+11. Improve VMS support.
+12. Improve Windows support.
+13. Improve arm support.
+14. Improve bfin support.
+15. Improve mips support.
+16. Improve s390 support.
+17. Improve z80 support.
 
 Changes from binutils 2.20.51.0.12:
 
@@ -146,12 +182,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.1.tar.bz2. Source code.
-2. binutils-2.21.51.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.51.0.2.tar.bz2. Source code.
+2. binutils-2.21.51.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.51.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.51.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -163,4 +199,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-11/12/2010
+12/06/2010
