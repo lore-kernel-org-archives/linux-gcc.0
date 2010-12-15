@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.2 is released
-Date: Mon, 6 Dec 2010 15:43:40 -0800
-Message-ID: <20101206234340.GA4604@lucon.org>
+Subject: The Linux binutils 2.21.51.0.3 is released
+Date: Wed, 15 Dec 2010 12:25:09 -0800
+Message-ID: <20101215202509.GA13085@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-166014-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-166198-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.51.0.2 for Linux, which is
-based on binutils 2010 1206 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.51.0.3 for Linux, which is
+based on binutils 2010 1215 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -127,12 +127,39 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.2 to
+Please report any bugs related to binutils 2.21.51.0.3 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.51.0.2:
+
+1. Update from binutils 2010 1215.
+2. Add BFD linker support for placing input .ctors/.dtors sections in
+output .init_array/.fini_array section.  Add SORT_BY_INIT_PRIORITY.  The
+benefits are
+   a. Avoid output .ctors/.dtors section in executables and shared
+      libraries.
+   b. Allow mixing input .ctors/.dtors sections with input
+   .init_array/.fini_array sectiobs.  GCC PR 46770.
+3. Add BFD linker support for "ld -r" on mixed IR/non-IR objects. Add
+the new ELF section type SHT_GNU_OBJECT_ONLY (0x6ffffff8). See
+
+http://sourceware.org/bugzilla/show_bug.cgi?id=12291
+
+4. Update BFD linker to accept -flto and -flto-partition= for GCC LTO
+option compatibility.
+5. Fix BFD linker to avoid touching uncompressed section content when
+relocating DWARF debug sections for errror reporting.
+6. Mark .gnu.lto_* sections with SHF_EXCLUDE.
+7. Add --target option to ar.
+8. Improve gold.
+9. Improve AIX support.
+10. Improve Windows support.
+11. Improve mips support.
+
 
 Changes from binutils 2.21.51.0.1:
 
@@ -182,12 +209,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.2.tar.bz2. Source code.
-2. binutils-2.21.51.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.51.0.3.tar.bz2. Source code.
+2. binutils-2.21.51.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.51.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.51.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -199,4 +226,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-12/06/2010
+12/15/2010
