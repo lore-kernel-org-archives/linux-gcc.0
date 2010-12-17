@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.3 is released
-Date: Wed, 15 Dec 2010 12:25:09 -0800
-Message-ID: <20101215202509.GA13085@lucon.org>
+Subject: Re: The Linux binutils 2.21.51.0.4 is released
+Date: Thu, 16 Dec 2010 20:50:16 -0800
+Message-ID: <20101217045016.GA19218@lucon.org>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-166198-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-166217-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,19 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.51.0.3 for Linux, which is
-based on binutils 2010 1215 in CVS on sourceware.org plus various
+This release fixes the Linux relocatable kernel build:
+
+http://sourceware.org/bugzilla/show_bug.cgi?id=12327
+
+The follow Linux binutils releases are affected: 2.20.51.0.12,
+2.21.51.0.1, 2.21.51.0.2 and 2.21.51.0.3.  The FSF binutils 2.21
+is also affected.
+
+
+H.J.
+---
+This is the beta release of binutils 2.21.51.0.4 for Linux, which is
+based on binutils 2010 1217 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -127,12 +138,18 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.3 to
+Please report any bugs related to binutils 2.21.51.0.4 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.51.0.3:
+
+1. Update from binutils 2010 1217.
+2. Fix the Linux relocatable kernel build.  PR 12327.
+3. Improve mips support.
 
 Changes from binutils 2.21.51.0.2:
 
@@ -209,12 +226,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.3.tar.bz2. Source code.
-2. binutils-2.21.51.0.3.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.51.0.4.tar.bz2. Source code.
+2. binutils-2.21.51.0.4.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.3.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.51.0.4.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.3.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.51.0.4.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -226,4 +243,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-12/15/2010
+12/16/2010
