@@ -1,94 +1,254 @@
-From: Jeff Chua <jeff.chua.linux@gmail.com>
-Subject: Re: The Linux binutils 2.21.51.0.4 is released
-Date: Sun, 26 Dec 2010 12:02:16 +0800
-Message-ID: <AANLkTimtadjJAjJqVsPQTkfw2PGnFc3muUbkdyD_GbUY@mail.gmail.com>
-References: <20101217045016.GA19218@lucon.org>
+From: "H.J. Lu" <hongjiu.lu@intel.com>
+Subject: The Linux binutils 2.21.51.0.5 is released
+Date: Tue, 4 Jan 2011 10:11:20 -0800
+Message-ID: <20110104181120.GA22107@intel.com>
+Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Return-path: <linux-gcc-owner@vger.kernel.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=gamma;
-        h=domainkey-signature:mime-version:received:received:in-reply-to
-         :references:date:message-id:subject:from:to:cc:content-type
-         :content-transfer-encoding;
-        bh=h5XteKuSVRW5f95LVEEAVqEnges2qRxpEvVjelwYYg0=;
-        b=iPnB5l5kWKGReKq1dMkjvXqC1lAAtVON5O8HhkbcRTW3a8Y71mP/8Y1C6KreW8viBF
-         oQ0oI5wzV85CVqBuUB59YRLQcR9hfwZAO5Lj0gsyWwX9qSJ3BmoGYQoGqefnF6sys/mP
-         r3lu7RxrwmeSBTXdD2UzwRLkfpIA0CR4tNV7o=
-In-Reply-To: <20101217045016.GA19218@lucon.org>
-Sender: linux-gcc-owner@vger.kernel.org
-List-ID: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="iso-8859-1"
-To: "H.J. Lu" <hjl.tools@gmail.com>
-Cc: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+Return-path: <gcc-return-166419-gcc=m.gmane.org@gcc.gnu.org>
+Content-Disposition: inline
+List-Id: <linux-gcc.vger.kernel.org>
+List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
+List-Archive: <http://gcc.gnu.org/ml/gcc/>
+List-Post: <mailto:gcc@gcc.gnu.org>
+List-Help: <http://gcc.gnu.org/ml/>
+Sender: gcc-owner@gcc.gnu.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-On Fri, Dec 17, 2010 at 12:50 PM, H.J. Lu <hongjiu.lu@intel.com> wrote:
-> This release fixes the Linux relocatable kernel build:
->
-> http://sourceware.org/bugzilla/show_bug.cgi?id=3D12327
->
-> The follow Linux binutils releases are affected: 2.20.51.0.12,
-> 2.21.51.0.1, 2.21.51.0.2 and 2.21.51.0.3. =A0The FSF binutils 2.21
-> is also affected.
-> report any bugs related to binutils 2.21.51.0.4 to hjl.tools@gmail.co=
-m
+This release added the ILP32 support
 
-HJ,
+http://www.kernel.org/pub/linux/devel/binutils/ilp32/abi.pdf
 
-I was using  binutils-2.21.51.0.4 without any problem until I went
-back to recompile glibc and resulted in segmentation fault below:
-
-make[2]: Entering directory `/v6/src2/glibc/glibc/sunrpc'
-CPP=3D'gcc -E -x c-header'
-/v6/src2/glibc/glibc/build/elf/ld-linux-x86-64.so.2 --library-path
-/v6/src2/glibc/glibc/build:/v6/src2/glibc/glibc/build/math:/v6/src2/gli=
-bc/glibc/build/elf:/v6/src2/glibc/glibc/build/dlfcn:/v6/src2/glibc/glib=
-c/build/nss:/v6/src2/glibc/glibc/build/nis:/v6/src2/glibc/glibc/build/r=
-t:/v6/src2/glibc/glibc/build/resolv:/v6/src2/glibc/glibc/build/crypt:/v=
-6/src2/glibc/glibc/build/nptl
-/v6/src2/glibc/glibc/build/sunrpc/rpcgen -Y ../scripts -c
-rpcsvc/bootparam_prot.x -o
-/v6/src2/glibc/glibc/build/sunrpc/xbootparam_prot.T
-make[2]: *** [/v6/src2/glibc/glibc/build/sunrpc/xbootparam_prot.stmp]
-Segmentation fault
+to Linux/x86-64.
 
 
-# glibc
-GNU C Library development release version 2.12.90, by Roland McGrath et=
- al.
-Copyright (C) 2010 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.
-There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.
-Compiled by GNU CC version 4.4.5.
-Compiled on a Linux 2.6.37 system on 2010-12-26.
-Available extensions:
-        crypt add-on version 2.1 by Michael Glad and others
-        Native POSIX Threads Library by Ulrich Drepper et al
-        BIND-8.2.3-T5B
-libc ABIs: UNIQUE IFUNC
+H.J.
+---
+This is the beta release of binutils 2.21.51.0.5 for Linux, which is
+based on binutils 2011 0104 in CVS on sourceware.org plus various
+changes. It is purely for Linux.
 
-# gcc -v
- gcc -v
-Using built-in specs.
-Target: x86_64-unknown-linux-gnu
-Configured with: ../configure --prefix=3D/usr --enable-shared
---disable-static --with-local-prefix=3D/usr
---with-gxx-include-dir=3D/usr/include/g++ --with-system-zlib
-Thread model: posix
-gcc version 4.4.5 (GCC)
+All relevant patches in patches have been applied to the source tree.
+You can take a look at patches/README to see what have been applied and
+in what order they have been applied.
 
-# uname  -a
-Linux boston 2.6.37-rc7 #29 SMP PREEMPT Fri Dec 24 16:26:12 SGT 2010
-x86_64 GNU/Linux
+Starting from the 2.21.51.0.2 release, BFD linker has the working LTO
+plugin support. It can be used with GCC 4.5 and above. For GCC 4.5, you
+need to configure GCC with --enable-gold to enable LTO plugin support.
 
-I've tried binutils-2.21.51.0.2 as well, but was still problem. Only
-versions up to binutils-2.21.51.0.1 works ... glibc compiles
-successful. I've also tested glibc-2.11.3 as well with the same
-results.
+Starting from the 2.21.51.0.2 release, binutils fully supports compressed
+debug sections.  However, compressed debug section isn't turned on by
+default in assembler. I am planning to turn it on for x86 assembler in
+the future release, which may lead to the Linux kernel bug messages like
 
-Could this be a binutils problem or something missing in my glibc compi=
-lation?
+WARNING: lib/ts_kmp.o (.zdebug_aranges): unexpected non-allocatable section.
 
-Thanks,
-Jeff
+But the resulting kernel works fine.
+
+Starting from the 2.20.51.0.4 release, no diffs against the previous
+release will be provided.
+
+You can enable both gold and bfd ld with --enable-gold=both.  Gold will
+be installed as ld.gold and bfd ld will be installed as ld.bfd.  By
+default, ld.bfd will be installed as ld.  You can use the configure
+option, --enable-gold=both/gold to choose gold as the default linker,
+ld.  IA-32 binary and X64_64 binary tar balls are configured with
+--enable-gold=both/ld --enable-plugins --enable-threads.
+
+Starting from the 2.18.50.0.4 release, the x86 assembler no longer
+accepts
+
+	fnstsw %eax
+
+fnstsw stores 16bit into %ax and the upper 16bit of %eax is unchanged.
+Please use
+
+	fnstsw %ax
+
+Starting from the 2.17.50.0.4 release, the default output section LMA
+(load memory address) has changed for allocatable sections from being
+equal to VMA (virtual memory address), to keeping the difference between
+LMA and VMA the same as the previous output section in the same region.
+
+For
+
+.data.init_task : { *(.data.init_task) }
+
+LMA of .data.init_task section is equal to its VMA with the old linker.
+With the new linker, it depends on the previous output section. You
+can use
+
+.data.init_task : AT (ADDR(.data.init_task)) { *(.data.init_task) }
+
+to ensure that LMA of .data.init_task section is always equal to its
+VMA. The linker script in the older 2.6 x86-64 kernel depends on the
+old behavior.  You can add AT (ADDR(section)) to force LMA of
+.data.init_task section equal to its VMA. It will work with both old
+and new linkers. The x86-64 kernel linker script in kernel 2.6.13 and
+above is OK.
+
+The new x86_64 assembler no longer accepts
+
+	monitor %eax,%ecx,%edx
+
+You should use
+
+	monitor %rax,%ecx,%edx
+
+or
+	monitor
+
+which works with both old and new x86_64 assemblers. They should
+generate the same opcode.
+
+The new i386/x86_64 assemblers no longer accept instructions for moving
+between a segment register and a 32bit memory location, i.e.,
+
+	movl (%eax),%ds
+	movl %ds,(%eax)
+
+To generate instructions for moving between a segment register and a
+16bit memory location without the 16bit operand size prefix, 0x66,
+
+	mov (%eax),%ds
+	mov %ds,(%eax)
+
+should be used. It will work with both new and old assemblers. The
+assembler starting from 2.16.90.0.1 will also support
+
+	movw (%eax),%ds
+	movw %ds,(%eax)
+
+without the 0x66 prefix. Patches for 2.4 and 2.6 Linux kernels are
+available at
+
+http://www.kernel.org/pub/linux/devel/binutils/linux-2.4-seg-4.patch
+http://www.kernel.org/pub/linux/devel/binutils/linux-2.6-seg-5.patch
+
+The ia64 assembler is now defaulted to tune for Itanium 2 processors.
+To build a kernel for Itanium 1 processors, you will need to add
+
+ifeq ($(CONFIG_ITANIUM),y)
+	CFLAGS += -Wa,-mtune=itanium1
+	AFLAGS += -Wa,-mtune=itanium1
+endif
+
+to arch/ia64/Makefile in your kernel source tree.
+
+Please report any bugs related to binutils 2.21.51.0.5 to
+hjl.tools@gmail.com
+
+and
+
+http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.51.0.4:
+
+1. Update from binutils 2011 0104.
+2. Add ILP32 support to Linux/x86-64.
+3. Prevent the Linux x86-64 kernel build failure and remove
+__ld_compatibility supprt.  PR 12356.
+4. Improve gold.
+5. Improve Windows support.
+6. Improve hppa support.
+7. Improve mips support.
+
+Changes from binutils 2.21.51.0.3:
+
+1. Update from binutils 2010 1217.
+2. Fix the Linux relocatable kernel build.  PR 12327.
+3. Improve mips support.
+
+Changes from binutils 2.21.51.0.2:
+
+1. Update from binutils 2010 1215.
+2. Add BFD linker support for placing input .ctors/.dtors sections in
+output .init_array/.fini_array section.  Add SORT_BY_INIT_PRIORITY.  The
+benefits are
+   a. Avoid output .ctors/.dtors section in executables and shared
+      libraries.
+   b. Allow mixing input .ctors/.dtors sections with input
+   .init_array/.fini_array sectiobs.  GCC PR 46770.
+3. Add BFD linker support for "ld -r" on mixed IR/non-IR objects. Add
+the new ELF section type SHT_GNU_OBJECT_ONLY (0x6ffffff8). See
+
+http://sourceware.org/bugzilla/show_bug.cgi?id=12291
+
+4. Update BFD linker to accept -flto and -flto-partition= for GCC LTO
+option compatibility.
+5. Fix BFD linker to avoid touching uncompressed section content when
+relocating DWARF debug sections for errror reporting.
+6. Mark .gnu.lto_* sections with SHF_EXCLUDE.
+7. Add --target option to ar.
+8. Improve gold.
+9. Improve AIX support.
+10. Improve Windows support.
+11. Improve mips support.
+
+Changes from binutils 2.21.51.0.1:
+
+1. Update from binutils 2010 1206.
+2. Fix BFD and GOLD linker for compressed debug section support.
+3. Fix BFD linker plugin support.  PR ld/12246, ld/12247, ld/12248,
+ld/12277, ld/12288 and ld/12289.
+4. Update BFD linker to group .text.exit, text.startup and .text.hot
+sections.
+5. Fix linker for W_EH_PE_datarel handling.  PR ld/12253.
+6. Fix array access bug in readelf/elfedit.  PR binutils/11742 and
+binutils/12235.
+7. Support dumping GDB .gdb_index section.
+8. Install plugin-api.h.
+9. Improve gold.
+10. Improve Solaris support.
+11. Improve VMS support.
+12. Improve Windows support.
+13. Improve arm support.
+14. Improve bfin support.
+15. Improve mips support.
+16. Improve s390 support.
+17. Improve z80 support.
+
+Changes from binutils 2.20.51.0.12:
+
+1. Update from binutils 2010 1110.
+2. Fix ld plugin support.  PRs lto/46291 and lto/46319.
+3. Fix x86 assembler to properly fold _GLOBAL_OFFSET_TABLE_ in Intel
+syntax.  PR 12186.
+4. Update assembler to ensure that group signature symbols have the name
+of the group.
+5. Avoid unnecessary relaxation in assembler.  PR 12049.
+6. Update linker NOLOAD processing.
+7. Update linker not to include archive members when symbols therein have
+already been defined.  PR 12001.
+8. Change objdump to display compressed section names without 'z'.
+9. Improve gold.
+10. Improve Solaris support.
+11. Improve VMS support.
+12. Improve Windows support.
+13. Improve arm support.
+14. Improve cr16 support.
+15. Improve mips support.
+16. Improve ppc support.
+17. Improve tic6x support.
+
+The file list:
+
+1. binutils-2.21.51.0.5.tar.bz2. Source code.
+2. binutils-2.21.51.0.5.i686.tar.bz2. IA-32 binary tar ball for RedHat
+   EL 5.
+3. binutils-2.21.51.0.5.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+   EL 5.
+4. binutils-2.21.51.0.5.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+   EL 5.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl.tools@gmail.com
+01/04/2011
