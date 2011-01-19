@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.5 is released
-Date: Tue, 4 Jan 2011 10:11:20 -0800
-Message-ID: <20110104181120.GA22107@intel.com>
+Subject: The Linux binutils 2.21.51.0.6 is released
+Date: Tue, 18 Jan 2011 17:50:00 -0800
+Message-ID: <20110119015000.GA18205@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-166419-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-166617-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,22 +16,19 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This release added the ILP32 support
-
-http://www.kernel.org/pub/linux/devel/binutils/ilp32/abi.pdf
-
-to Linux/x86-64.
-
-
-H.J.
----
-This is the beta release of binutils 2.21.51.0.5 for Linux, which is
-based on binutils 2011 0104 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.51.0.6 for Linux, which is
+based on binutils 2011 0118 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
 You can take a look at patches/README to see what have been applied and
 in what order they have been applied.
+
+Starting from the 2.21.51.0.3 release, you must remove .ctors/.dtors
+section sentinels when building glibc or other C run-time libraries.
+Otherwise, you will run into:
+
+http://sourceware.org/bugzilla/show_bug.cgi?id=12343
 
 Starting from the 2.21.51.0.2 release, BFD linker has the working LTO
 plugin support. It can be used with GCC 4.5 and above. For GCC 4.5, you
@@ -136,19 +133,43 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.5 to
+Please report any bugs related to binutils 2.21.51.0.6 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
 
+Changes from binutils 2.21.51.0.5:
+
+1. Update from binutils 2011 0118.
+2. Fix x32 (ILP32) support.  Renamed assembler option to --x32.  It
+can create working static and dynamic x32 executables.
+3. Add BMI and TBM new instruction support.
+4. Fix x86 disassembler to properly display sign-extended byte.
+5. Improve IFUNC linker support.  PRs 12366/12371.
+6. Fix readelf bug on archive. PR 12408.
+7. Fix a assembler when compressing empty debug sections.  PR 12409.
+8. Fix a warning symbol linker bug.  PR 12339.
+9. Fix a duplicated assert message linker bug.  PR 12380.
+10. Fix plugin linker build.  PR 12391.
+11. Fix a plugin linker crash.  PR 12364.
+12. Improve plugin linker.
+13. Improve gold.
+14. Improve arm support.
+15. Improve mips support.
+16. Improve rx support.
+
 Changes from binutils 2.21.51.0.4:
 
 1. Update from binutils 2011 0104.
-2. Add ILP32 support to Linux/x86-64.
+2. Add ILP32 support:
+
+http://www.kernel.org/pub/linux/devel/binutils/ilp32/abi.pdf
+
+to Linux/x86-64.
 3. Prevent the Linux x86-64 kernel build failure and remove
-__ld_compatibility supprt.  PR 12356.
+__ld_compatibility support.  PR 12356.
 4. Improve gold.
 5. Improve Windows support.
 6. Improve hppa support.
@@ -234,12 +255,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.5.tar.bz2. Source code.
-2. binutils-2.21.51.0.5.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.51.0.6.tar.bz2. Source code.
+2. binutils-2.21.51.0.6.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.5.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.51.0.6.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.5.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.51.0.6.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -251,4 +272,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-01/04/2011
+01/18/2011
