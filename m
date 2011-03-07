@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.6 is released
-Date: Tue, 18 Jan 2011 17:50:00 -0800
-Message-ID: <20110119015000.GA18205@intel.com>
+Subject: The Linux binutils 2.21.51.0.7 is released
+Date: Mon, 7 Mar 2011 15:44:18 -0800
+Message-ID: <20110307234418.GA4980@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-166617-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-167434-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.51.0.6 for Linux, which is
-based on binutils 2011 0118 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.51.0.7 for Linux, which is
+based on binutils 2011 0306 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -133,12 +133,36 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.6 to
+Please report any bugs related to binutils 2.21.51.0.7 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.51.0.6:
+
+1. Update from binutils 2011 0306.
+2. Supprt x32 TLS IE->LE transition.
+3. Change x32 library directory from /lib32 to /libx32.
+4. Improve LTO linker support.  Fix PRs 12439/12314/12248/12430.
+5. Improve linker plugin support.
+6. Fix an ar bug.  PR 12513.
+7. Properly generate nops for ia32. PR 6957.
+8. Improve readelf DT_GNU_HASH support.  PR 12523.
+9. Improve readelf on invalid input.  PR 12467.
+10. Update ELF assembler to issue an error on invalid  .size directive.
+PR 12519,
+11. Properly handle PT_DYNAMIC segment with zero size sections.  PR 12516.
+12.  Add a new linker option, --verbose=2, to report plugin symbol
+status.
+13. Properly handle entry symbols in linker LTO support.  PR 12507.  
+14. Improve gold.
+15. Improve arm support.
+16. Improve bfin support.
+17. Improve mips support.
+18. Improve ppc support.
+ 
 
 Changes from binutils 2.21.51.0.5:
 
@@ -255,12 +279,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.6.tar.bz2. Source code.
-2. binutils-2.21.51.0.6.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.51.0.7.tar.bz2. Source code.
+2. binutils-2.21.51.0.7.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.6.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.51.0.7.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.6.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.51.0.7.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -272,4 +296,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-01/18/2011
+03/07/2011
