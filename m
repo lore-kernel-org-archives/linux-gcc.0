@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.7 is released
-Date: Mon, 7 Mar 2011 15:44:18 -0800
-Message-ID: <20110307234418.GA4980@intel.com>
+Subject: The Linux binutils 2.21.51.0.8 is released
+Date: Fri, 8 Apr 2011 13:10:52 -0700
+Message-ID: <20110408201052.GA3268@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-167434-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-168057-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.51.0.7 for Linux, which is
-based on binutils 2011 0306 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.51.0.8 for Linux, which is
+based on binutils 2011 0408 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -133,12 +133,38 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.7 to
+Please report any bugs related to binutils 2.21.51.0.8 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.51.0.7:
+
+1. Update from binutils 2011 0408.
+2. Fix x32 TLS linker bug.
+3. Enable .quad directive in x32 assembler.
+4. Fix an assembler regression.  PRs 12569/12589.
+5. Add --size-check= assembler option to issue a warning, instead of an
+error, on bad ELF .size directive.
+6. Fix an ia32 linker bug with TLS/PIE.  PR 12654.
+7. Fix Intel L1OM linker library search path.
+8. Fix a linker buffer overflow on malformed inputs.  PR 12613.
+9. Check corrupted symtab in nm/readelf.  PR 12639.
+10. Avoid objcopy crash on archive with unknown objects.  PR 12632.
+11. Fix "ar -t".  PR 12590.
+12. Fix many memory leaks.
+13. Improve DWARF support.
+14. Improve gold.
+15. Improve VMS support.
+16. Improve Windows support.
+17. Improve alpha support.
+18. Improve arm support.
+19. Improve avr support.
+20. Improve ppc support.
+21. Improve sparc support.
+22. Improve tic6x support.
 
 Changes from binutils 2.21.51.0.6:
 
@@ -162,7 +188,6 @@ status.
 16. Improve bfin support.
 17. Improve mips support.
 18. Improve ppc support.
- 
 
 Changes from binutils 2.21.51.0.5:
 
@@ -279,12 +304,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.7.tar.bz2. Source code.
-2. binutils-2.21.51.0.7.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.51.0.8.tar.bz2. Source code.
+2. binutils-2.21.51.0.8.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.7.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.51.0.8.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.7.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.51.0.8.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -296,4 +321,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-03/07/2011
+04/08/2011
