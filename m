@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.8 is released
-Date: Fri, 8 Apr 2011 13:10:52 -0700
-Message-ID: <20110408201052.GA3268@intel.com>
+Subject: The Linux binutils 2.21.51.0.9 is released
+Date: Sun, 8 May 2011 08:02:37 -0700
+Message-ID: <20110508150237.GA5088@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-168057-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-168410-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.51.0.8 for Linux, which is
-based on binutils 2011 0408 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.51.0.9 for Linux, which is
+based on binutils 2011 0507 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -133,12 +133,37 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.8 to
+Please report any bugs related to binutils 2.21.51.0.9 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.51.0.8:
+
+1. Update from binutils 2011 0507.
+2. Improve LTO bfd linker.  PRs 12365/12696/12672
+3. Fix a linker regression with constructor attribute in C++.  PR 2730.
+4. Warn relocation in readonly section when creating a shared object.
+5. Remove empty output sections.  PR 12718.
+6. Remove DT_TEXTREL with local IFUNC symbols.  PR 12694.
+7. Properly set ELFOSABI_LINUX for STB_GNU_UNIQUE.
+8. Fix objcopy on unusual input.  PR 12632.
+9. Fix an ar regression.  PR 12720.
+10  Avoid linker crash on bad linker input.
+11. Fix a linker script regression.  PR 12726.
+12. Support new GNU DWARF extensions.
+13. Initial support for SystemTap note sections.
+14. Add --dwarf-start and --dwarf-end to readelf and objdump. 
+15. Disable 3dnow and 3dnowa for bdver1 in x86 assembler.
+16. Improve gold.
+17. Improve VMS support.
+18. Improve arm support.
+19. Improve mips support.
+20. Improve ppc support.
+21. Improve s390 support.
+22. Improve tic6x support.
 
 Changes from binutils 2.21.51.0.7:
 
@@ -304,12 +329,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.8.tar.bz2. Source code.
-2. binutils-2.21.51.0.8.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.51.0.9.tar.bz2. Source code.
+2. binutils-2.21.51.0.9.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.8.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.51.0.9.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.8.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.51.0.9.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -321,4 +346,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-04/08/2011
+05/08/2011
