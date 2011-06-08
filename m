@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.51.0.9 is released
-Date: Sun, 8 May 2011 08:02:37 -0700
-Message-ID: <20110508150237.GA5088@intel.com>
+Subject: The Linux binutils 2.21.52.0.1 is released
+Date: Wed, 8 Jun 2011 07:17:08 -0700
+Message-ID: <20110608141708.GA29004@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-168410-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-168752-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,15 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.51.0.9 for Linux, which is
-based on binutils 2011 0507 in CVS on sourceware.org plus various
+Hi,
+
+If you are using the Linux binutils 2.21.51.0.9, please update as
+soon as you can to fix an x86 linker regression: PRs 12833/12837/12859.
+
+
+---
+This is the beta release of binutils 2.21.52.0.1 for Linux, which is
+based on binutils 2011 0608 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -133,22 +140,49 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.51.0.9 to
+Please report any bugs related to binutils 2.21.52.0.1 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
 
+Changes from binutils 2.21.51.0.9:
+
+1. Update from binutils 2011 0608.
+2. Fix an x86 linker regression. PRs 12833/12837/12859.
+3. Fix an x86-64 large model TLS linker bug.  PR 12809.
+4. Fix LTO bugs.  PRs 12758/12760.
+5. Add a new linker switch, -plugin-save-temps.
+6. Fix an linker bug for warning on common symbol in archive.
+7. Fix warning support when building shared library.  PR 12761.
+8. Reduce linker memory usage when linking many small object files.
+PR 12682.
+9. Fix an think archive bug.  PR 12710.
+10. Fix a TLS linker bug.  PR 12763.
+11. Improve gold.
+12. Improve DWARF dump support.
+13. Improve XCOFF support.
+14. Improve arm support.
+15. Improve cris support.
+16. Improve ia64 ILP32 support.
+17. Improve mips support.
+18. Improve ppc support.
+19. Improve rx support.
+20. Improve s390 support.
+21. Improve tic30 support.
+22. Improve tic6x support.
+23. Improve v850 support.
+
 Changes from binutils 2.21.51.0.8:
 
 1. Update from binutils 2011 0507.
 2. Improve LTO bfd linker.  PRs 12365/12696/12672
-3. Fix a linker regression with constructor attribute in C++.  PR 2730.
+3. Fix a linker regression with constructor attribute in C++.  PR 12730.
 4. Warn relocation in readonly section when creating a shared object.
 5. Remove empty output sections.  PR 12718.
 6. Remove DT_TEXTREL with local IFUNC symbols.  PR 12694.
-7. Properly set ELFOSABI_LINUX for STB_GNU_UNIQUE.
+7. Properly set ELFOSABI_LINUX for STB_GNU_UNIQUE. PR 10549.
 8. Fix objcopy on unusual input.  PR 12632.
 9. Fix an ar regression.  PR 12720.
 10  Avoid linker crash on bad linker input.
@@ -329,12 +363,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.51.0.9.tar.bz2. Source code.
-2. binutils-2.21.51.0.9.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.52.0.1.tar.bz2. Source code.
+2. binutils-2.21.52.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.51.0.9.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.52.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.51.0.9.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.52.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -346,4 +380,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-05/08/2011
+06/08/2011
