@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.52.0.1 is released
-Date: Wed, 8 Jun 2011 07:17:08 -0700
-Message-ID: <20110608141708.GA29004@intel.com>
+Subject: The Linux binutils 2.21.52.0.2 is released
+Date: Sat, 11 Jun 2011 16:00:31 -0700
+Message-ID: <20110611230031.GA6049@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-168752-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-168795-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,15 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-Hi,
-
-If you are using the Linux binutils 2.21.51.0.9, please update as
-soon as you can to fix an x86 linker regression: PRs 12833/12837/12859.
-
-
----
-This is the beta release of binutils 2.21.52.0.1 for Linux, which is
-based on binutils 2011 0608 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.52.0.2 for Linux, which is
+based on binutils 2011 0610 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -140,12 +133,25 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.52.0.1 to
+Please report any bugs related to binutils 2.21.52.0.2 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.52.0.1:
+
+1. Update from binutils 2011 0610.
+2. Support AVX Programming Reference (June, 2011)
+3. Allow R_X86_64_64 relocations in SEC_DEBUGGING sections when building
+x32 shared libraries.  Used to build kernel x32 vDSO.
+4. Fix linker --gc-sections on note sections.  PR 12851.
+5. Update readelf to handle binaries containing corrupt version
+information.  PR 12855.
+6. Improve gold.
+7. Improve VMS support.
+8. Improve mips support.
 
 Changes from binutils 2.21.51.0.9:
 
@@ -158,7 +164,7 @@ Changes from binutils 2.21.51.0.9:
 7. Fix warning support when building shared library.  PR 12761.
 8. Reduce linker memory usage when linking many small object files.
 PR 12682.
-9. Fix an think archive bug.  PR 12710.
+9. Fix a thin archive bug.  PR 12710.
 10. Fix a TLS linker bug.  PR 12763.
 11. Improve gold.
 12. Improve DWARF dump support.
@@ -363,12 +369,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.52.0.1.tar.bz2. Source code.
-2. binutils-2.21.52.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.52.0.2.tar.bz2. Source code.
+2. binutils-2.21.52.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.52.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.52.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.52.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.52.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
