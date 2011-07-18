@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.52.0.2 is released
-Date: Sat, 11 Jun 2011 16:00:31 -0700
-Message-ID: <20110611230031.GA6049@intel.com>
+Subject: The Linux binutils 2.21.53.0.1 is released
+Date: Mon, 18 Jul 2011 09:49:23 -0700
+Message-ID: <20110718164923.GA30617@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-168795-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-169372-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.52.0.2 for Linux, which is
-based on binutils 2011 0610 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.53.0.1 for Linux, which is
+based on binutils 2011 0716 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -133,12 +133,42 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.52.0.2 to
+Please report any bugs related to binutils 2.21.53.0.1 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.52.0.2:
+
+1. Update from binutils 2011 0716.
+2. Fix LTO linker bugs.  PRs 12982/12942.
+3. Fix rorx support in x86 assembler/disassembler for AVX Programming
+Reference (June, 2011).
+4. Fix an x86-64 ELFOSABI linker regression.
+5. Update ELFOSABI_GNU support.  PR 12913.
+6. Fix a linker regression with prelink support.  PR 12921.
+7. Add unwind info to x86 PLT section.  PR 12570.
+8. Support x32 core files.
+9. Support native x32 linker.
+10. Fix linker --gc-sections on note sections.  PR 12851.
+11. Avoid linker crash on bad input.  PR 12887.
+12. Add section flags in linker script.
+13. Improve elf linker -z option support.
+14. Fix nm on compressed debug sections.  PR 12983.
+15. Fix an ar bug.  PR 12558.
+16. Fix an ia64 linker regression.  PR 12978.
+17. Improve gold.
+18. Improve VMS support.
+19. Add TILE-Gx/TILEPro support.
+20. Improve alpha support.
+21. Improve avr support.
+22. Improve mips support.
+23. Improve arm support.
+24. Improve ppc support.
+25. Improve sh support.
+26. Improve TIC6X support.
 
 Changes from binutils 2.21.52.0.1:
 
@@ -369,12 +399,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.52.0.2.tar.bz2. Source code.
-2. binutils-2.21.52.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.53.0.1.tar.bz2. Source code.
+2. binutils-2.21.53.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.52.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.53.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.52.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.53.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -386,4 +416,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-06/08/2011
+07/17/2011
