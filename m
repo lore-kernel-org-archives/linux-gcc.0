@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.53.0.1 is released
-Date: Mon, 18 Jul 2011 09:49:23 -0700
-Message-ID: <20110718164923.GA30617@intel.com>
+Subject: The Linux binutils 2.21.53.0.2 is released
+Date: Fri, 5 Aug 2011 14:51:29 -0700
+Message-ID: <20110805215129.GA17584@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-169372-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-169729-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.53.0.1 for Linux, which is
-based on binutils 2011 0716 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.21.53.0.2 for Linux, which is
+based on binutils 2011 0804 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -133,12 +133,29 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.53.0.1 to
+Please report any bugs related to binutils 2.21.53.0.2 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.53.0.1:
+
+1. Update from binutils 2011 0804.
+2. Add Intel K1OM support.
+3. Allow R_X86_64_64 relocation for x32 and check x32 relocation overflow.
+PR ld/13048.
+4. Support direct call in x86-64 assembly code.  PR gas/13046.
+5. Add ia32 Google Native Client support. 
+6. Add .debug_macro section support.
+7. Improve gold.
+8. Improve VMS support.
+9. Improve arm support.
+10. Improve hppa support.
+11. Improve mips support.
+12. Improve mmix support.
+13. Improve ppc support.
 
 Changes from binutils 2.21.52.0.2:
 
@@ -399,12 +416,12 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.21.53.0.1.tar.bz2. Source code.
-2. binutils-2.21.53.0.1.i686.tar.bz2. IA-32 binary tar ball for RedHat
+1. binutils-2.21.53.0.2.tar.bz2. Source code.
+2. binutils-2.21.53.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
    EL 5.
-3. binutils-2.21.53.0.1.ia64.tar.bz2. IA-64 binary tar ball for RedHat
+3. binutils-2.21.53.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
    EL 5.
-4. binutils-2.21.53.0.1.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
+4. binutils-2.21.53.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
    EL 5.
 
 The primary sites for the beta Linux binutils are:
@@ -416,4 +433,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-07/17/2011
+08/05/2011
