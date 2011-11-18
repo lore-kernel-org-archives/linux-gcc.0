@@ -1,10 +1,10 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.21.53.0.2 is released
-Date: Fri, 5 Aug 2011 14:51:29 -0700
-Message-ID: <20110805215129.GA17584@intel.com>
+Subject: The Linux binutils 2.22.51.0.1 is released
+Date: Fri, 18 Nov 2011 12:10:55 -0800
+Message-ID: <20111118201055.GA7672@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-169729-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-171404-gcc=m.gmane.org@gcc.gnu.org>
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -16,8 +16,18 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
 
-This is the beta release of binutils 2.21.53.0.2 for Linux, which is
-based on binutils 2011 0804 in CVS on sourceware.org plus various
+Hi,
+
+This release has been delayed for several months.  There are no
+tarballs. Please get it directly from linux/release/2.22.51.0.1 branch
+at
+
+http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
+
+H.J.
+----
+This is the beta release of binutils 2.22.51.0.1 for Linux, which is
+based on binutils 2011 1115 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -133,12 +143,49 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.21.53.0.2 to
+Please report any bugs related to binutils 2.22.51.0.1 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.21.53.0.2:
+
+1. Update from binutils 2011 1118.
+2. Fix ar --plugin on archive with mixed IR/non-IR objects.  PR 13298.
+3. Preserve the maximum alignment and size for common symbols.  PR 13250.
+4. Fix LTO linker with -as-needed.  PR 13287.
+5. Fix --plugin support on thin archive.  PR 13257.
+6. Fix LTO linker on thin archive.  PR 13183.
+7. Fix --plugin slim object support on archive.  PR 13278.
+8. Support LDPR_PREVAILING_DEF_IRONLY_EXP in linker plugin.  PR 13229.
+9. Don't make make IR symbols dynamic.  PR 13244.
+10. Fix LTO linker with --as-needed.  PR 13201.
+11. Properly handle 2 IR symbols with the same comdat key.  PR 13066.
+12. Keep .debug_types sections with linker garbage collection.  PR 13233.
+13. Fix -ffunction-sections -Wl,--gc-sections failure with symbol
+versioning.  PR 13195.
+14. Improve linker garbage collection support.  PR 13177.
+15. Remove symbols hidden by version scripts with --gc-sections.  PR 12975.
+16. Remove unnecessary GOT relocation created for IFUNC.  PR 13178.
+17. Move IRELATIVE relocations to the end.  PR 13302.
+18. Avoid readelf core dump.  PR 13219.
+19. Check zero address size when dumping DWARF sections.  PR 13196.
+20. Remove the group section if all members are removed.  PR 13180.
+21. Support R_X86_64_64 and R_X86_64_RELATIVE64 relocations for x32.
+PR 13082.
+22. Add Adapteva Epiphany support.
+23. Add Renesas RL78 support.
+24. Improve gold.
+25. Improve mach-o support.
+26. Improve alpha support.
+27. Improve arm support.
+28. Improve hppa support.
+29. Improve mips support.
+30. Improve ppc support.
+31. Improve rx support.
+32. Improve sparc support.
 
 Changes from binutils 2.21.53.0.1:
 
@@ -414,23 +461,13 @@ already been defined.  PR 12001.
 16. Improve ppc support.
 17. Improve tic6x support.
 
-The file list:
+It is available on linux/release/2.22.51.0.1 branch at
 
-1. binutils-2.21.53.0.2.tar.bz2. Source code.
-2. binutils-2.21.53.0.2.i686.tar.bz2. IA-32 binary tar ball for RedHat
-   EL 5.
-3. binutils-2.21.53.0.2.ia64.tar.bz2. IA-64 binary tar ball for RedHat
-   EL 5.
-4. binutils-2.21.53.0.2.x86_64.tar.bz2. X64_64 binary tar ball for RedHat
-   EL 5.
-
-The primary sites for the beta Linux binutils are:
-
-1. http://www.kernel.org/pub/linux/devel/binutils/
+http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
 Thanks.
 
 
 H.J. Lu
 hjl.tools@gmail.com
-08/05/2011
+11/18/2011
