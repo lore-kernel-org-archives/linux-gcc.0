@@ -1,10 +1,20 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.22.51.0.1 is released
-Date: Fri, 18 Nov 2011 12:10:55 -0800
-Message-ID: <20111118201055.GA7672@intel.com>
+Subject: The Linux binutils 2.22.52.0.1 is released
+Date: Tue, 31 Jan 2012 16:07:11 -0800
+Message-ID: <20120201000711.GA2775@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-171404-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-172271-gcc=m.gmane.org@gcc.gnu.org>
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
+	d=gcc.gnu.org; s=default; x=1328659672; h=Comment:
+	DomainKey-Signature:Received:Received:Received:Received:Received:
+	Received:Date:From:To:Subject:Message-ID:Reply-To:MIME-Version:
+	Content-Type:Content-Disposition:User-Agent:Mailing-List:
+	Precedence:List-Id:List-Unsubscribe:List-Archive:List-Post:
+	List-Help:Sender:Delivered-To; bh=4fHDkTFrprdwgbJgzRqyY3yZPNs=;
+	b=l/ffPjYAsRjNsl0iNjiH7F1QuD3gbOPczr9f5GZMeunZdxJKg2z8euRtGezBru
+	ShbOecF2URlDAG1esXp9qbDXx4qCd6CoG5yNxIbEcEHX3aJRn0WwSnOAyTvh5K4X
+	NwVQLLI5ApXk4PbcPoRVG3zjLACILaYdMUos9WI+HxMNs=
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -14,20 +24,22 @@ List-Help: <http://gcc.gnu.org/ml/>
 Sender: gcc-owner@gcc.gnu.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
 Hi,
+ 
+The Linux binutils source tar ball is available from:
 
-This release has been delayed for several months.  There are no
-tarballs. Please get it directly from linux/release/2.22.51.0.1 branch
-at
+http://www.kernel.org/pub/linux/devel/binutils/
 
-http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
+again.  I also uploaded tar balls for some older releases, dating back
+to release 2.21.51.0.5.  
+
 
 H.J.
-----
-This is the beta release of binutils 2.22.51.0.1 for Linux, which is
-based on binutils 2011 1115 in CVS on sourceware.org plus various
+---
+This is the beta release of binutils 2.22.52.0.1 for Linux, which is
+based on binutils 2012 0131 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -143,12 +155,42 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.22.51.0.1 to
+Please report any bugs related to binutils 2.22.52.0.1 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.22.52.0.1:
+
+1. Update from binutils 2012 0131.
+2. Add x32 support to gold.
+3. Support linker arch-depedent fill.  PR 13616.
+4. Add i386 NACL support to x86 assembler.
+5. Add fake zero displacement for .d8 and .d32 suffixes to x86 assembler.
+6. Add vmfunc support to x86 assembler/disassembler.
+7. Support >2GB archive member.  PR 13534.
+8. Support R_X86_64_PC32 relocation for PIC on x32.  PR 13581.
+9. Fix LTO linker with --start-group and archive.  PR 12758.
+10. Fix linker with --build-id.  PR 12451.
+11. Improve linker dead code dependency removal on DSO.  PR 12772.
+12. Improve demangler.
+13. Fix elf64-x86-64.c build with GCC 4.7.
+14. Avoid linker -z text crash.  PR 13468.
+15. Avoid readelf crash.  PR 13622.
+16. Avoid nm crash on --size-sort --no-sort.  PR 13593.
+17. Fix linker COFF SECREL32 relocation support.  PR 13491.
+18. Improve gold.
+19. Improve mach support.
+20. Improve arm support.
+21. Improve avr support.
+22. Improve hppa support.
+23. Improve m68k support.
+24. Improve mips support.
+25. Improve ppc support.
+26. Improve rl78 support.
+27. Improve rx support.
 
 Changes from binutils 2.21.53.0.2:
 
@@ -461,7 +503,15 @@ already been defined.  PR 12001.
 16. Improve ppc support.
 17. Improve tic6x support.
 
-It is available on linux/release/2.22.51.0.1 branch at
+The file list:
+
+1. binutils-2.22.52.0.1.tar.bz2. Source code.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+It is also available on linux/release/2.22.52.0.1 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -470,4 +520,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-11/18/2011
+01/31/2012
