@@ -1,45 +1,34 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.22.52.0.1 is released
-Date: Tue, 31 Jan 2012 16:07:11 -0800
-Message-ID: <20120201000711.GA2775@intel.com>
+Subject: The Linux binutils 2.22.52.0.2 is released
+Date: Wed, 25 Apr 2012 11:07:37 -0700
+Message-ID: <20120425180737.GA23775@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-172271-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <libc-alpha-return-27934-glibc-alpha=m.gmane.org@sourceware.org>
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=gcc.gnu.org; s=default; x=1328659672; h=Comment:
-	DomainKey-Signature:Received:Received:Received:Received:Received:
-	Received:Date:From:To:Subject:Message-ID:Reply-To:MIME-Version:
-	Content-Type:Content-Disposition:User-Agent:Mailing-List:
-	Precedence:List-Id:List-Unsubscribe:List-Archive:List-Post:
-	List-Help:Sender:Delivered-To; bh=4fHDkTFrprdwgbJgzRqyY3yZPNs=;
-	b=l/ffPjYAsRjNsl0iNjiH7F1QuD3gbOPczr9f5GZMeunZdxJKg2z8euRtGezBru
-	ShbOecF2URlDAG1esXp9qbDXx4qCd6CoG5yNxIbEcEHX3aJRn0WwSnOAyTvh5K4X
-	NwVQLLI5ApXk4PbcPoRVG3zjLACILaYdMUos9WI+HxMNs=
+	d=sourceware.org; s=default; x=1335982088; h=Comment:
+	DomainKey-Signature:Received:Received:Date:From:To:Subject:
+	Message-ID:Reply-To:MIME-Version:Content-Type:
+	Content-Disposition:User-Agent:Mailing-List:Precedence:List-Id:
+	List-Unsubscribe:List-Subscribe:List-Archive:List-Post:List-Help:
+	Sender:Delivered-To; bh=GF8kB7qWWphuRHscGOdabNzIJ/c=; b=GglTTBR/
+	oOoRHu6vyIDq8lMY8QOuxt4D2hX+bSAM9hlO5zBSsKUL/Ai7/GPDG/u/P2wEQ8l0
+	GIwoy3tF6DxQHpNgNTIGYtWSq5VAyS7zoWvTTqBiOWgkFu21NHUv/qdvfXW7z59H
+	k2zPT7vEbc6LheKMq4p8YruDRKm69lcS1/I=
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Sender: gcc-owner@gcc.gnu.org
+List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
+List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
+List-Archive: <http://sourceware.org/ml/libc-alpha/>
+List-Post: <mailto:libc-alpha@sourceware.org>
+List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
+Sender: libc-alpha-owner@sourceware.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-Hi,
- 
-The Linux binutils source tar ball is available from:
-
-http://www.kernel.org/pub/linux/devel/binutils/
-
-again.  I also uploaded tar balls for some older releases, dating back
-to release 2.21.51.0.5.  
-
-
-H.J.
----
-This is the beta release of binutils 2.22.52.0.1 for Linux, which is
-based on binutils 2012 0131 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.22.52.0.2 for Linux, which is
+based on binutils 2012 0424 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -155,7 +144,7 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.22.52.0.1 to
+Please report any bugs related to binutils 2.22.52.0.2 to
 hjl.tools@gmail.com
 
 and
@@ -163,6 +152,31 @@ and
 http://www.sourceware.org/bugzilla/
 
 Changes from binutils 2.22.52.0.1:
+
+1. Update from binutils 2012 0424.
+2. Support Intel HLE and RTM extension.
+3. Add NACL support.
+4. Fix -Bsymbolic with protected function pointer.  PR 13880.
+5. Fix an IFUNC regression.  PR 13817.
+6. Fix x86 NOP fill regression.  PR 13675.
+7. Fix a linker regression.  PR 13991. 
+8. Fix dangling global hidden symbol in symtab.  PR 13621.
+9. Fix objcopy, strip and ld for --emit-relocs.  PR 13947.
+10. Improve gold.
+11. Improve mach support.
+12. Improve vms support.
+13. Improve windows support.
+14. Improve arm support.
+15. Improve avr support.
+16. Improve mips support.
+17. Improve ppc support.
+18. Improve rx support.
+19. Improve s390 support.
+20. Improve sh support.
+21. Improve sparc support.
+22. Improve tile support.
+
+Changes from binutils 2.22.51.0.1:
 
 1. Update from binutils 2012 0131.
 2. Add x32 support to gold.
@@ -505,13 +519,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.22.52.0.1.tar.bz2. Source code.
+1. binutils-2.22.52.0.2.tar.bz2. Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.22.52.0.1 branch at
+It is also available on linux/release/2.22.52.0.2 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -520,4 +534,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-01/31/2012
+04/25/2012
