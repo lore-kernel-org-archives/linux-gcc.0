@@ -1,20 +1,20 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.22.52.0.2 is released
-Date: Wed, 25 Apr 2012 11:07:37 -0700
-Message-ID: <20120425180737.GA23775@intel.com>
+Subject: The Linux binutils 2.22.52.0.3 is released
+Date: Mon, 7 May 2012 12:25:54 -0700
+Message-ID: <20120507192554.GA13895@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-27934-glibc-alpha=m.gmane.org@sourceware.org>
+Return-path: <libc-alpha-return-28465-glibc-alpha=m.gmane.org@sourceware.org>
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=sourceware.org; s=default; x=1335982088; h=Comment:
+	d=sourceware.org; s=default; x=1337023579; h=Comment:
 	DomainKey-Signature:Received:Received:Date:From:To:Subject:
 	Message-ID:Reply-To:MIME-Version:Content-Type:
 	Content-Disposition:User-Agent:Mailing-List:Precedence:List-Id:
 	List-Unsubscribe:List-Subscribe:List-Archive:List-Post:List-Help:
-	Sender:Delivered-To; bh=GF8kB7qWWphuRHscGOdabNzIJ/c=; b=GglTTBR/
-	oOoRHu6vyIDq8lMY8QOuxt4D2hX+bSAM9hlO5zBSsKUL/Ai7/GPDG/u/P2wEQ8l0
-	GIwoy3tF6DxQHpNgNTIGYtWSq5VAyS7zoWvTTqBiOWgkFu21NHUv/qdvfXW7z59H
-	k2zPT7vEbc6LheKMq4p8YruDRKm69lcS1/I=
+	Sender:Delivered-To; bh=Fmcj7C4q3+SKaUMyObVblKS31nQ=; b=bNp4SKZK
+	u2+Ac72JjIQLMFFS8Xlh8+9CBG0aKost3sgeuffRLSY72wTDzph/xOzkg/wj9Fhj
+	QOZT73Cjwx7y8Lm2BnrMv3YnUqwcSJlMgwpv5O/6RzcwfT9sTJ4VpK8WyuL2AkJA
+	ZDo41LQU/O6JSnWnHXjPwS0VCyJuzLbtDf8=
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
@@ -27,8 +27,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.22.52.0.2 for Linux, which is
-based on binutils 2012 0424 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.22.52.0.3 for Linux, which is
+based on binutils 2012 0507 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -144,12 +144,24 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.22.52.0.2 to
+Please report any bugs related to binutils 2.22.52.0.3 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.22.52.0.2:
+
+1. Update from binutils 2012 0507.
+2. Fix Linux kernel build by reverting the PR 13621 fix.  PR 14052.
+3. Add support for x86_64-*-linux-gnux32 target.
+4. Improve x86 assembler.
+5. Improve DWARF support.
+6. Improve gold.
+7. Improve rx support.
+8. Improve sparc support.
+9. Add xgate support.
 
 Changes from binutils 2.22.52.0.1:
 
@@ -519,13 +531,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.22.52.0.2.tar.bz2. Source code.
+1. binutils-2.22.52.0.3.tar.bz2. Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.22.52.0.2 branch at
+It is also available on linux/release/2.22.52.0.3 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -534,4 +546,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-04/25/2012
+05/07/2012
