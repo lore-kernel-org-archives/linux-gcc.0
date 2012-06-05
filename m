@@ -1,20 +1,20 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.22.52.0.3 is released
-Date: Mon, 7 May 2012 12:25:54 -0700
-Message-ID: <20120507192554.GA13895@intel.com>
+Subject: The Linux binutils 2.22.52.0.4 is released
+Date: Tue, 5 Jun 2012 09:51:55 -0700
+Message-ID: <20120605165155.GA28565@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-28465-glibc-alpha=m.gmane.org@sourceware.org>
+Return-path: <libc-alpha-return-30494-glibc-alpha=m.gmane.org@sourceware.org>
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=sourceware.org; s=default; x=1337023579; h=Comment:
+	d=sourceware.org; s=default; x=1339519946; h=Comment:
 	DomainKey-Signature:Received:Received:Date:From:To:Subject:
 	Message-ID:Reply-To:MIME-Version:Content-Type:
 	Content-Disposition:User-Agent:Mailing-List:Precedence:List-Id:
 	List-Unsubscribe:List-Subscribe:List-Archive:List-Post:List-Help:
-	Sender:Delivered-To; bh=Fmcj7C4q3+SKaUMyObVblKS31nQ=; b=bNp4SKZK
-	u2+Ac72JjIQLMFFS8Xlh8+9CBG0aKost3sgeuffRLSY72wTDzph/xOzkg/wj9Fhj
-	QOZT73Cjwx7y8Lm2BnrMv3YnUqwcSJlMgwpv5O/6RzcwfT9sTJ4VpK8WyuL2AkJA
-	ZDo41LQU/O6JSnWnHXjPwS0VCyJuzLbtDf8=
+	Sender:Delivered-To; bh=9SXh13Kn0yDmxTDGRHj4qRuxHPQ=; b=e2b51V81
+	uvDqL6KNFlyAyt+RHWnSqfdnv5fE1P6xllPTicAPH+W+nwBIfTIQmqYV67faAnYB
+	OkR/BvKTxTrjYwovY7YtAEXjk+nkLz1GnXA6BYwbpKn9Q261fTOHLOmkqd61yp4K
+	V5/RdDJLKXHSLtQlLU4A7tWYcDM33+wfIb8=
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
@@ -27,8 +27,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.22.52.0.3 for Linux, which is
-based on binutils 2012 0507 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.22.52.0.4 for Linux, which is
+based on binutils 2012 0604 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -144,12 +144,38 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.22.52.0.3 to
+Please report any bugs related to binutils 2.22.52.0.4 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.22.52.0.3:
+
+1. Update from binutils 2012 0604.
+2. Check addend overflow for R_X86_64_RELATIVE64.
+3. Fix ar/nm/ranlib with --plugin.
+4. Create .eh_frame_hdr section only if needed.  PR 13909.
+5. Properly create .eh_frame section for PLT.  PR 14105. 
+6. Fix a linker crash. PR 14170.
+7. Fix readelf to properly display addend.
+8. Don't make _DYNAMIC/_GLOBAL_OFFSET_TABLE_/_PROCEDURE_LINKAGE_TABLE_
+symbols absolute for x86 and ppc.
+9. Properly handle shared libraries with zero dynamic symbols.  PRs
+7023/13962.
+10. Update readelf/assembler to support multibyte characters in symbol
+names.
+11. Add --strip-dwo/--extract-dwo options to objcopy/strip.
+12. Add R_X86_64_RELATIVE64 support to gold.
+13. Improve gold.
+14. Improve NACL support.
+15. Improve alpha support.
+16. Improve avr support.
+17. Improve m68k support.
+18. Improve mips support.
+19. Improve ppc support.
+20. Improve vax support.
 
 Changes from binutils 2.22.52.0.2:
 
@@ -531,13 +557,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.22.52.0.3.tar.bz2. Source code.
+1. binutils-2.22.52.0.4.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.22.52.0.3 branch at
+It is also available on linux/release/2.22.52.0.4 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -546,4 +572,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-05/07/2012
+06/05/2012
