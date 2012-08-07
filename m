@@ -1,20 +1,20 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.22.52.0.4 is released
-Date: Tue, 5 Jun 2012 09:51:55 -0700
-Message-ID: <20120605165155.GA28565@intel.com>
+Subject: The Linux binutils 2.23.51.0.1 is released
+Date: Tue, 7 Aug 2012 10:53:06 -0700
+Message-ID: <20120807175306.GA10448@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-30494-glibc-alpha=m.gmane.org@sourceware.org>
+Return-path: <libc-alpha-return-31877-glibc-alpha=m.gmane.org@sourceware.org>
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=sourceware.org; s=default; x=1339519946; h=Comment:
+	d=sourceware.org; s=default; x=1344966823; h=Comment:
 	DomainKey-Signature:Received:Received:Date:From:To:Subject:
 	Message-ID:Reply-To:MIME-Version:Content-Type:
 	Content-Disposition:User-Agent:Mailing-List:Precedence:List-Id:
 	List-Unsubscribe:List-Subscribe:List-Archive:List-Post:List-Help:
-	Sender:Delivered-To; bh=9SXh13Kn0yDmxTDGRHj4qRuxHPQ=; b=e2b51V81
-	uvDqL6KNFlyAyt+RHWnSqfdnv5fE1P6xllPTicAPH+W+nwBIfTIQmqYV67faAnYB
-	OkR/BvKTxTrjYwovY7YtAEXjk+nkLz1GnXA6BYwbpKn9Q261fTOHLOmkqd61yp4K
-	V5/RdDJLKXHSLtQlLU4A7tWYcDM33+wfIb8=
+	Sender:Delivered-To; bh=2oDk3jHe5Klva/RW6cCNA/ybIlk=; b=NorRDiUg
+	lt5svNWYYlAQlrgeOx6TVhgefHtw0wkEAkN0rY4vd0YXEt9W+DKSmO8ZEfOWKYWx
+	PG11EGPGQ4+dSUc9FnldWKIkBL90A5DJFlJb7jlSXCt6fjHbX+suhszZTYdu5bsW
+	NPtzrhJlXwGSQn7qLiI1Xoi8IplrQB71SuM=
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
@@ -27,8 +27,8 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.22.52.0.4 for Linux, which is
-based on binutils 2012 0604 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.23.51.0.1 for Linux, which is
+based on binutils 2012 0806 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -144,12 +144,48 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.22.52.0.4 to
+Please report any bugs related to binutils 2.23.51.0.1 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.22.52.0.4:
+
+1. Update from binutils 2012 0806.
+2. Add Intel ADX, RDSEED and PRFCHW new instruction support.
+3. Support 'rep bsf', 'rep bsr', and 'rep ret' syntax in x86 assembler.
+4. Mark 256-bit vmovntdqa as AVX2 instruction for x86 assembler.
+5. Improve x86 assembler error handling.
+6. Improve the repeat directive support in assembler.  PR 14201.
+7. Improve x86-64 disassembler on superfluous prefixes.
+8. Fix x86 disassembler crash on bad XOP instructions.  PR 14355.
+9. Support STB_SECONDARY:
+
+https://groups.google.com/forum/?hl=en&fromgroups#!forum/generic-abi
+
+10. Added SORT_NONE to the linker script language to disable section
+sorting and properly handle .init/.fini sections.  PR 14156.
+11. Fix a weak alias linker bug.  PR 14323.
+12. Fix the NULL GNU_RELRO segment linker bug.  PR 14207.
+13. Fix the bad GNU_RELRO segment linker bug.  PR 14215.
+14. Add linker support of __ehdr_start symbol for the ELF file header.
+15. Add IFUNC support to s390 linker.
+16. Fix ar for >4GB member.  PR 14302.
+17. Fix objcopy --compress-debug-sections on empty debug section.  PR
+14319.
+18. Fix readelf/objdup to display null bytes in DWARF debug info.  PR
+14420.
+19. Improve gold.
+20. Improve arm support.
+21. Improve avr support.
+22. Improve cris support.
+23. Improve m68k support.
+24. Improve mips support.
+25. Improve ppc support.
+26. Improve vax support.
+27. Improve xgate support.
 
 Changes from binutils 2.22.52.0.3:
 
@@ -557,13 +593,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.22.52.0.4.tar.bz2.  Source code.
+1. binutils-2.23.51.0.1.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.22.52.0.4 branch at
+It is also available on linux/release/2.23.51.0.1 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -572,4 +608,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-06/05/2012
+08/07/2012
