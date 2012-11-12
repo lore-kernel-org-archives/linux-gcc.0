@@ -1,33 +1,30 @@
-From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.23.51.0.3 is released
-Date: Tue, 18 Sep 2012 10:11:47 -0700
-Message-ID: <20120918171147.GA18741@intel.com>
-Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
+From: "H.J. Lu" <hjl.tools@gmail.com>
+Subject: The Linux binutils 2.23.51.0.5 is released
+Date: Mon, 12 Nov 2012 11:13:54 -0800
+Message-ID: <20121112191354.GA633@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-175859-gcc=m.gmane.org@gcc.gnu.org>
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=gcc.gnu.org; s=default; x=1348593144; h=Comment:
-	DomainKey-Signature:Received:Received:Received:Received:Received:
-	Received:Date:From:To:Subject:Message-ID:Reply-To:MIME-Version:
-	Content-Type:Content-Disposition:User-Agent:Mailing-List:
-	Precedence:List-Id:List-Unsubscribe:List-Archive:List-Post:
-	List-Help:Sender:Delivered-To; bh=pJrikRyhJZuYBG3U27GjWamcC0k=;
-	b=LoDGezTGLSiUyFpttRI4Lald7Rtw5FhwjnS1c8r7fNthJ30GDsx88ZxWnALxPb
-	DjGf7BkiqH/CBDlOc0Sw8v1atxC9Vd8McpDe6SkYM1/QlPWI3uErRM4/N+zQ/yNb
-	bZSNxLLZ5Qj+kY/I/JeqNgMgEQRyWLQLExyqJrpTJ1l7w=
+Return-path: <linux-gcc-owner@vger.kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=date:from:to:cc:subject:message-id:mime-version:content-type
+         :content-disposition:user-agent;
+        bh=CMczDxDqVM+TIBQQAupb7APng5LJ7ClavBWQOBgQMlM=;
+        b=xjMLLMzW5FWV5VbGdwj5sdxyCIGDhwjUmTHmQlZXgkWHpc3qb3CIcuV6/tRE4lvVEg
+         UM5T04tWMx+4w+gftC50n52vFBjC0RjQJ5VhIEynNOLgsWrOVB0FZHjGaSekzzjX5ZU2
+         arFRR71QmJXH/sCAH4DIypTTNDbR0JrqVHNxpk4htKiJpieKjQQq0jN8n8QaWAelo3IO
+         8KozJpbWRE8mVNh01fVvc7lOfUFckvp8bGVive8YJW157aKGerbS4ENtChTtnmpeBMCW
+         rf5xnGjDXb8A0VqQzsOm5SKgwED7ij90hUX3BQ+Tp5av6SqYH/3zZEAc9x8Ue4UhkEep
+         OTyA==
 Content-Disposition: inline
-List-Id: <linux-gcc.vger.kernel.org>
-List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
-List-Archive: <http://gcc.gnu.org/ml/gcc/>
-List-Post: <mailto:gcc@gcc.gnu.org>
-List-Help: <http://gcc.gnu.org/ml/>
-Sender: gcc-owner@gcc.gnu.org
+Sender: linux-gcc-owner@vger.kernel.org
+List-ID: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org
+Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
 
-This is the beta release of binutils 2.23.51.0.3 for Linux, which is
-based on binutils 2012 0918 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.23.51.0.5 for Linux, which is
+based on binutils 2012 1110 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -143,12 +140,55 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.23.51.0.3 to
+Please report any bugs related to binutils 2.23.51.0.5 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.23.51.0.4:
+
+1. Update from binutils 2012 1110.
+2. Support new Linux NOTE sections.
+3. Add -z stacksize=SIZE option to ld to set size of stack segment.
+4. Fix a BFD IOVEC close bug.  PR 14813.
+5. Fix a BFD IOVEC on archive bug.  PR 14567.
+6. Fix archive support for non-ELF targets.  PR 14481.
+7. Improve gold.
+8. Improve COFF support.
+9. Improve arm support.
+10. Improve microblaze support.
+11. Improve mips support.
+12. Improve ppc support.
+13. Improve rx support.
+14. Improve s390 support.
+15. Improve v850 support.
+16. Improve xgate support.
+
+Changes from binutils 2.23.51.0.3:
+
+1. Update from binutils 2012 1026.
+2. Fix an LTO linker bug.  PR 14747.
+3. Add cx16 arch feature to x86 assembler.
+4. Add -march=bdver3 option to x86 assembler.
+5. Properly handle ignored REX prefix with fwait in x86 disassembler.
+6. Fix x32 register names in objdump DWARF output.
+7. Add NT_SIGINFO/NT_FILE support to readelf.
+8. Add linker --ignore-unresolved-symbol option from NetBSD.
+9. Treat .gdb_index section as debug section.  PR 14662.
+10. Add --debug-dump=addr, --debug_dump=cu_index options to readelf and
+objdump.
+11. Add dwp, DWARF packaging utility.
+12. Add compressed debug section support to Windows.  PR 14067. 
+13. Improve gold.
+14. Improve aarch64 support.
+15. Improve arm support.
+16. Improve hppa support.
+17. Improve mips support.
+18. Improve s390 support.
+19. Improve tile support.
+20. Improve v850 support.
 
 Changes from binutils 2.23.51.0.2:
 
@@ -638,13 +678,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.23.51.0.3.tar.bz2.  Source code.
+1. binutils-2.23.51.0.5.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.23.51.0.3 branch at
+It is also available on linux/release/2.23.51.0.5 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -653,4 +693,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-09/18/2012
+11/12/2012
