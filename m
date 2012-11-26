@@ -1,30 +1,34 @@
-From: "H.J. Lu" <hjl.tools@gmail.com>
-Subject: The Linux binutils 2.23.51.0.5 is released
-Date: Mon, 12 Nov 2012 11:13:54 -0800
-Message-ID: <20121112191354.GA633@gmail.com>
+From: "H.J. Lu" <hongjiu.lu@intel.com>
+Subject: The Linux binutils 2.23.51.0.6 is released
+Date: Mon, 26 Nov 2012 06:52:19 -0800
+Message-ID: <20121126145219.GA16071@intel.com>
+Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <linux-gcc-owner@vger.kernel.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20120113;
-        h=date:from:to:cc:subject:message-id:mime-version:content-type
-         :content-disposition:user-agent;
-        bh=CMczDxDqVM+TIBQQAupb7APng5LJ7ClavBWQOBgQMlM=;
-        b=xjMLLMzW5FWV5VbGdwj5sdxyCIGDhwjUmTHmQlZXgkWHpc3qb3CIcuV6/tRE4lvVEg
-         UM5T04tWMx+4w+gftC50n52vFBjC0RjQJ5VhIEynNOLgsWrOVB0FZHjGaSekzzjX5ZU2
-         arFRR71QmJXH/sCAH4DIypTTNDbR0JrqVHNxpk4htKiJpieKjQQq0jN8n8QaWAelo3IO
-         8KozJpbWRE8mVNh01fVvc7lOfUFckvp8bGVive8YJW157aKGerbS4ENtChTtnmpeBMCW
-         rf5xnGjDXb8A0VqQzsOm5SKgwED7ij90hUX3BQ+Tp5av6SqYH/3zZEAc9x8Ue4UhkEep
-         OTyA==
+Return-path: <libc-alpha-return-34919-glibc-alpha=m.gmane.org@sourceware.org>
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
+	d=sourceware.org; s=default; x=1354546359; h=Comment:
+	DomainKey-Signature:Received:Received:Date:From:To:Subject:
+	Message-ID:Reply-To:MIME-Version:Content-Type:
+	Content-Disposition:User-Agent:Mailing-List:Precedence:List-Id:
+	List-Unsubscribe:List-Subscribe:List-Archive:List-Post:List-Help:
+	Sender:Delivered-To; bh=9Q6vLc9za5f2HuddvAoqzTuZCrA=; b=LUyVdr6r
+	PwacP6GlNTwBlC89THp6ufSh1R/F59gJQOBJcVVoEb+0IgDd/jdCvVUWMagUWQ4h
+	+rggT3IOyhSddTXi3J3df6VTNYH/fpexKPcCecLI8qxzhi9/stLLETatqsa2oX21
+	AJyYdVWNpFwDe5LLRTlPUjhj5HfTyriin/U=
 Content-Disposition: inline
-Sender: linux-gcc-owner@vger.kernel.org
-List-ID: <linux-gcc.vger.kernel.org>
+List-Id: <linux-gcc.vger.kernel.org>
+List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
+List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
+List-Archive: <http://sourceware.org/ml/libc-alpha/>
+List-Post: <mailto:libc-alpha@sourceware.org>
+List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
+Sender: libc-alpha-owner@sourceware.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-To: linux-gcc@vger.kernel.org
-Cc: gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, linux-vax@pergamentum.com
+To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>
 
-This is the beta release of binutils 2.23.51.0.5 for Linux, which is
-based on binutils 2012 1110 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.23.51.0.6 for Linux, which is
+based on binutils 2012 1123 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -140,12 +144,32 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.23.51.0.5 to
+Please report any bugs related to binutils 2.23.51.0.6 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.23.51.0.5:
+
+1. Update from binutils 2012 1123.
+2. Fix 64-bit jecxz encoding regression in x86 assembler.  PR 14859.
+3. Revert an accidental linker change.  PR 14862.
+4. Fix x32 TLS LD to LE optimization in gold.  PR 14858.
+5. Add "-z global" option to set DF_1_GLOBAL to ld.
+6. Improve ld plugin error handling.
+7. Port ld lib32 arrangement from Debian.
+8. Properly set the output maxpagesize when rewriting program header.
+PR 14493.
+9. Add additional DF_1_XXX support to readelf.
+10. Improve nacl support with separate code segments.
+11. Improve macos support.
+12. Improve arm support.
+13. Improve microblaze support.
+14. Improve mips support.
+15. Improve ppc support.
+16. Improve sparc support.
 
 Changes from binutils 2.23.51.0.4:
 
@@ -678,13 +702,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.23.51.0.5.tar.bz2.  Source code.
+1. binutils-2.23.51.0.6.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.23.51.0.5 branch at
+It is also available on linux/release/2.23.51.0.6 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -693,4 +717,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-11/12/2012
+11/26/2012
