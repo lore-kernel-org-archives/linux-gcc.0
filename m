@@ -1,20 +1,20 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.23.51.0.7 is released
-Date: Thu, 20 Dec 2012 10:25:13 -0800
-Message-ID: <20121220182513.GA11301@intel.com>
+Subject: The Linux binutils 2.23.51.0.8 is released
+Date: Fri, 21 Dec 2012 11:47:11 -0800
+Message-ID: <20121221194711.GA14862@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-177159-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-177174-gcc=m.gmane.org@gcc.gnu.org>
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=gcc.gnu.org; s=default; x=1356632735; h=Comment:
+	d=gcc.gnu.org; s=default; x=1356724065; h=Comment:
 	DomainKey-Signature:Received:Received:Received:Received:Received:
 	Received:Date:From:To:Subject:Message-ID:Reply-To:MIME-Version:
 	Content-Type:Content-Disposition:User-Agent:Mailing-List:
 	Precedence:List-Id:List-Unsubscribe:List-Archive:List-Post:
-	List-Help:Sender:Delivered-To; bh=aliKmM4aiUHvrK1ygWqA3lpUEgQ=;
-	b=W17g5bBUyTXvQWLfLlXo1xSMcSQYjtY5Dhc7Zetu2u5kMa5vB3yEICy+4OYf2f
-	7piLIfIihCKHOrvyMlpy8Isuu3u2i2NhU+mW597hMDxaD74y5o2DhgMqx8rRL8UF
-	lYlFNKdP2qdg2ndv5vL3MzNMag7kzWR81YeBL/L2GMyao=
+	List-Help:Sender:Delivered-To; bh=9sZJlUQIF6g8V8WszIEQLTV9Rh8=;
+	b=J4NcEFok3h0zgI230MOmraaJxkD8/meReG/PyUbIXRbas1eeITIaZfPGPh0z9/
+	MuHW//M84wie81cjSH30uxNgJTAjvWMDZ9uiju3ZEJdbInVst34oMCaFisj5DlNW
+	Cc+CAl5xM043qGvignErbScgFgmEP3jDDRhkEpbkeB4Tg=
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-gcc=m.gmane.org@gcc.gnu.org>
@@ -26,7 +26,16 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>
 
-This is the beta release of binutils 2.23.51.0.7 for Linux, which is
+Hi,
+
+This update fixed the linker regression:
+
+http://www.sourceware.org/bugzilla/show_bug.cgi?id=14980
+
+
+H.J.
+----
+This is the beta release of binutils 2.23.51.0.8 for Linux, which is
 based on binutils 2012 1218 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
@@ -143,12 +152,16 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.23.51.0.7 to
+Please report any bugs related to binutils 2.23.51.0.8 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.23.51.0.7:
+
+1. Properly adjust h->plt.refcount.  PR 14980.
 
 Changes from binutils 2.23.51.0.6:
 
@@ -726,13 +739,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.23.51.0.7.tar.bz2.  Source code.
+1. binutils-2.23.51.0.8.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.23.51.0.7 branch at
+It is also available on linux/release/2.23.51.0.8 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -741,4 +754,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-12/20/2012
+12/21/2012
