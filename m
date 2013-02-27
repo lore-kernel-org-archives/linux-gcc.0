@@ -1,20 +1,20 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.23.51.0.9 is released
-Date: Fri, 1 Feb 2013 15:32:38 -0800
-Message-ID: <20130201233238.GA1326@intel.com>
+Subject: The Linux binutils 2.23.52.0.1 is released
+Date: Wed, 27 Feb 2013 13:00:23 -0800
+Message-ID: <20130227210023.GA3983@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-36738-glibc-alpha=m.gmane.org@sourceware.org>
+Return-path: <libc-alpha-return-37310-glibc-alpha=m.gmane.org@sourceware.org>
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=sourceware.org; s=default; x=1360366378; h=Comment:
+	d=sourceware.org; s=default; x=1362603687; h=Comment:
 	DomainKey-Signature:Received:Received:Date:From:To:Subject:
 	Message-ID:Reply-To:MIME-Version:Content-Type:
 	Content-Disposition:User-Agent:Mailing-List:Precedence:List-Id:
 	List-Unsubscribe:List-Subscribe:List-Archive:List-Post:List-Help:
-	Sender:Delivered-To; bh=JqWDm+0622XHRY7GAhRqfnkkelM=; b=XMGly7IX
-	+wQ9YXzwQ+w2x65i30jlk0jYL90NQddeG59xrp6NU69Sft/qGkbM4lcFgN7cFXNx
-	B4vXbZQde5WZmDT1MLQcc8DoIceWJrwdlfbJ7f4deygy3SHJzk7rpLZLQ5UP1hih
-	/QqoCEx19wWc6ZYnUx2RnKryQy8r/4HDohs=
+	Sender:Delivered-To; bh=5P0UJSJJfGCkXVNrQoqIJEx5NBw=; b=p2oBY0Xl
+	eB7nCDQsxVsSwgXAnAy3qAA5iZLecDKL8h53NWcjlnsOATKDRX6eFY3Ac3eqXNMV
+	kaAk5Nwdk5g/BmfazfiqVOOfbak1pMkwaRurkSV+azQEuhgrwo9p5KRskY3h4yRU
+	AGuUQj+a9SoIur65xItN0u1jV7amiSfSlHk=
 Content-Disposition: inline
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
@@ -27,13 +27,18 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>
 
-This is the beta release of binutils 2.23.51.0.9 for Linux, which is
-based on binutils 2013 0118 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.23.52.0.1 for Linux, which is
+based on binutils 2013 0226 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
 You can take a look at patches/README to see what have been applied and
 in what order they have been applied.
+
+Starting from the 2.23.52.0.1 release, when creating executables, BFD
+linker will issue an error for undefined weak reference which is
+defined in a shared library from DT_NEEDED.  Previously BFD linker
+will silently include the shared library from DT_NEEDED.
 
 Starting from the 2.21.51.0.3 release, you must remove .ctors/.dtors
 section sentinels when building glibc or other C run-time libraries.
@@ -144,12 +149,45 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.23.51.0.9 to
+Please report any bugs related to binutils 2.23.52.0.1 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.23.51.0.9:
+
+1. Update from binutils 2013 0226.
+2. Add Intel SAMP new instruction support.
+3. Allow dynamic R_386_SIZE32, R_X86_64_SIZE32 and R_X86_64_SIZE64
+relocations agaist TLS symbols.
+4. Fix BFD linker to set STB_GNU_UNIQUE only for definition.  PR 15167.
+5. Fix BFD linker to set STB_GNU_UNIQUE only if symbol is defined in
+regular object.  PR 15107.
+6. Don't add DT_NEEDED for references from the LTO IR input.  PR 15146.
+7. When creating executables, BFD linker will issue an error for undefined
+weak reference which is defined in a shared library from DT_NEEDED.
+PR 15149.
+8. Also trace symbol from the LTO IR input.  PR 15141.
+9. Support stripping LTO IR sections.  PR 15033.
+10. Don't allow a nested archive pointing to itself and don't generate
+bad archive.  PR 15140.
+11. Fix objcopy segfault on non-ELF input.  PR 14873.
+12. Update DWARF dump support.
+13. Improve gold.
+14. Add nios2 support.
+15. Improve mach support.
+16. Improve aarch64 support.
+17. Improve arm support.
+18. Improve avr support.
+19. Improve h8300 support.
+20. Improve meta support.
+21. Improve mips support.
+22. Improve ppc support.
+23. Improve rl78 support.
+24. Improve sparc support.
+25. Improve v850 support.
 
 Changes from binutils 2.23.51.0.8:
 
@@ -748,13 +786,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.23.51.0.9.tar.bz2.  Source code.
+1. binutils-2.23.52.0.1.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.23.51.0.9 branch at
+It is also available on linux/release/2.23.52.0.1 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -763,4 +801,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-02/01/2013
+02/27/2013
