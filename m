@@ -1,41 +1,38 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.23.52.0.1 is released
-Date: Wed, 27 Feb 2013 13:00:23 -0800
-Message-ID: <20130227210023.GA3983@intel.com>
+Subject: The Linux binutils 2.23.52.0.2 is released
+Date: Fri, 26 Apr 2013 14:06:17 -0700
+Message-ID: <20130426210617.GA31567@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <libc-alpha-return-37310-glibc-alpha=m.gmane.org@sourceware.org>
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed;
-	d=sourceware.org; s=default; x=1362603687; h=Comment:
-	DomainKey-Signature:Received:Received:Date:From:To:Subject:
-	Message-ID:Reply-To:MIME-Version:Content-Type:
-	Content-Disposition:User-Agent:Mailing-List:Precedence:List-Id:
-	List-Unsubscribe:List-Subscribe:List-Archive:List-Post:List-Help:
-	Sender:Delivered-To; bh=5P0UJSJJfGCkXVNrQoqIJEx5NBw=; b=p2oBY0Xl
-	eB7nCDQsxVsSwgXAnAy3qAA5iZLecDKL8h53NWcjlnsOATKDRX6eFY3Ac3eqXNMV
-	kaAk5Nwdk5g/BmfazfiqVOOfbak1pMkwaRurkSV+azQEuhgrwo9p5KRskY3h4yRU
-	AGuUQj+a9SoIur65xItN0u1jV7amiSfSlHk=
-Content-Disposition: inline
+Return-path: <libc-alpha-return-38789-glibc-alpha=m.gmane.org@sourceware.org>
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=sourceware.org; h=list-id
+	:list-unsubscribe:list-subscribe:list-archive:list-post
+	:list-help:sender:date:from:to:subject:message-id:reply-to
+	:mime-version:content-type; s=default; bh=gY3gfPKzSjHmbTywzXlNk5
+	1W470=; b=iT3WwHjBxpZsLJWnqX51+bthFx2/ITeTSGk+IGbyiHhtgd3g+kjk9S
+	vEDoU2CI0mpFWfUHEcpY+FQfU5ki9zteKL3R6TgywbfmLDbCKzRruq6xgc6089yE
+	sgBORkn341FueZUX6dpXr0O9qDd3xA5acHzAFCpC+AryE/Wt+AR5Q=
 List-Id: <linux-gcc.vger.kernel.org>
-List-Unsubscribe: <mailto:libc-alpha-unsubscribe-glibc-alpha=m.gmane.org@sourceware.org>
+List-Unsubscribe: <mailto:libc-alpha-unsubscribe-##L=##H@sourceware.org>
 List-Subscribe: <mailto:libc-alpha-subscribe@sourceware.org>
 List-Archive: <http://sourceware.org/ml/libc-alpha/>
 List-Post: <mailto:libc-alpha@sourceware.org>
 List-Help: <mailto:libc-alpha-help@sourceware.org>, <http://sourceware.org/ml/#faqs>
 Sender: libc-alpha-owner@sourceware.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>
 
-This is the beta release of binutils 2.23.52.0.1 for Linux, which is
-based on binutils 2013 0226 in CVS on sourceware.org plus various
+This is the beta release of binutils 2.23.52.0.2 for Linux, which is
+based on binutils 2013 0423 in CVS on sourceware.org plus various
 changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
 You can take a look at patches/README to see what have been applied and
 in what order they have been applied.
 
-Starting from the 2.23.52.0.1 release, when creating executables, BFD
+Starting from the 2.23.52.0.2 release, when creating executables, BFD
 linker will issue an error for undefined weak reference which is
 defined in a shared library from DT_NEEDED.  Previously BFD linker
 will silently include the shared library from DT_NEEDED.
@@ -149,12 +146,47 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.23.52.0.1 to
+Please report any bugs related to binutils 2.23.52.0.2 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.23.52.0.1:
+
+1. Update from binutils 2013 0423.
+2. Add x32 support to embedded x86_64 ELF target.
+3. Fix an x86 IFUNC linker regression.  PR 15371.
+4. Fix an LTO linker weak definition bug.  PR 15323.
+5. Remove stale dynamic table entries for symbols optimized out by LTO.
+PR 15270.
+6. Revert the fix for PR 15149.  When creating executables, BFD linker
+won't issue an error for undefined weak reference which is defined in
+7 shared library from DT_NEEDED.
+8. Ignore weak reference which is is defined in a shared library from
+DT_NEEDED.  This may change the behavior of resulting binaries with
+undefined weak reference.  List libraries needed on command-line as work
+around.  PR 12549.
+9. Fix a MIPS ELF linker crash.  PR 15382.
+10. Align LMA per VMA alignment only if needed.  PR 15222.
+11. Fix a BFD decompress memory leak.  PR 15356.
+12. Properly check SIB byte in x86 disassembler.
+13, Fix invalid memory access in readelf.  PR 15191.
+14, Fix invalid memory access in DWARF dumper.  PRs 15206/15202/15201.
+15. Improve gold.
+16. Improve aarch64 support.
+17. Improve arm support.
+18. Improve avr support.
+19. Improve h8300 support.
+20. Improve mips support.
+21. Improve nios2 support.
+22. Improve ppc support.
+23. Improve rl78 support.
+24. Improve sh support.
+25. Improve sparc support.
+26. Improve tic6x support.
+27. Improve v850 support.
 
 Changes from binutils 2.23.51.0.9:
 
@@ -786,13 +818,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.23.52.0.1.tar.bz2.  Source code.
+1. binutils-2.23.52.0.2.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available on linux/release/2.23.52.0.1 branch at
+It is also available on linux/release/2.23.52.0.2 branch at
 
 http://git.kernel.org/?p=linux/kernel/git/hjl/binutils.git;a=summary
 
@@ -801,4 +833,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-02/27/2013
+04/26/2013
