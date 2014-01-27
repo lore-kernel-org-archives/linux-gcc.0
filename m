@@ -1,17 +1,17 @@
 From: "H.J. Lu" <hongjiu.lu@intel.com>
-Subject: The Linux binutils 2.24.51.0.2 is released
-Date: Fri, 13 Dec 2013 09:04:26 -0800
-Message-ID: <20131213170426.GA4732@intel.com>
+Subject: The Linux binutils 2.24.51.0.3 is released
+Date: Mon, 27 Jan 2014 09:57:26 -0800
+Message-ID: <20140127175726.GA10479@intel.com>
 Reply-To: "H.J. Lu" <hjl.tools@gmail.com>
 Mime-Version: 1.0
-Return-path: <gcc-return-181400-gcc=m.gmane.org@gcc.gnu.org>
+Return-path: <gcc-return-181764-gcc=m.gmane.org@gcc.gnu.org>
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=gcc.gnu.org; h=list-id
 	:list-unsubscribe:list-archive:list-post:list-help:sender:date
 	:from:to:subject:message-id:reply-to:mime-version:content-type;
-	 s=default; bh=2E50aWjoz+u6vMUEM3VgcM32ilo=; b=M65O3Qc+XPaH2JqW1
-	qNZ20UV1QZ3krKkLIWgX4LR1Mi//G0XZPdqly2cowuYfbtBG8Ymj0oNmE/YHcmC2
-	RqUS9rHhJO+iDoaqcmjATk44bDKXbarRXDj7EgVwEyNSpgEED9oUd4VjUdYeTybg
-	E6Q5Y/EogB1KkxQm7xmUw//siY=
+	 s=default; bh=/dgmfwdsM/pILFsK7dCGko8owLE=; b=wti8PyMM5LFmh1rmh
+	IP0SnGF8MpLJTHQncNe1Tj8wgp1IUIvgX3QmNG8sRJiYTGINcmx3nR3LzEekiWQH
+	xOGEIHPdC3CNds11XBmfbPLnK1sp3XcyDISzwKphilKjB3aoBOrUtPw3zVSMl9nZ
+	+P+1W1TZQRgQZpVAeO6lUcJsI8=
 List-Id: <linux-gcc.vger.kernel.org>
 List-Unsubscribe: <mailto:gcc-unsubscribe-##L=##H@gcc.gnu.org>
 List-Archive: <http://gcc.gnu.org/ml/gcc/>
@@ -23,15 +23,15 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 To: linux-gcc@vger.kernel.org, gcc@gcc.gnu.org, GNU C Library <libc-alpha@sourceware.org>, Mat Hostetter <mat@lcs.mit.edu>, Warner Losh <imp@village.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>
 
-It is also available as hjl/linux/release/2.24.51.0.2 tag at
- 
+It is also available as hjl/linux/release/2.24.51.0.3 tag at
+
 https://sourceware.org/git/?p=binutils-gdb.git;a=summary
 
 
 H.J.
 ---
-This is the beta release of binutils 2.24.51.0.2 for Linux, which is
-based on binutils 2013 1213 master branch on sourceware.org plus
+This is the beta release of binutils 2.24.51.0.3 for Linux, which is
+based on binutils 2014 0127 master branch on sourceware.org plus
 various changes. It is purely for Linux.
 
 All relevant patches in patches have been applied to the source tree.
@@ -152,12 +152,41 @@ endif
 
 to arch/ia64/Makefile in your kernel source tree.
 
-Please report any bugs related to binutils 2.24.51.0.2 to
+Please report any bugs related to binutils 2.24.51.0.3 to
 hjl.tools@gmail.com
 
 and
 
 http://www.sourceware.org/bugzilla/
+
+Changes from binutils 2.24.51.0.2:
+
+1. Update from binutils 2014 0127.
+2. Fix a linker crash with mixed IR/non-IR input objects.
+3. Update readelf/objdump to display versioned symbol names when dumping
+dynamic relocations.  PR 16496.
+4. Update linker to improve orphaned TLS section handling.  PR 16498.
+5. Update linker to check incompatible existing default symbol definition.
+PR 16467.
+6. Update linker to properly handle non-PIC references to __ehdr_start in
+pie and shared object.  PR 16428.
+7. Update bfd to properly generate PT_GNU_RELRO segment for ld and
+objcopy.  PRs 14207/16322/16323.
+8. Update x86 assembler to check for invalid register set in AVX512 gather
+instructions.  PR 16489.
+9. Update empty section handling in linker.
+10. Avoid invalid directory in linker library search.  PR 16456.
+11. Improve x86 disassembler.
+12. Improve gold.
+13. Improve COFF support.
+14. Add nds32 support.
+15. Improve aarch64 support.
+16. Improve arm support.
+17. Improve mips support.
+18. Improve msp430 support.
+19. Improve ppc support.
+20. Improve rl78 support.
+21. Improve z80 support.
 
 Changes from binutils 2.24.51.0.1:
 
@@ -884,13 +913,13 @@ already been defined.  PR 12001.
 
 The file list:
 
-1. binutils-2.24.51.0.2.tar.bz2.  Source code.
+1. binutils-2.24.51.0.3.tar.bz2.  Source code.
 
 The primary sites for the beta Linux binutils are:
 
 1. http://www.kernel.org/pub/linux/devel/binutils/
 
-It is also available as hjl/linux/release/2.24.51.0.2 tag at
+It is also available as hjl/linux/release/2.24.51.0.3 tag at
 
 https://sourceware.org/git/?p=binutils-gdb.git;a=summary
 
@@ -899,4 +928,4 @@ Thanks.
 
 H.J. Lu
 hjl.tools@gmail.com
-12/13/2013
+01/27/2014
