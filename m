@@ -1,69 +1,65 @@
-From: Michael Matz <matz@suse.de>
+From: Pavel Machek <pavel@ucw.cz>
 Subject: Re: Alternative compilers to GCC/Clang
-Date: Tue, 2 Feb 2021 23:20:59 +0000 (UTC)
-Message-ID: <alpine.LSU.2.20.2102022304070.10104@wotan.suse.de>
-References: <CAE1WUT6mp80yFDgAirZcKvc31O23ynpLGcsdPaa8qd1dsXiXhg@mail.gmail.com> <20210202053307.GB28542@1wt.eu> <CAE1WUT4r1oNmu_7y6AMMSNyNmt8LYo6DXa2DPR=wOGb27XErZA@mail.gmail.com> <CAE1WUT7zprk-3naBGwZk=bsVR8Od=PT0kqNO6EVBQUOG+F1h3w@mail.gmail.com>
- <20210202201920.GA18106@zn.tnic> <20210202210039.GB29751@1wt.eu> <20210202212048.GG18075@zn.tnic>
+Date: Wed, 10 Mar 2021 09:53:28 +0100
+Message-ID: <20210310085328.GA21872@duo.ucw.cz>
+References: <CAE1WUT6mp80yFDgAirZcKvc31O23ynpLGcsdPaa8qd1dsXiXhg@mail.gmail.com>
+ <20210202053307.GB28542@1wt.eu>
 Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+        protocol="application/pgp-signature"; boundary="Nq2Wo0NMKNjxTN9z"
 Return-path: <linux-gcc-owner@vger.kernel.org>
-In-Reply-To: <20210202212048.GG18075@zn.tnic>
+Content-Disposition: inline
+In-Reply-To: <20210202053307.GB28542@1wt.eu>
 List-ID: <linux-gcc.vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-To: linux-kbuild@vger.kernel.org
-Cc: Willy Tarreau <w@1wt.eu>, Amy Parker <enbyamy@gmail.com>, Borislav Petkov <bp@alien8.de>, linux-kernel@vger.kernel.org, linux-gcc@vger.kernel.org
-
-Hello,
-
-On Tue, 2 Feb 2021, Borislav Petkov wrote:
-
-> + Micha.
-
-Huh, someone found my video ;-)
-
-> > > > > > attributes for example), but is far from being able to compile 
-> > > > > > a kernel
-
-A _current_ kernel maybe :)  Some 4.6 x86-64 kernel in qemu in a certain 
-config plus a little patches definitely does work.  Slowly, but usable.  
-See the repo Boris mentioned.
-
-> > > > It's definitely something to work towards - but I don't know if kernel
-> > > > advancements requiring newer GCC versions will go slow enough to allow
-> > > > TCC improvements to arise. This isn't just something like with Clang
-> > > > where a few tweaks to files and to Clang itself did the trick.
-> > > 
-> > > Maybe this'll help you find something to do:
-> > > 
-> > > https://www.youtube.com/watch?v=iU0Z0vBKrtQ
-> > > 
-> > > Yes, it would be lovely to be able to compile the kernel with tcc but it
-> > > is not going to be trivial.
-
-As tcc is so simple it's actually not too much hassle, the biggest 
-roadblocks should be gone; the usage of inline asm in the kernel is ... 
-creative ... and hence the single pass nature of TCC and the C-asm 
-integration pose some challenges ;)  Also anything that requires inlining 
-to remove dead but non-conforming code (like calling undefined functions) 
-needs an alternative like macros expanding to zero, instead of a function 
-returning zero.  (I even have an limited inliner for tcc, but I didn't 
-like it too much)
-
-(My interest was tcc, not kernel development, which is why I never did 
-anything with that 4.6 kernel, I wanted to retain a stable and big known 
-source base for tcc hackery.  If someone is interested in kernel compiling 
-that can change the picture of course; I think I at least remember most of 
-the reasons for the kernel patches I had to do to make my tcc hackery 
-easier :) ).
-
-> It would be good to start forward-porting and integrating some of the 
-> fixes and even extend tcc to handle some of the gnuisms we're using in 
-> the kernel so that we can build the kernel with it too.
-> 
-> I can imagine having CONFIG_TCC - as long as that doesn't get too 
-> intrusive and get in the way of things - and those who wanna build the 
-> kernel with it, can enable it. For example...
+To: linux-kernel@vger.kernel.org
+Cc: Amy Parker <enbyamy@gmail.com>, linux-gcc@vger.kernel.org, linux-kbuild@vger.kernel.org
 
 
-Ciao,
-Michael.
+--Nq2Wo0NMKNjxTN9z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi!
+
+> > Hello! My name's Amy. I'm really impressed by the work done to make
+> > Clang (and the LLVM toolchain overall) able to compile the kernel.
+> > Figured I might as well donate my monkey hours to helping make it run
+> > on other compilers as well. I haven't been able to find any that use
+> > the same arguments structure as GCC and Clang (read: you can pass it
+> > in as CC=3Dcompilername in your $MAKEOPTS). Any compilers along that
+> > route anyone here has worked with that I could work with?
+>=20
+> If you're interested, you should have a look at TCC (tiny CC) :
+>=20
+>      https://repo.or.cz/tinycc.git
+>=20
+> It compiles extremely fast, implements some subsets of gcc (a few
+> attributes for example), but is far from being able to compile a kernel
+> (at least last time I checked). Its speed makes it very convenient for
+> development. I made some efforts to make haproxy support it (and provided
+> some fixes to tcc) as it compiles the whole project in 0.5 second instead
+> of ~10 seconds with a modern gcc. It could probably compile a kernel in
+> 15-20 seconds if properly supported, and this could be particularly handy
+> for development and testing.
+
+For the record, yes, something that compiles kernel fast would be very
+very nice.
+
+Best regards,
+								Pavel
+
+--=20
+http://www.livejournal.com/~pavelmachek
+
+--Nq2Wo0NMKNjxTN9z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCYEiJCAAKCRAw5/Bqldv6
+8p11AKCDwTTMrx+W0hdAZUHUMPePkUqsMwCfecQRePV2o724Cd/lGV4I13rQfKA=
+=wTkl
+-----END PGP SIGNATURE-----
+
+--Nq2Wo0NMKNjxTN9z--
