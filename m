@@ -1,62 +1,106 @@
-From: David Laight <David.Laight@ACULAB.COM>
-Subject: RE: GCC, unaligned access and UB in the Linux kernel
-Date: Wed, 5 May 2021 10:41:44 +0000
-Message-ID: <fbe611b513f140b5be570e9d3d94e84d@AcuMS.aculab.com>
+From: "Vladislav K. Valtchev" <vladislav.valtchev@gmail.com>
+Subject: Re: GCC, unaligned access and UB in the Linux kernel
+Date: Wed, 05 May 2021 14:23:04 +0300
+Message-ID: <c7bc234b3db34e360851fc1bf75c20c51ecd7a7b.camel@gmail.com>
 References: <c8fa8ea79ffaa5c87dac9ea16e12088c94a35faf.camel@gmail.com>
+         <fbe611b513f140b5be570e9d3d94e84d@AcuMS.aculab.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-gcc-owner@vger.kernel.org>
-In-Reply-To: <c8fa8ea79ffaa5c87dac9ea16e12088c94a35faf.camel@gmail.com>
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=ho2fgPHfPVggnjV1Isj1BcjL00TVG3osLwJZswUZewU=;
+        b=OPoAOnf8pM8uEy9Qc2gqKvI6zpM6e1WToi+2KtqLY9F5gqnPR2QXlm32ijQZtA24OY
+         5R99SWufycC90BEBpZjlprnNdsexpIG1u5KLZrV9pi/dbUH+g5Vdpdph9i16gsq8bmKH
+         oldxBMM6gzTDfjFp5/4GFY2kk6Sync4IA/DAa/e9NLuUU3Y38nsZG9P/Tw6hDjWijCJK
+         0osQa0xPHNRQVKUU4+4K/BiaQTUXMAFJzABT+2BTTmDIo7+lgfQR+OQKTWpd9+LzYC5v
+         ZIl3SlxE8cAhvTZk6m3s9SFnteGxEK9BpXL5TxiQPO2YF/B44xBknp6rRAc+bTVZyoPO
+         OHvw==
+In-Reply-To: <fbe611b513f140b5be570e9d3d94e84d@AcuMS.aculab.com>
 List-ID: <linux-gcc.vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
-To: "'Vladislav K. Valtchev'" <vladislav.valtchev@gmail.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-gcc@vger.kernel.org" <linux-gcc@vger.kernel.org>
+To: David Laight <David.Laight@ACULAB.COM>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-gcc@vger.kernel.org" <linux-gcc@vger.kernel.org>, linux-toolchains@vger.kernel.org
 
-RnJvbTogVmxhZGlzbGF2IEsuIFZhbHRjaGV2DQo+IFNlbnQ6IDA0IE1heSAyMDIxIDE5OjA4DQo+
-IA0KPiBIaSBldmVyeW9uZSwNCj4gDQo+IEkgbm90aWNlZCB0aGF0IGluIHRoZSBMaW51eCBrZXJu
-ZWwgd2UgaGF2ZSBhIGRlZmluZSBjYWxsZWQNCj4gQ09ORklHX0hBVkVfRUZGSUNJRU5UX1VOQUxJ
-R05FRF9BQ0NFU1MgdGhhdCdzIHVzZWQgaW4gYSBmYWlyIGFtb3VudCBvZiBwbGFjZXMNCj4gd2l0
-aCB0aGUgZm9sbG93aW5nIHB1cnBvc2U6IHdoZW4gaXQncyBzZXQsIHVuYWxpZ25lZCBhY2Nlc3Mg
-aXMgc3VwcG9ydGVkIGJ5IHRoZQ0KPiBDUFUgc28gd2UgY2FuIGRvIGl0IGRpcmVjdGx5LCBvdGhl
-cndpc2UgZmFsbC1iYWNrIHRvIHNvbWUgbG9naWMgd2hlcmUgYSBieXRlIGF0DQo+IHRoZSB0aW1l
-IGlzIHJlYWQvd3JpdHRlbi4gRm9yIGV4YW1wbGUsIGNoZWNrIHRoZSBpbXBsZW1lbnRhdGlvbiBv
-Zg0KPiBkb19zdHJuY3B5X2Zyb21fdXNlcigpOg0KPiBodHRwczovL2VsaXhpci5ib290bGluLmNv
-bS9saW51eC9sYXRlc3Qvc291cmNlL2xpYi9zdHJuY3B5X2Zyb21fdXNlci5jI0wxNQ0KPiANCj4g
-DQo+IFRoYXQncyBuaWNlIGFuZCBzZWVtcyB0byB3b3JrIHRvZGF5IGFzIGV4cGVjdGVkLCBidXQg
-dGhlcmUncyBvbmUgcHJvYmxlbToNCj4gdW5hbGlnbmVkIGFjY2VzcyBpcyBVQiBhY2NvcmRpbmcg
-dG8gdGhlIElTTyBDIHN0YW5kYXJkLCAuLi4NCg0KVGhlIEMgc3RhbmRhcmQgaXNuJ3QgcmVsZXZh
-bnQuDQoNCi4uLg0KPiANCj4gTWl0aWdhdGlvbnMNCj4gLS0tLS0tLS0tLS0tDQo+IEluIG15IHVu
-ZGVyc3RhbmRpbmcsIHRoZSBzaW1wbGVzdCB3YXkgdG8gZm9yY2UgR0NDIHRvIGVtaXQgYSBzaW5n
-bGUgTU9WDQo+IGluc3RydWN0aW9uIHdpdGggdW5hbGlnbmVkIGFjY2Vzcywgd2l0aG91dCByaXNr
-aW5nIGFueSBraW5kIG9mIFVCLCBpcyB0byB1c2UNCj4gX19idWlsdGluX21lbWNweSgpLiBJdCB3
-b3JrcyBncmVhdCwgYnV0IGl0IHJlcXVpcmVzIGZpeGluZyB0aGUgY29kZSBpbiBtYW55DQo+IHBs
-YWNlcy4gQWxzbywgbWF5YmUgdXNpbmcgZ2V0X3VuYWxpZ25lZCgpL3B1dF91bmFsaWduZWQoKSBp
-cyB0aGUgcmlnaHQgdGhpbmcgdG8NCj4gZG8/IFRoZSBwcm9ibGVtIGlzIHRoYXQgdGhlIHB1dF91
-bmFsaWduZWRfKiBpbmxpbmUgZnVuY3Rpb25zIGRvbid0IHVzZQ0KPiBfX2J1aWx0aW5fbWVtY3B5
-KCkgYW5kIGFyZSBkZWZpbmVkIGxpa2U6DQo+IA0KPiAgICBzdGF0aWMgX19hbHdheXNfaW5saW5l
-IHZvaWQgcHV0X3VuYWxpZ25lZF9sZTMyKHUzMiB2YWwsIHZvaWQgKnApDQo+ICAgIHsNCj4gICAg
-CSooKF9fbGUzMiAqKXApID0gY3B1X3RvX2xlMzIodmFsKTsNCj4gICAgfQ0KPiANCj4gU28sIHN0
-aWxsIFVCLiBUbyBtYWtlIHRoZSBjb21waWxlciBoYXBweSwgbWF5YmUgd2Ugc2hvdWxkIG1ha2Ug
-dGhlbSB1c2UNCj4gX19idWlsdGluX21lbWNweSgpPw0KDQpUaGF0IGRvZXNuJ3QgaGVscCB5b3Ug
-YXQgYWxsLg0KSWYgdGhlIGNvbXBpbGVyIGlzIGdpdmVuIGFueSBoaW50IHRoYXQgdGhlIGFkZHJl
-c3MgaXMgYWxpZ25lZA0KaXQgd2lsbCB1c2UgcG90ZW50aWFsbHkgbWlzYWxpZ25lZCBtZW1vcnkg
-YWNjZXNzZXMuDQpTbyBpZiB0aGUgYWJvdmUgd2FzOg0KCSooaW50IF9fYXR0cmlidXRlX18oKHBh
-Y2tlZCkpICopcCA9IHZhbDsNCmFuZCB0aGUgY2FsbGVyIGhhZDoNCglpbnQgKnAgPSBtYXliZV91
-bmFsaWduZWQoKTsNCglwdXRfdW5hbGlnbmVkX2xlMzIoMCwgcCk7DQoNClRoZW4gZ2NjIHdpbGwg
-Z2VuZXJhdGUgYSAzMmJpdCB3cml0ZSBldmVuIG9uIHNwYXJjLg0KX19idWlsdGluX21lbWNweSgp
-IHdpbGwgZXhwYW5kIHRvIGV4YWN0bHkgdGhlIHNhbWUgMzJiaXQgd3JpdGUuDQoNClRoaXMgaXMg
-bm90aGluZyBuZXcgLSBhdCBsZWFzdCAyMCB5ZWFycy4NCg0KQmFzaWNhbGx5LCB0aGUgQyBzdGFu
-ZGFyZCBvbmx5IGFsbG93cyB5b3UgdG8gY2FzdCBhIHBvaW50ZXINCnRvICd2b2lkIConIGFuZCB0
-aGVuIGJhY2sgdG8gaXRzIG9yaWdpbmFsIHR5cGUuDQpHQ0MgbWFrZXMgdXNlIG9mIHRoaXMgZm9y
-IHZhcmlvdXMgb3B0aW1pc2F0aW9ucyBhbmQgd2lsbA0KdHJhY2sgdGhlIGFsaWdubWVudCB0aHJv
-dWdoICh2b2lkICopIGNhc3RzLg0KDQpJIGJlbGlldmUgdGhhdCwgZXZlbiBmb3IgdGhlIHNpbWQg
-aW5zdHJ1Y3Rpb25zLCBnY2Mgd2lsbCBwaWNrDQp0aGUgJ21pc2FsaWduIHN1cHBvcnRpbmcnIHZl
-cnNpb24gaWYgdGhlIGRhdGEgaXMgbWFya2VkDQp3aXRoIHRoZSByZWxldmFudCBhbGlnbm1lbnQu
-DQoNCk9oIC0gYW5kIHRoZSBsb29wIHZlY3RvcmlzYXRpb24gY29kZSBpcyBhIHBpbGUgb2YgY3Jh
-cC4NCllvdSBhbG1vc3QgbmV2ZXIgd2FudCBpdCAtIGxvb2sgYXQgdGhlIGNvZGUgaXQgZ2VuZXJh
-dGVzDQpmb3IgYSBsb29wIHlvdSBnbyByb3VuZCBhIGZldyB0aW1lcy4NCkl0IHlvdSBhcmUgZG9p
-bmcgMTAwMDAgaXRlcmFjdGlvbnMgeW91J2xsIG5lZWQgdG8gdW5yb2xsDQppdCB5b3Vyc2VsZiB0
-byBnZXQgZGVjZW50IHBlcmZvcm1hbmNlLg0KDQoJRGF2aWQNCg0KLQ0KUmVnaXN0ZXJlZCBBZGRy
-ZXNzIExha2VzaWRlLCBCcmFtbGV5IFJvYWQsIE1vdW50IEZhcm0sIE1pbHRvbiBLZXluZXMsIE1L
-MSAxUFQsIFVLDQpSZWdpc3RyYXRpb24gTm86IDEzOTczODYgKFdhbGVzKQ0K
+On Wed, 2021-05-05 at 10:41 +0000, David Laight wrote:
+> > That's nice and seems to work today as expected, but there's one problem:
+> > unaligned access is UB according to the ISO C standard, ...
+> 
+> The C standard isn't relevant.
+
+Forget that I mentioned it. Unaligned access is UB for GCC, no matter the
+architecture. Please check all the comments in this WONTFIX bug:
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93031
+
+> That doesn't help you at all.
+
+As I mentioned, TODAY that is not a problem. But as the GCC guys insist that
+they consider it UB, one morning we might wake up and discover that with the
+latest version of GCC, the kernel is misbehaving.
+
+> If the compiler is given any hint that the address is aligned
+> it will use potentially misaligned memory accesses.
+> So if the above was:
+> 	*(int __attribute__((packed)) *)p = val;
+> and the caller had:
+> 	int *p = maybe_unaligned();
+> 	put_unaligned_le32(0, p);
+> 
+
+Yeah, but you changed the code. That's what I'm talking about.
+The code that I quoted is *current* code existing in the kernel that still works
+because GCC doesn't have *yet* an optimization that breaks it. The GCC guys
+explicitly claim we should NOT write code like that, not even on architectures
+that support unaligned access natively, because it's UB and they might break it
+any moment. 
+
+> Then gcc will generate a 32bit write even on sparc.
+> __builtin_memcpy() will expand to exactly the same 32bit write.
+
+I don't understand what you want mean with that comparison other than it's
+possible to achieve the same result in another way.
+
+__builtin_memcpy() does what we want it to do, and doesn't require
+maybe_unaligned() nor __attribute__((packed)), nor it emits more instructions.
+Therefore, it looks to me that put_unaligned_le32() could be re-implemented with
+__builtin_memcpy() without any drawbacks.
+
+> This is nothing new - at least 20 years.
+> 
+> Basically, the C standard only allows you to cast a pointer
+> to 'void *' and then back to its original type.
+> GCC makes use of this for various optimisations and will
+> track the alignment through (void *) casts.
+
+The compiler cannot track the alignment across function calls in different
+translation units. It can only assume that the alignment is already correct
+(ehm, runtime checking is out of the table of course, except for UBSAN).
+
+Today, when we read/write an integer, GCC emits a MOV instruction (on x86) and
+it doesn't care about the alignment. That's why it works and, honestly, I wish
+it to continue to work like that. But, that's not necessarily what will happen.
+
+
+> I believe that, even for the simd instructions, gcc will pick
+> the 'misalign supporting' version if the data is marked
+> with the relevant alignment.
+> 
+> Oh - and the loop vectorisation code is a pile of crap.
+> You almost never want it - look at the code it generates
+> for a loop you go round a few times.
+> It you are doing 10000 iteractions you'll need to unroll
+> it yourself to get decent performance.
+
+
+In kernel we don't care about the SIMD case, because such instructions are
+disabled. I just mentioned it, for the sake of completeness. When compiling user
+applications, SIMD instruction are normally allowed and some of them have
+alignment requirements that the compiler might assume as given instead of
+checking, because dereferencing unaligned pointers is UB.
+
+
+-- 
+Vladislav Valtchev (vvaltchev)
 
